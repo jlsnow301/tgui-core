@@ -1,6 +1,6 @@
-import { type PropsWithChildren, type ReactNode } from 'react';
+import { type PropsWithChildren, type ReactNode } from "react";
 
-import { Box } from './Box';
+import { Box } from "./Box";
 
 type Props = Partial<{
   style: Record<string, any>;

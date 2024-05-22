@@ -4,14 +4,11 @@
  * @license MIT
  */
 
-import { shallowDiffers } from "../common/react";
-import { debounce } from "../common/timer";
 import { Component, createRef } from "react";
 
-import { createLogger } from "../logging";
+import { shallowDiffers } from "../common/react";
+import { debounce } from "../common/timer";
 import { computeBoxProps } from "./Box";
-
-const logger = createLogger("ByondUi");
 
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];
@@ -22,16 +19,14 @@ const createByondUiElement = (elementId) => {
   byondUiStack.push(null);
   // Get a unique id
   const id = elementId || "byondui_" + index;
-  logger.log(`allocated '${id}'`);
+
   // Return a control structure
   return {
     render: (params) => {
-      logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
       Byond.winset(id, params);
     },
     unmount: () => {
-      logger.log(`unmounting '${id}'`);
       byondUiStack[index] = null;
       Byond.winset(id, {
         parent: "",
@@ -45,7 +40,6 @@ window.addEventListener("beforeunload", () => {
   for (let index = 0; index < byondUiStack.length; index++) {
     const id = byondUiStack[index];
     if (typeof id === "string") {
-      logger.log(`unmounting '${id}' (beforeunload)`);
       byondUiStack[index] = null;
       Byond.winset(id, {
         parent: "",
@@ -59,6 +53,7 @@ window.addEventListener("beforeunload", () => {
  */
 const getBoundingBox = (element) => {
   const pixelRatio = window.devicePixelRatio ?? 1;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const rect = element.getBoundingClientRect();
 
   return {
@@ -98,7 +93,7 @@ export class ByondUi extends Component {
   componentDidUpdate() {
     const { params = {} } = this.props;
     const box = getBoundingBox(this.containerRef.current);
-    logger.debug("bounding box", box);
+
     this.byondUiElement.render({
       parent: Byond.windowId,
       ...params,
@@ -113,9 +108,8 @@ export class ByondUi extends Component {
   }
 
   render() {
-    const { params, ...rest } = this.props;
     return (
-      <div ref={this.containerRef} {...computeBoxProps(rest)}>
+      <div ref={this.containerRef} {...computeBoxProps(...this.props)}>
         {/* Filler */}
         <div style={{ minHeight: "22px" }} />
       </div>

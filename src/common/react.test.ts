@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { describe,test } from "vitest";
+import { describe, test } from "vitest";
 
 import { classes } from "./react";
 

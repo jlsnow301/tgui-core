@@ -4,10 +4,10 @@
  * @license MIT
  */
 
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useState } from "react";
 
-import { Box, type BoxProps } from './Box';
-import { Button } from './Button';
+import { Box, type BoxProps } from "./Box";
+import { Button } from "./Button";
 
 type Props = Partial<{
   buttons: ReactNode;
@@ -28,7 +28,7 @@ export function Collapsible(props: Props) {
           <Button
             color={color}
             fluid
-            icon={icon ? icon : open ? 'chevron-down' : 'chevron-right'}
+            icon={icon ? icon : open ? "chevron-down" : "chevron-right"}
             onClick={() => setOpen(!open)}
             {...rest}
           >

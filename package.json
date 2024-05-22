@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src --fix",
+    "prettier": "prettier --write src",
     "prepublishOnly": "yarn build",
     "test": "vitest"
   },

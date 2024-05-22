@@ -1,12 +1,12 @@
-import { type Placement } from '@popperjs/core';
+import { type Placement } from "@popperjs/core";
 import {
   type PropsWithChildren,
   type ReactNode,
   useEffect,
   useRef,
   useState,
-} from 'react';
-import { usePopper } from 'react-popper';
+} from "react";
+import { usePopper } from "react-popper";
 
 type RequiredProps = {
   /** The content to display in the popper */
@@ -63,13 +63,13 @@ export function Popper(props: PropsWithChildren<Props>) {
 
   useEffect(() => {
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 

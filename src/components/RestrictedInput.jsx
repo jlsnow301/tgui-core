@@ -51,7 +51,7 @@ const clampGuessedNumber = (
   softSanitizedNumber,
   minValue,
   maxValue,
-  allowFloats
+  allowFloats,
 ) => {
   let parsed = allowFloats
     ? parseFloat(softSanitizedNumber)
@@ -159,7 +159,7 @@ export class RestrictedInput extends Component {
         e.target.value,
         minValue,
         maxValue,
-        allowFloats
+        allowFloats,
       );
       if (onBlur) {
         onBlur(e, +safeNum);
@@ -171,7 +171,7 @@ export class RestrictedInput extends Component {
         e.target.value,
         minValue,
         maxValue,
-        allowFloats
+        allowFloats,
       );
       if (onChange) {
         onChange(e, +e.target.value);
@@ -200,7 +200,7 @@ export class RestrictedInput extends Component {
           e.target.value,
           minValue,
           maxValue,
-          allowFloats
+          allowFloats,
         );
         this.setEditing(false);
         if (onChange) {
@@ -234,7 +234,7 @@ export class RestrictedInput extends Component {
         nextValue,
         minValue,
         maxValue,
-        allowFloats
+        allowFloats,
       );
     }
     if (this.props.autoFocus || this.props.autoSelect) {
@@ -260,7 +260,7 @@ export class RestrictedInput extends Component {
           nextValue,
           minValue,
           maxValue,
-          allowFloats
+          allowFloats,
         );
       }
     }

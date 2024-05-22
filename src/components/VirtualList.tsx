@@ -37,7 +37,8 @@ export const VirtualList = (props: PropsWithChildren) => {
     if (unusedArea > 0) {
       const newVisibleElements = Math.min(
         children.length,
-        visibleElements + Math.max(1, Math.ceil(unusedArea / averageItemHeight))
+        visibleElements +
+          Math.max(1, Math.ceil(unusedArea / averageItemHeight)),
       );
 
       setVisibleElements(newVisibleElements);

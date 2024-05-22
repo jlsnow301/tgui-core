@@ -4,7 +4,12 @@
  * @license MIT
  */
 
-import { type KeyboardEvent, type SyntheticEvent, useEffect, useRef } from "react";
+import {
+  type KeyboardEvent,
+  type SyntheticEvent,
+  useEffect,
+  useRef,
+} from "react";
 
 import { KEY } from "../common/keys";
 import { classes } from "../common/react";
