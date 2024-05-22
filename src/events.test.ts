@@ -1,4 +1,4 @@
-import { afterEach, describe, it, vitest } from "vitest";
+import { describe, afterEach, it, vitest } from "vitest";
 import {
   addScrollableNode,
   canStealFocus,
@@ -12,7 +12,7 @@ describe("focusEvents", () => {
     vitest.restoreAllMocks();
   });
 
-  it("setupGlobalEvents sets the ignoreWindowFocus flag correctly", () => {
+  it("setupGlobalEvents sets the ignoreWindowFocus flag correctly", ({}) => {
     setupGlobalEvents({ ignoreWindowFocus: true });
     // Test other functionality that depends on the ignoreWindowFocus flag
   });
@@ -29,9 +29,7 @@ describe("focusEvents", () => {
     expect(canStealFocus(divElement)).toBe(false);
   });
 
-  it("addScrollableNode and removeScrollableNode manage the list of scrollable nodes correctly", ({
-    expect,
-  }) => {
+  it("addScrollableNode and removeScrollableNode manage the list of scrollable nodes correctly", ({}) => {
     const divElement1 = document.createElement("div");
     const divElement2 = document.createElement("div");
 
