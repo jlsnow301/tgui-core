@@ -79,14 +79,8 @@ export class DraggableControl extends Component {
     };
 
     this.handleDragMove = (e) => {
-      // prettier-ignore
-      const {
-        minValue,
-        maxValue,
-        step,
-        stepPixelSize,
-        dragMatrix,
-      } = this.props;
+      const { minValue, maxValue, step, stepPixelSize, dragMatrix } =
+        this.props;
       this.setState((prevState) => {
         const state = { ...prevState };
         const offset = getScalarScreenOffset(e, dragMatrix) - state.origin;
@@ -174,16 +168,18 @@ export class DraggableControl extends Component {
     if (dragging || suppressingFlicker) {
       displayValue = intermediateValue;
     }
-    // prettier-ignore
+
     const displayElement = (
       <>
-        {
-          (animated && !dragging && !suppressingFlicker) ?
-            (<AnimatedNumber value={displayValue} format={format} />) :
-            (format ? format(displayValue) : displayValue)
-        }
+        {animated && !dragging && !suppressingFlicker ? (
+          <AnimatedNumber value={displayValue} format={format} />
+        ) : format ? (
+          format(displayValue)
+        ) : (
+          displayValue
+        )}
 
-        { (unit ? ' ' + unit : '') }
+        {unit ? " " + unit : ""}
       </>
     );
 

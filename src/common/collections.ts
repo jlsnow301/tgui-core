@@ -24,35 +24,34 @@ export const range = (start: number, end: number): number[] =>
  */
 export const uniqBy = <T extends unknown>(
   array: T[],
-  iterateeFn?: (value: T) => unknown,
+  iterateeFn?: (value: T) => unknown
 ): T[] => {
   const { length } = array;
   const result: T[] = [];
   const seen: unknown[] = iterateeFn ? [] : result;
   let index = -1;
-  // prettier-ignore
-  outer:
-    while (++index < length) {
-      let value: T | 0 = array[index];
-      const computed = iterateeFn ? iterateeFn(value) : value;
-      if (computed === computed) {
-        let seenIndex = seen.length;
-        while (seenIndex--) {
-          if (seen[seenIndex] === computed) {
-            continue outer;
-          }
+
+  outer: while (++index < length) {
+    let value: T | 0 = array[index];
+    const computed = iterateeFn ? iterateeFn(value) : value;
+    if (computed === computed) {
+      let seenIndex = seen.length;
+      while (seenIndex--) {
+        if (seen[seenIndex] === computed) {
+          continue outer;
         }
-        if (iterateeFn) {
-          seen.push(computed);
-        }
-        result.push(value);
-      } else if (!seen.includes(computed)) {
-        if (seen !== result) {
-          seen.push(computed);
-        }
-        result.push(value);
       }
+      if (iterateeFn) {
+        seen.push(computed);
+      }
+      result.push(value);
+    } else if (!seen.includes(computed)) {
+      if (seen !== result) {
+        seen.push(computed);
+      }
+      result.push(value);
     }
+  }
   return result;
 };
 
@@ -89,7 +88,7 @@ export const zip = <T extends unknown[][]>(...arrays: T): Zip<T> => {
 const binarySearch = <T, U = unknown>(
   getKey: (value: T) => U,
   collection: readonly T[],
-  inserting: T,
+  inserting: T
 ): number => {
   if (collection.length === 0) {
     return 0;
@@ -124,7 +123,7 @@ const binarySearch = <T, U = unknown>(
 export const binaryInsertWith = <T, U = unknown>(
   collection: readonly T[],
   value: T,
-  getKey: (value: T) => U,
+  getKey: (value: T) => U
 ): T[] => {
   const copy = [...collection];
   copy.splice(binarySearch(getKey, collection, value), 0, value);

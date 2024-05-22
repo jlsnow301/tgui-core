@@ -8,10 +8,9 @@ import { clamp, toFixed } from "../common/math";
 import { Component, createRef } from "react";
 
 const isSafeNumber = (value: number) => {
-  // prettier-ignore
-  return typeof value === 'number'
-    && Number.isFinite(value)
-    && !Number.isNaN(value);
+  return (
+    typeof value === "number" && Number.isFinite(value) && !Number.isNaN(value)
+  );
 };
 
 export type AnimatedNumberProps = {

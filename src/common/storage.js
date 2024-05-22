@@ -11,11 +11,11 @@ export const IMPL_LOCAL_STORAGE = 1;
 export const IMPL_INDEXED_DB = 2;
 
 const INDEXED_DB_VERSION = 1;
-const INDEXED_DB_NAME = 'tgui';
-const INDEXED_DB_STORE_NAME = 'storage-v1';
+const INDEXED_DB_NAME = "tgui";
+const INDEXED_DB_STORE_NAME = "storage-v1";
 
-const READ_ONLY = 'readonly';
-const READ_WRITE = 'readwrite';
+const READ_ONLY = "readonly";
+const READ_WRITE = "readwrite";
 
 const testGeneric = (testFn) => () => {
   try {
@@ -28,16 +28,16 @@ const testGeneric = (testFn) => () => {
 // Localstorage can sometimes throw an error, even if DOM storage is not
 // disabled in IE11 settings.
 // See: https://superuser.com/questions/1080011
-// prettier-ignore
-const testLocalStorage = testGeneric(() => (
-  window.localStorage && window.localStorage.getItem
-));
 
-// prettier-ignore
-const testIndexedDb = testGeneric(() => (
-  (window.indexedDB || window.msIndexedDB)
-  && (window.IDBTransaction || window.msIDBTransaction)
-));
+const testLocalStorage = testGeneric(
+  () => window.localStorage && window.localStorage.getItem
+);
+
+const testIndexedDb = testGeneric(
+  () =>
+    (window.indexedDB || window.msIndexedDB) &&
+    (window.IDBTransaction || window.msIDBTransaction)
+);
 
 class MemoryBackend {
   constructor() {
@@ -69,7 +69,7 @@ class LocalStorageBackend {
 
   get(key) {
     const value = localStorage.getItem(key);
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       return JSON.parse(value);
     }
   }
@@ -98,21 +98,22 @@ class IndexedDbBackend {
         try {
           req.result.createObjectStore(INDEXED_DB_STORE_NAME);
         } catch (err) {
-          reject(new Error('Failed to upgrade IDB: ' + req.error));
+          reject(new Error("Failed to upgrade IDB: " + req.error));
         }
       };
       req.onsuccess = () => resolve(req.result);
       req.onerror = () => {
-        reject(new Error('Failed to open IDB: ' + req.error));
+        reject(new Error("Failed to open IDB: " + req.error));
       };
     });
   }
 
   getStore(mode) {
-    // prettier-ignore
-    return this.dbPromise.then((db) => db
-      .transaction(INDEXED_DB_STORE_NAME, mode)
-      .objectStore(INDEXED_DB_STORE_NAME));
+    return this.dbPromise.then((db) =>
+      db
+        .transaction(INDEXED_DB_STORE_NAME, mode)
+        .objectStore(INDEXED_DB_STORE_NAME)
+    );
   }
 
   async get(key) {
