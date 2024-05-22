@@ -4,16 +4,16 @@
  * @license MIT
  */
 
-import { classes } from "../common/react";
-import { RefObject } from "react";
+import { type RefObject } from "react";
 
+import { classes } from "../common/react";
 import {
   computeFlexClassName,
   computeFlexItemClassName,
   computeFlexItemProps,
   computeFlexProps,
-  FlexItemProps,
-  FlexProps,
+  type FlexItemProps,
+  type FlexProps,
 } from "./Flex";
 
 type Props = Partial<{
@@ -29,7 +29,7 @@ type Props = Partial<{
   FlexProps;
 
 export function Stack(props: Props) {
-  const { className, vertical, fill, reverse, zebra, ...rest } = props;
+  const { className, fill, reverse, vertical, zebra, ...rest } = props;
 
   const directionPrefix = vertical ? "column" : "row";
   const directionSuffix = reverse ? "-reverse" : "";

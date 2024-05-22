@@ -19,7 +19,7 @@ export const globalEvents = new EventEmitter();
 let ignoreWindowFocus = false;
 
 export const setupGlobalEvents = (
-  options: { ignoreWindowFocus?: boolean } = {}
+  options: { ignoreWindowFocus?: boolean } = {},
 ): void => {
   ignoreWindowFocus = !!options.ignoreWindowFocus;
 };
@@ -93,10 +93,10 @@ export const removeScrollableNode = (node: HTMLElement) => {
 };
 
 const focusNearestTrackedParent = (node: HTMLElement | null) => {
-  if (focusStolenBy || !windowFocused) {
+  if (focusStolenBy ?? !windowFocused) {
     return;
   }
-  const body = document.body;
+  const { body } = document;
   while (node && node !== body) {
     if (trackedNodes.includes(node)) {
       // NOTE: Contains is a DOM4 method
@@ -131,17 +131,17 @@ window.addEventListener("focusin", (e) => {
   }
 });
 
-window.addEventListener("focusout", (e) => {
+window.addEventListener("focusout", () => {
   lastVisitedNode = null;
   setWindowFocus(false, true);
 });
 
-window.addEventListener("blur", (e) => {
+window.addEventListener("blur", () => {
   lastVisitedNode = null;
   setWindowFocus(false, true);
 });
 
-window.addEventListener("beforeunload", (e) => {
+window.addEventListener("beforeunload", () => {
   setWindowFocus(false);
 });
 

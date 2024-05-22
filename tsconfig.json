@@ -22,4 +22,13 @@
     "strictNullChecks": true,
     "target": "ES5"
   },
+  "include": [
+    ".eslintrc.cjs",
+    "global.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.cjs",
+    "**/*.js",
+    "**/*.jsx"
+  ],
 }

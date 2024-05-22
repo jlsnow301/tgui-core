@@ -4,12 +4,12 @@
  * @license MIT
  */
 
+import { type PropsWithChildren } from "react";
+
 import { clamp01, keyOfMatchingRange, scale, toFixed } from "../common/math";
 import { classes } from "../common/react";
-import { PropsWithChildren } from "react";
-
 import { CSS_COLORS } from "../constants";
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 
 type Props = {
   value: number;
@@ -30,20 +30,20 @@ type Props = {
 
 export const ProgressBar = (props: Props) => {
   const {
-    className,
-    value,
-    minValue = 0,
-    maxValue = 1,
-    color,
-    ranges = {},
     children,
+    className,
+    color,
+    maxValue = 1,
+    minValue = 0,
+    ranges = {},
+    value,
     ...rest
   } = props;
   const scaledValue = scale(value, minValue, maxValue);
   const hasContent = children !== undefined;
 
   const effectiveColor =
-    color || keyOfMatchingRange(value, ranges) || "default";
+    color ?? keyOfMatchingRange(value, ranges) ?? "default";
 
   // We permit colors to be in hex format, rgb()/rgba() format,
   // a name for a color-<name> class, or a base CSS class.
@@ -52,7 +52,7 @@ export const ProgressBar = (props: Props) => {
   const outerClasses = ["ProgressBar", className, computeBoxClassName(rest)];
   const fillStyles = {
     width: clamp01(scaledValue) * 100 + "%",
-  };
+  } as any;
   if (
     CSS_COLORS.includes(effectiveColor as any) ||
     effectiveColor === "default"
@@ -62,7 +62,7 @@ export const ProgressBar = (props: Props) => {
   } else {
     // Otherwise, set styles directly.
     outerProps.style = { ...outerProps.style, borderColor: effectiveColor };
-    fillStyles["backgroundColor"] = effectiveColor;
+    fillStyles.backgroundColor = effectiveColor;
   }
 
   return (

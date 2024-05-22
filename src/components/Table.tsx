@@ -5,8 +5,7 @@
  */
 
 import { classes } from "../common/react";
-
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 
 type Props = Partial<{
   /** Collapses table to the smallest possible size. */
@@ -15,7 +14,7 @@ type Props = Partial<{
   BoxProps;
 
 export function Table(props: Props) {
-  const { className, collapsing, children, ...rest } = props;
+  const { children, className, collapsing, ...rest } = props;
 
   return (
     <table
@@ -57,11 +56,11 @@ export function TableRow(props: RowProps) {
 Table.Row = TableRow;
 
 type CellProps = Partial<{
+  /** Additional columns for this cell to expand, assuming there is room. */
+  colSpan: number;
   /** Collapses table cell to the smallest possible size,
   and stops any text inside from wrapping. */
   collapsing: boolean;
-  /** Additional columns for this cell to expand, assuming there is room. */
-  colSpan: number;
   /** Whether this is a header cell. */
   header: boolean;
   /** Rows for this cell to expand, assuming there is room. */

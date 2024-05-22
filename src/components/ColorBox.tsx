@@ -4,27 +4,27 @@
  * @license MIT
  */
 
-import { classes } from "../common/react";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { classes } from "../common/react";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 
 type Props = {
   content?: ReactNode;
 } & BoxProps;
 
 export function ColorBox(props: Props) {
-  const { content, children, className, ...rest } = props;
+  const { className, content, ...rest } = props;
 
   rest.color = content ? null : "default";
-  rest.backgroundColor = props.color || "default";
+  rest.backgroundColor = props.color ?? "default";
 
   return (
     <div
       className={classes(["ColorBox", className, computeBoxClassName(rest)])}
       {...computeBoxProps(rest)}
     >
-      {content || "."}
+      {content ?? "."}
     </div>
   );
 }

@@ -3,35 +3,35 @@
  * @copyright 2022 raffclar
  * @license MIT
  */
-import { Box } from './Box';
-import { Button } from './Button';
+import { Box } from "./Box";
+import { Button } from "./Button";
 
 type DialogProps = {
-  title: any;
-  onClose: () => void;
   children: any;
-  width?: string;
   height?: string;
+  onClose: () => void;
+  title: any;
+  width?: string;
 };
 
 export const Dialog = (props: DialogProps) => {
-  const { title, onClose, children, width, height } = props;
+  const { children, height, onClose, title, width } = props;
   return (
     <div className="Dialog">
-      <Box className="Dialog__content" width={width || '370px'} height={height}>
+      <Box className="Dialog__content" height={height} width={width ?? "370px"}>
         <div className="Dialog__header">
           <div className="Dialog__title">{title}</div>
           <Box mr={2}>
             <Button
-              mr="-3px"
-              width="26px"
-              lineHeight="22px"
-              textAlign="center"
               color="transparent"
               icon="window-close-o"
+              lineHeight="22px"
+              mr="-3px"
+              onClick={onClose}
+              textAlign="center"
               tooltip="Close"
               tooltipPosition="bottom-start"
-              onClick={onClose}
+              width="26px"
             />
           </Box>
         </div>
@@ -42,16 +42,16 @@ export const Dialog = (props: DialogProps) => {
 };
 
 type DialogButtonProps = {
-  onClick: () => void;
   children: any;
+  onClick: () => void;
 };
 
 const DialogButton = (props: DialogButtonProps) => {
-  const { onClick, children } = props;
+  const { children, onClick } = props;
   return (
     <Button
-      onClick={onClick}
       className="Dialog__button"
+      onClick={onClick}
       verticalAlignContent="middle"
     >
       {children}
@@ -63,15 +63,15 @@ Dialog.Button = DialogButton;
 
 type UnsavedChangesDialogProps = {
   documentName: string;
-  onSave: () => void;
-  onDiscard: () => void;
   onClose: () => void;
+  onDiscard: () => void;
+  onSave: () => void;
 };
 
 export const UnsavedChangesDialog = (props: UnsavedChangesDialogProps) => {
-  const { documentName, onSave, onDiscard, onClose } = props;
+  const { documentName, onClose, onDiscard, onSave } = props;
   return (
-    <Dialog title="Notepad" onClose={onClose}>
+    <Dialog onClose={onClose} title="Notepad">
       <div className="Dialog__body">
         Do you want to save changes to {documentName}?
       </div>

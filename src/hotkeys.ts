@@ -4,12 +4,8 @@
  * @license MIT
  */
 
-import * as keycodes from "common/keycodes";
-
-import { globalEvents, KeyEvent } from "./events";
-import { createLogger } from "./logging";
-
-const logger = createLogger("hotkeys");
+import * as keycodes from "./common/keycodes";
+import { globalEvents, type KeyEvent } from "./events";
 
 // BYOND macros, in `key: command` format.
 const byondMacros: Record<string, string> = {};
@@ -98,21 +94,20 @@ const handlePassthrough = (key: KeyEvent) => {
   // Macro
   const macro = byondMacros[byondKeyCode];
   if (macro) {
-    logger.debug("macro", macro);
     return Byond.command(macro);
   }
   // KeyDown
   if (key.isDown() && !keyState[byondKeyCode]) {
     keyState[byondKeyCode] = true;
     const command = `KeyDown "${byondKeyCode}"`;
-    logger.debug(command);
+
     return Byond.command(command);
   }
   // KeyUp
   if (key.isUp() && keyState[byondKeyCode]) {
     keyState[byondKeyCode] = false;
     const command = `KeyUp "${byondKeyCode}"`;
-    logger.debug(command);
+
     return Byond.command(command);
   }
 };
@@ -136,10 +131,10 @@ export const releaseHotKey = (keyCode: number) => {
 };
 
 export const releaseHeldKeys = () => {
-  for (let byondKeyCode of Object.keys(keyState)) {
+  for (const byondKeyCode of Object.keys(keyState)) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
-      logger.log(`releasing key "${byondKeyCode}"`);
+
       Byond.command(`KeyUp "${byondKeyCode}"`);
     }
   }
@@ -155,10 +150,11 @@ export const setupHotKeys = () => {
   Byond.winget("default.*").then((data: Record<string, string>) => {
     // Group each macro by ref
     const groupedByRef: Record<string, ByondSkinMacro> = {};
-    for (let key of Object.keys(data)) {
+    for (const key of Object.keys(data)) {
       const keyPath = key.split(".");
-      const ref = keyPath[1];
-      const prop = keyPath[2];
+      // eslint-disable-next-line
+      const [_, ref, prop] = keyPath;
+
       if (ref && prop) {
         // This piece of code imperatively adds each property to a
         // ByondSkinMacro object in the order we meet it, which is hard
@@ -174,12 +170,11 @@ export const setupHotKeys = () => {
 
     const unescape = (str: string) =>
       str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
-    for (let ref of Object.keys(groupedByRef)) {
+    for (const ref of Object.keys(groupedByRef)) {
       const macro = groupedByRef[ref];
       const byondKeyName = unescape(macro.name);
       byondMacros[byondKeyName] = unescape(macro.command);
     }
-    logger.debug("loaded macros", byondMacros);
   });
   // Setup event handlers
   globalEvents.on("window-blur", () => {

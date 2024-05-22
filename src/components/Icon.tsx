@@ -6,27 +6,27 @@
  * @license MIT
  */
 
-import { BooleanLike, classes } from "../common/react";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { type BooleanLike, classes } from "../common/react";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 
 const FA_OUTLINE_REGEX = /-o$/;
 
 type IconPropsUnique = { name: string } & Partial<{
-  size: number;
-  spin: BooleanLike;
   className: string;
   rotation: number;
+  size: number;
+  spin: BooleanLike;
   style: Partial<HTMLDivElement["style"]>;
 }>;
 
 export type IconProps = IconPropsUnique & BoxProps;
 
 export const Icon = (props: IconProps) => {
-  const { name, size, spin, className, rotation, ...rest } = props;
+  const { className, name, rotation, size, spin, ...rest } = props;
 
-  const customStyle = rest.style || {};
+  const customStyle = rest.style ?? {};
   if (size) {
     customStyle.fontSize = size * 100 + "%";
   }
@@ -43,7 +43,7 @@ export const Icon = (props: IconProps) => {
     iconClass = name;
   } else {
     // font awesome icon
-    const faRegular = FA_OUTLINE_REGEX.test(name);
+    const faRegular = name.endsWith("-o");
     const faName = name.replace(FA_OUTLINE_REGEX, "");
     const preprendFa = !faName.startsWith("fa-");
 
@@ -77,7 +77,7 @@ type IconStackUnique = {
 export type IconStackProps = IconStackUnique & BoxProps;
 
 export const IconStack = (props: IconStackProps) => {
-  const { className, children, ...rest } = props;
+  const { children, className, ...rest } = props;
   return (
     <span
       className={classes(["IconStack", className, computeBoxClassName(rest)])}

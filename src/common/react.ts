@@ -9,8 +9,8 @@
  */
 export const classes = (classNames: (string | BooleanLike)[]) => {
   let className = "";
-  for (let i = 0; i < classNames.length; i++) {
-    const part = classNames[i];
+
+  for (const part of classNames) {
     if (typeof part === "string") {
       className += part + " ";
     }

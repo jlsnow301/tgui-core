@@ -1,4 +1,5 @@
 import { describe, it, vitest } from "vitest";
+
 import { EventEmitter } from "./events";
 
 describe("EventEmitter", () => {

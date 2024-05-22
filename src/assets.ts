@@ -4,7 +4,12 @@
  * @license MIT
  */
 
-import { Action, AnyAction, Dispatch, Middleware } from "./common/redux";
+import {
+  type Action,
+  type AnyAction,
+  type Dispatch,
+  type Middleware,
+} from "./common/redux";
 
 const EXCLUDED_PATTERNS = [/v4shim/i];
 const loadedMappings: Record<string, string> = {};
@@ -13,10 +18,10 @@ export const resolveAsset = (name: string): string =>
   loadedMappings[name] || name;
 
 export const assetMiddleware: Middleware =
-  (storeApi) =>
+  () =>
   <ActionType extends Action = AnyAction>(next: Dispatch<ActionType>) =>
   (action: ActionType) => {
-    const { type, payload } = action as AnyAction;
+    const { payload, type } = action as AnyAction;
     if (type === "asset/stylesheet") {
       Byond.loadCss(payload);
       return;

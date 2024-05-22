@@ -4,8 +4,9 @@
  * @license MIT
  */
 
-import { clamp, toFixed } from "../common/math";
 import { Component, createRef } from "react";
+
+import { clamp, toFixed } from "../common/math";
 
 const isSafeNumber = (value: number) => {
   return (
@@ -15,9 +16,10 @@ const isSafeNumber = (value: number) => {
 
 export type AnimatedNumberProps = {
   /**
-   * The target value to approach.
+   * If provided, a function that formats the inner string. By default,
+   * attempts to match the numeric precision of `value`.
    */
-  value: number;
+  format?: (value: number) => string;
 
   /**
    * If provided, the initial value displayed. By default, the same as `value`.
@@ -27,10 +29,9 @@ export type AnimatedNumberProps = {
   initial?: number;
 
   /**
-   * If provided, a function that formats the inner string. By default,
-   * attempts to match the numeric precision of `value`.
+   * The target value to approach.
    */
-  format?: (value: number) => string;
+  value: number;
 };
 
 /**
@@ -67,7 +68,7 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
   /**
    * The current value. This values approaches the target value.
    */
-  currentValue: number = 0;
+  currentValue = 0;
 
   constructor(props: AnimatedNumberProps) {
     super(props);
@@ -162,7 +163,7 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
    * Gets the inner text of the span.
    */
   getText() {
-    const { props, currentValue } = this;
+    const { currentValue, props } = this;
     const { format, value } = props;
 
     if (!isSafeNumber(value)) {
@@ -173,7 +174,8 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
       return format(this.currentValue);
     }
 
-    const fraction = String(value).split(".")[1];
+    // eslint-disable-next-line
+    const [_, fraction] = String(value).split(".");
     const precision = fraction ? fraction.length : 0;
 
     return toFixed(currentValue, clamp(precision, 0, 8));

@@ -22,9 +22,9 @@ export const range = (start: number, end: number): number[] =>
  * is determined by the order they occur in the array. The iteratee is
  * invoked with one argument: value.
  */
-export const uniqBy = <T extends unknown>(
+export const uniqBy = <T>(
   array: T[],
-  iterateeFn?: (value: T) => unknown
+  iterateeFn?: (value: T) => unknown,
 ): T[] => {
   const { length } = array;
   const result: T[] = [];
@@ -32,7 +32,7 @@ export const uniqBy = <T extends unknown>(
   let index = -1;
 
   outer: while (++index < length) {
-    let value: T | 0 = array[index];
+    const value: T | 0 = array[index];
     const computed = iterateeFn ? iterateeFn(value) : value;
     if (computed === computed) {
       let seenIndex = seen.length;
@@ -88,7 +88,7 @@ export const zip = <T extends unknown[][]>(...arrays: T): Zip<T> => {
 const binarySearch = <T, U = unknown>(
   getKey: (value: T) => U,
   collection: readonly T[],
-  inserting: T
+  inserting: T,
 ): number => {
   if (collection.length === 0) {
     return 0;
@@ -123,7 +123,7 @@ const binarySearch = <T, U = unknown>(
 export const binaryInsertWith = <T, U = unknown>(
   collection: readonly T[],
   value: T,
-  getKey: (value: T) => U
+  getKey: (value: T) => U,
 ): T[] => {
   const copy = [...collection];
   copy.splice(binarySearch(getKey, collection, value), 0, value);

@@ -5,8 +5,7 @@
  */
 
 import { classes } from "../common/react";
-
-import { Box, BoxProps } from "./Box";
+import { Box, type BoxProps } from "./Box";
 
 type Props = ExclusiveProps & BoxProps;
 
@@ -30,7 +29,7 @@ type ExclusiveProps =
     });
 
 export function NoticeBox(props: Props) {
-  const { className, color, info, success, danger, ...rest } = props;
+  const { className, color, danger, info, success, ...rest } = props;
 
   return (
     <Box

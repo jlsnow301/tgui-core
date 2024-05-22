@@ -4,17 +4,16 @@
  * @license MIT
  */
 
-import { BooleanLike, classes } from "../common/react";
 import {
   createElement,
-  KeyboardEventHandler,
-  MouseEventHandler,
-  ReactNode,
-  UIEventHandler,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type ReactNode,
+  type UIEventHandler,
 } from "react";
 
+import { type BooleanLike, classes } from "../common/react";
 import { CSS_COLORS } from "../constants";
-import { logger } from "../logging";
 
 type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
 type StringProps = Partial<
@@ -54,7 +53,7 @@ type DangerDoNotUse = {
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
  */
-export const unit = (value: unknown) => {
+export function unit(value: unknown): string | undefined {
   if (typeof value === "string") {
     // Transparently convert pixels into rem units
     if (value.endsWith("px")) {
@@ -65,57 +64,71 @@ export const unit = (value: unknown) => {
   if (typeof value === "number") {
     return value + "rem";
   }
-};
+}
 
 /**
  * Same as `unit`, but half the size for integers numbers.
  */
-export const halfUnit = (value: unknown) => {
+export function halfUnit(value: unknown): string | undefined {
   if (typeof value === "string") {
     return unit(value);
   }
   if (typeof value === "number") {
     return unit(value * 0.5);
   }
-};
+}
 
-const isColorCode = (str: unknown) => !isColorClass(str);
+function isColorCode(str: unknown) {
+  return !isColorClass(str);
+}
 
-const isColorClass = (str: unknown): boolean => {
+function isColorClass(str: unknown): boolean {
   return typeof str === "string" && CSS_COLORS.includes(str as any);
-};
+}
 
-const mapRawPropTo = (attrName) => (style, value) => {
-  if (typeof value === "number" || typeof value === "string") {
-    style[attrName] = value;
-  }
-};
-
-const mapUnitPropTo = (attrName, unit) => (style, value) => {
-  if (typeof value === "number" || typeof value === "string") {
-    style[attrName] = unit(value);
-  }
-};
-
-const mapBooleanPropTo = (attrName, attrValue) => (style, value) => {
-  if (value) {
-    style[attrName] = attrValue;
-  }
-};
-
-const mapDirectionalUnitPropTo = (attrName, unit, dirs) => (style, value) => {
-  if (typeof value === "number" || typeof value === "string") {
-    for (let i = 0; i < dirs.length; i++) {
-      style[attrName + "-" + dirs[i]] = unit(value);
+const mapRawPropTo =
+  (attrName: string) =>
+  (style: Record<string, any>, value: string | number) => {
+    if (typeof value === "number" || typeof value === "string") {
+      style[attrName] = value;
     }
-  }
-};
+  };
 
-const mapColorPropTo = (attrName) => (style, value) => {
-  if (isColorCode(value)) {
-    style[attrName] = value;
-  }
-};
+type UnitFn = (value: unknown) => string | undefined;
+
+const mapUnitPropTo =
+  (attrName: string, unit: UnitFn) =>
+  (style: Record<string, any>, value: string | number) => {
+    if (typeof value === "number" || typeof value === "string") {
+      style[attrName] = unit(value);
+    }
+  };
+
+const mapBooleanPropTo =
+  (attrName: string, attrValue: string | number) =>
+  (style: Record<string, any>, value: boolean) => {
+    if (value) {
+      style[attrName] = attrValue;
+    }
+  };
+
+const mapDirectionalUnitPropTo =
+  (attrName: string, unit: UnitFn, dirs) =>
+  (style: Record<string, any>, value: string | number) => {
+    if (typeof value === "number" || typeof value === "string") {
+      for (const dir of dirs) {
+        style[`${attrName}-${dir}`] = unit(value);
+      }
+    }
+  };
+
+const mapColorPropTo =
+  (attrName: string) =>
+  (style: Record<string, any>, value: string | number) => {
+    if (isColorCode(value)) {
+      style[attrName] = value;
+    }
+  };
 
 // String / number props
 const stringStyleMap = {
@@ -143,9 +156,9 @@ const stringStyleMap = {
 
   lineHeight: (style, value) => {
     if (typeof value === "number") {
-      style["lineHeight"] = value;
+      style.lineHeight = value;
     } else if (typeof value === "string") {
-      style["lineHeight"] = unit(value);
+      style.lineHeight = unit(value);
     }
   },
   // Margin
@@ -185,11 +198,11 @@ const booleanStyleMap = {
   bold: mapBooleanPropTo("fontWeight", "bold"),
   fillPositionedParent: (style, value) => {
     if (value) {
-      style["position"] = "absolute";
-      style["top"] = 0;
-      style["bottom"] = 0;
-      style["left"] = 0;
-      style["right"] = 0;
+      style.position = "absolute";
+      style.top = 0;
+      style.bottom = 0;
+      style.left = 0;
+      style.right = 0;
     }
   },
   inline: mapBooleanPropTo("display", "inline-block"),
@@ -198,19 +211,21 @@ const booleanStyleMap = {
   preserveWhitespace: mapBooleanPropTo("whiteSpace", "pre-wrap"),
 } as const;
 
-export const computeBoxProps = (props) => {
+type PropMapper = (style: Record<string, any>, value: string | number) => void;
+
+export function computeBoxProps(props) {
   const computedProps: Record<string, any> = {};
   const computedStyles: Record<string, string | number> = {};
 
   // Compute props
-  for (let propName of Object.keys(props)) {
+  for (const propName of Object.keys(props)) {
     if (propName === "style") {
       continue;
     }
 
     const propValue = props[propName];
 
-    const mapPropToStyle =
+    const mapPropToStyle: PropMapper =
       stringStyleMap[propName] || booleanStyleMap[propName];
 
     if (mapPropToStyle) {
@@ -224,31 +239,25 @@ export const computeBoxProps = (props) => {
   computedProps.style = { ...computedStyles, ...props.style };
 
   return computedProps;
-};
+}
 
-export const computeBoxClassName = (props: BoxProps) => {
-  const color = props.textColor || props.color;
-  const backgroundColor = props.backgroundColor;
+export function computeBoxClassName(props: BoxProps) {
+  const color = props.textColor ?? props.color;
+  const { backgroundColor } = props;
   return classes([
     isColorClass(color) && "color-" + color,
     isColorClass(backgroundColor) && "color-bg-" + backgroundColor,
   ]);
-};
+}
 
-export const Box = (props: BoxProps & DangerDoNotUse) => {
-  const { as = "div", className, children, ...rest } = props;
+export function Box(props: BoxProps & DangerDoNotUse) {
+  const { as = "div", children, className, ...rest } = props;
 
   // Compute class name and styles
   const computedClassName = className
     ? `${className} ${computeBoxClassName(rest)}`
     : computeBoxClassName(rest);
   const computedProps = computeBoxProps(rest);
-
-  if (as === "img") {
-    logger.error(
-      "Box component cannot be used as an image. Use Image component instead."
-    );
-  }
 
   // Render the component
   return createElement(
@@ -257,6 +266,6 @@ export const Box = (props: BoxProps & DangerDoNotUse) => {
       ...computedProps,
       className: computedClassName,
     },
-    children
+    children,
   );
-};
+}

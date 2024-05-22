@@ -5,8 +5,12 @@
  */
 
 import { classes } from "../common/react";
-
-import { BoxProps, computeBoxClassName, computeBoxProps, unit } from "./Box";
+import {
+  type BoxProps,
+  computeBoxClassName,
+  computeBoxProps,
+  unit,
+} from "./Box";
 
 export type FlexProps = Partial<{
   align: string | boolean;
@@ -28,7 +32,7 @@ export const computeFlexClassName = (props: FlexProps) => {
 };
 
 export const computeFlexProps = (props: FlexProps) => {
-  const { className, direction, wrap, align, justify, inline, ...rest } = props;
+  const { align, direction, justify, wrap, ...rest } = props;
 
   return computeBoxProps({
     style: {
@@ -54,11 +58,11 @@ export const Flex = (props) => {
 
 export type FlexItemProps = BoxProps &
   Partial<{
+    align: string | boolean;
+    basis: string | number;
     grow: number | boolean;
     order: number;
     shrink: number | boolean;
-    basis: string | number;
-    align: string | boolean;
     style: Partial<HTMLDivElement["style"]>;
   }>;
 
@@ -67,8 +71,7 @@ export const computeFlexItemClassName = (props: FlexItemProps) => {
 };
 
 export const computeFlexItemProps = (props: FlexItemProps) => {
-  const { className, style, grow, order, shrink, basis, align, ...rest } =
-    props;
+  const { align, basis, grow, order, shrink, style, ...rest } = props;
 
   const computedBasis =
     basis ??

@@ -4,20 +4,25 @@
  * @license MIT
  */
 
-import { Placement } from "@popperjs/core";
-import { KEY } from "../common/keys";
-import { BooleanLike, classes } from "../common/react";
+import { type Placement } from "@popperjs/core";
 import {
-  ChangeEvent,
+  type ChangeEvent,
   createRef,
-  MouseEvent,
-  ReactNode,
+  type MouseEvent,
+  type ReactNode,
   useEffect,
   useRef,
   useState,
 } from "react";
 
-import { Box, BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { KEY } from "../common/keys";
+import { type BooleanLike, classes } from "../common/react";
+import {
+  Box,
+  type BoxProps,
+  computeBoxClassName,
+  computeBoxProps,
+} from "./Box";
 import { Icon } from "./Icon";
 import { Tooltip } from "./Tooltip";
 
@@ -29,16 +34,16 @@ import { Tooltip } from "./Tooltip";
  */
 type EllipsisUnion =
   | {
-      ellipsis: true;
       children: string;
       /** @deprecated use children instead */
       content?: never;
+      ellipsis: true;
     }
   | Partial<{
-      ellipsis: undefined;
       children: ReactNode;
       /** @deprecated use children instead */
       content: ReactNode;
+      ellipsis: undefined;
     }>;
 
 type Props = Partial<{
@@ -87,7 +92,7 @@ export const Button = (props: Props) => {
     ...rest
   } = props;
 
-  const toDisplay: ReactNode = content || children;
+  const toDisplay: ReactNode = content ?? children;
 
   let buttonContent = (
     <div
@@ -110,7 +115,6 @@ export const Button = (props: Props) => {
         className,
         computeBoxClassName(rest),
       ])}
-      tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
         if (!disabled && onClick) {
           onClick(event);
@@ -122,7 +126,7 @@ export const Button = (props: Props) => {
         }
 
         // Simulate a click when pressing space or enter.
-        if (event.key === KEY.Space || event.key === KEY.Enter) {
+        if (event.key === KEY.Space ?? event.key === KEY.Enter) {
           event.preventDefault();
           if (!disabled && onClick) {
             onClick(event);
@@ -135,13 +139,14 @@ export const Button = (props: Props) => {
           event.preventDefault();
         }
       }}
+      tabIndex={!disabled ? 0 : undefined}
       {...computeBoxProps(rest)}
     >
       <div className="Button__content">
         {icon && iconPosition !== "right" && (
           <Icon
-            name={icon}
             color={iconColor}
+            name={icon}
             rotation={iconRotation}
             spin={iconSpin}
           />
@@ -160,8 +165,8 @@ export const Button = (props: Props) => {
         )}
         {icon && iconPosition === "right" && (
           <Icon
-            name={icon}
             color={iconColor}
+            name={icon}
             rotation={iconRotation}
             spin={iconSpin}
           />
@@ -172,7 +177,7 @@ export const Button = (props: Props) => {
 
   if (tooltip) {
     buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
+      <Tooltip content={tooltip} position={tooltipPosition}>
         {buttonContent}
       </Tooltip>
     );
@@ -217,6 +222,7 @@ const ButtonConfirm = (props: ConfirmProps) => {
     confirmColor = "bad",
     confirmContent = "Confirm?",
     confirmIcon,
+    // eslint-disable-next-line
     ellipsis = true,
     icon,
     onClick,
@@ -236,8 +242,8 @@ const ButtonConfirm = (props: ConfirmProps) => {
 
   return (
     <Button
-      icon={clickedOnce ? confirmIcon : icon}
       color={clickedOnce ? confirmColor : color}
+      icon={clickedOnce ? confirmIcon : icon}
       onClick={handleClick}
       {...rest}
     >
@@ -271,9 +277,7 @@ const ButtonInput = (props: InputProps) => {
     icon,
     iconRotation,
     iconSpin,
-    maxLength,
     onCommit = () => null,
-    placeholder,
     tooltip,
     tooltipPosition,
     ...rest
@@ -281,7 +285,7 @@ const ButtonInput = (props: InputProps) => {
   const [inInput, setInInput] = useState(false);
   const inputRef = createRef<HTMLInputElement>();
 
-  const toDisplay = content || children;
+  const toDisplay = content ?? children;
 
   const commitResult = (e) => {
     const input = inputRef.current;
@@ -302,7 +306,7 @@ const ButtonInput = (props: InputProps) => {
     if (!input) return;
 
     if (inInput) {
-      input.value = currentValue || "";
+      input.value = currentValue ?? "";
       try {
         input.focus();
         input.select();
@@ -323,13 +327,8 @@ const ButtonInput = (props: InputProps) => {
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
       <div>{toDisplay}</div>
       <input
-        disabled={!!disabled}
-        ref={inputRef}
         className="NumberInput__input"
-        style={{
-          display: !inInput ? "none" : "",
-          textAlign: "left",
-        }}
+        disabled={!!disabled}
         onBlur={(event) => {
           if (!inInput) {
             return;
@@ -347,13 +346,18 @@ const ButtonInput = (props: InputProps) => {
             setInInput(false);
           }
         }}
+        ref={inputRef}
+        style={{
+          display: !inInput ? "none" : "",
+          textAlign: "left",
+        }}
       />
     </Box>
   );
 
   if (tooltip) {
     buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
+      <Tooltip content={tooltip} position={tooltipPosition}>
         {buttonContent}
       </Tooltip>
     );
@@ -390,7 +394,7 @@ function ButtonFile(props: FileProps) {
   }
 
   async function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const files = event.target.files;
+    const { files } = event.target;
     if (files?.length) {
       const readFiles = await read(files);
       onSelectFiles(multiple ? readFiles : readFiles[0]);
@@ -401,12 +405,12 @@ function ButtonFile(props: FileProps) {
     <>
       <Button onClick={() => inputRef.current?.click()} {...rest} />
       <input
-        hidden
-        type="file"
-        ref={inputRef}
         accept={accept}
+        hidden
         multiple={multiple}
         onChange={handleChange}
+        ref={inputRef}
+        type="file"
       />
     </>
   );

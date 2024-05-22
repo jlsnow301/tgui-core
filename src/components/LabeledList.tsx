@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-import { BooleanLike, classes } from "../common/react";
-import { PropsWithChildren, ReactNode } from "react";
+import { type PropsWithChildren, type ReactNode } from "react";
 
+import { type BooleanLike, classes } from "../common/react";
 import { Box, unit } from "./Box";
 import { Divider } from "./Divider";
 import { Tooltip } from "./Tooltip";
@@ -18,33 +18,33 @@ export const LabeledList = (props: PropsWithChildren) => {
 
 type LabeledListItemProps = Partial<{
   buttons: ReactNode;
+  children: ReactNode;
   className: string | BooleanLike;
   color: string;
+  /** @deprecated */
+  content: any;
   key: string | number;
   label: string | ReactNode | BooleanLike;
   labelColor: string;
   labelWrap: boolean;
   textAlign: string;
-  /** @deprecated */
-  content: any;
-  children: ReactNode;
-  verticalAlign: string;
   tooltip: string;
+  verticalAlign: string;
 }>;
 
 const LabeledListItem = (props: LabeledListItemProps) => {
   const {
+    buttons,
+    children,
     className,
+    color,
+    content,
     label,
     labelColor = "label",
     labelWrap,
-    color,
     textAlign,
-    buttons,
-    content,
-    children,
-    verticalAlign = "baseline",
     tooltip,
+    verticalAlign = "baseline",
   } = props;
 
   let innerLabel;
@@ -68,15 +68,15 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     );
   }
 
-  let labelChild = (
+  const labelChild = (
     <Box
       as="td"
-      color={labelColor}
       className={classes([
         "LabeledList__cell",
         // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
         !labelWrap && "LabeledList__label--nowrap",
       ])}
+      color={labelColor}
       verticalAlign={verticalAlign}
     >
       {innerLabel}
@@ -88,11 +88,13 @@ const LabeledListItem = (props: LabeledListItemProps) => {
       {labelChild}
       <Box
         as="td"
-        color={color}
-        textAlign={textAlign}
         className={classes(["LabeledList__cell", "LabeledList__content"])}
+        color={color}
+        // I really don't feel like making a union type for td's, spans, etc.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         colSpan={buttons ? undefined : 2}
+        textAlign={textAlign}
         verticalAlign={verticalAlign}
       >
         {content}

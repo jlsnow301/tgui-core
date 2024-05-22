@@ -5,19 +5,19 @@
  * @license MIT
  */
 
-import { KEY } from "../common/keys";
-import { classes } from "../common/react";
 import {
   forwardRef,
-  RefObject,
+  type RefObject,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from "react";
-import { KeyboardEvent, SyntheticEvent } from "react";
+import { type KeyboardEvent, type SyntheticEvent } from "react";
 
-import { Box, BoxProps } from "./Box";
+import { KEY } from "../common/keys";
+import { classes } from "../common/react";
+import { Box, type BoxProps } from "./Box";
 import { toInputValue } from "./Input";
 
 type Props = Partial<{
@@ -96,7 +96,7 @@ export const TextArea = forwardRef(
 
       if (!dontUseTabForIndent && event.key === KEY.Tab) {
         event.preventDefault();
-        const { value, selectionStart, selectionEnd } = event.currentTarget;
+        const { selectionEnd, selectionStart, value } = event.currentTarget;
         event.currentTarget.value =
           value.substring(0, selectionStart) +
           "\t" +
@@ -105,10 +105,7 @@ export const TextArea = forwardRef(
       }
     };
 
-    useImperativeHandle(
-      forwardedRef,
-      () => textareaRef.current as HTMLTextAreaElement
-    );
+    useImperativeHandle(forwardedRef, () => textareaRef.current!);
 
     /** Focuses the input on mount */
     useEffect(() => {
@@ -117,7 +114,7 @@ export const TextArea = forwardRef(
       const input = textareaRef.current;
       if (!input) return;
 
-      if (autoFocus || autoSelect) {
+      if (autoFocus ?? autoSelect) {
         setTimeout(() => {
           input.focus();
 
@@ -194,5 +191,5 @@ export const TextArea = forwardRef(
         />
       </Box>
     );
-  }
+  },
 );

@@ -6,9 +6,13 @@
 
 import { clamp01, keyOfMatchingRange, scale } from "../common/math";
 import { classes } from "../common/react";
-
 import { AnimatedNumber } from "./AnimatedNumber";
-import { Box, BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import {
+  Box,
+  type BoxProps,
+  computeBoxClassName,
+  computeBoxProps,
+} from "./Box";
 
 type Props = {
   /** The current value of the metric. */
@@ -132,7 +136,7 @@ export function RoundGauge(props: Props) {
         })}
       >
         <svg viewBox="0 0 100 50">
-          {(alertAfter || alertBefore) && (
+          {(alertAfter ?? alertBefore) && (
             <g
               className={classes([
                 "RoundGauge__alert",
@@ -151,17 +155,17 @@ export function RoundGauge(props: Props) {
               return (
                 <circle
                   className={`RoundGauge__ringFill RoundGauge--color--${x}`}
+                  cx="50"
+                  cy="50"
                   key={i}
+                  r="45"
                   style={{
                     strokeDashoffset: Math.max(
                       (2.0 - (col_ranges[1] - col_ranges[0])) * Math.PI * 50,
-                      0
+                      0,
                     ),
                   }}
                   transform={`rotate(${180 + 180 * col_ranges[0]} 50 50)`}
-                  cx="50"
-                  cy="50"
-                  r="45"
                 />
               );
             })}
@@ -183,7 +187,7 @@ export function RoundGauge(props: Props) {
           </g>
         </svg>
       </div>
-      <AnimatedNumber value={value} format={format} />
+      <AnimatedNumber format={format} value={value} />
     </Box>
   );
 }

@@ -5,9 +5,8 @@
  */
 
 import { keyOfMatchingRange, scale } from "../common/math";
-import { BooleanLike, classes } from "../common/react";
-
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { type BooleanLike, classes } from "../common/react";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 import { DraggableControl } from "./DraggableControl";
 
 type Props = {
@@ -42,10 +41,10 @@ type Props = {
   stepPixelSize: number;
   /** A number in milliseconds, for which the input will hold off from updating while events propagate through the backend. Default is about 250ms, increase it if you still see flickering. */
   suppressFlicker: boolean;
-  /** Unit to display to the right of value. */
-  unit: string;
   /** Whether to clamp the value to the range. */
   unclamped: boolean;
+  /** Unit to display to the right of value. */
+  unit: string;
 }> &
   BoxProps;
 
@@ -60,26 +59,26 @@ export function Knob(props: Props) {
   const {
     // Draggable props (passthrough)
     animated,
+    bipolar,
+
+    className,
+    color,
+    fillValue,
     format,
     maxValue,
     minValue,
     onChange,
     onDrag,
+    ranges = {},
+    // Own props
+    size = 1,
     step,
     stepPixelSize,
+    style,
     suppressFlicker,
     unclamped,
     unit,
     value,
-    // Own props
-    bipolar,
-    children,
-    className,
-    color,
-    fillValue,
-    ranges = {},
-    size = 1,
-    style,
     ...rest
   } = props;
 
@@ -113,11 +112,11 @@ export function Knob(props: Props) {
         const scaledFillValue = scale(
           fillValue ?? displayValue,
           minValue,
-          maxValue
+          maxValue,
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
         const effectiveColor =
-          color || keyOfMatchingRange(fillValue ?? value, ranges) || "default";
+          color ?? keyOfMatchingRange(fillValue ?? value, ranges) ?? "default";
         const rotation = Math.min((scaledDisplayValue - 0.5) * 270, 225);
 
         return (
@@ -163,17 +162,17 @@ export function Knob(props: Props) {
             >
               <circle
                 className="Knob__ringFill"
+                cx="50"
+                cy="50"
+                r="50"
                 style={{
                   strokeDashoffset: Math.max(
                     ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
                       Math.PI *
                       50,
-                    0
+                    0,
                   ),
                 }}
-                cx="50"
-                cy="50"
-                r="50"
               />
             </svg>
             {inputElement}

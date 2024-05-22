@@ -5,12 +5,11 @@
  */
 
 import { classes } from "../common/react";
-
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 import { Dimmer } from "./Dimmer";
 
 export function Modal(props: BoxProps) {
-  const { className, children, ...rest } = props;
+  const { children, className, ...rest } = props;
 
   return (
     <Dimmer>

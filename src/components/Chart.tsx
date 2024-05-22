@@ -4,70 +4,85 @@
  * @license MIT
  */
 
-import { zip } from "../common/collections";
-import { Component, createRef, RefObject } from "react";
+import { Component, createRef, type RefObject } from "react";
 
-import { Box, BoxProps } from "./Box";
+import { Box, type BoxProps } from "./Box";
 
 type Props = {
   data: number[][];
 } & Partial<{
   fillColor: string;
-  rangeX: [number, number];
-  rangeY: [number, number];
+  rangeX: Range;
+  rangeY: Range;
   strokeColor: string;
   strokeWidth: number;
 }> &
   BoxProps;
 
 type State = {
-  viewBox: [number, number];
+  viewBox: Range;
 };
 
 type Point = number[];
 type Range = [number, number];
 
-const normalizeData = (
+function normalizeData(
   data: Point[],
   scale: number[],
   rangeX?: Range,
-  rangeY?: Range
-) => {
+  rangeY?: Range,
+) {
   if (data.length === 0) {
     return [];
   }
 
-  const min = map(zip(...data), (p) => Math.min(...p));
-  const max = map(zip(...data), (p) => Math.max(...p));
+  const min: Point = [];
+  const max: Point = [];
+
+  for (const point of data) {
+    min.push(Math.min(...point));
+    max.push(Math.max(...point));
+  }
 
   if (rangeX !== undefined) {
-    min[0] = rangeX[0];
-    max[0] = rangeX[1];
+    const [minX, maxX] = rangeX;
+    min[0] = minX;
+    max[0] = maxX;
   }
 
   if (rangeY !== undefined) {
-    min[1] = rangeY[0];
-    max[1] = rangeY[1];
+    const [minY, maxY] = rangeY;
+    min[1] = minY;
+    max[1] = maxY;
   }
 
-  const normalized = map(data, (point) =>
-    map(
-      zip(point, min, max, scale),
-      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale
-    )
-  );
+  const normalized: Point[] = [];
+
+  for (const point of data) {
+    const normalizedPoint: Point = [];
+
+    for (let i = 0; i < point.length; i++) {
+      const value = point[i];
+      const minValue = min[i];
+      const maxValue = max[i];
+      const scaleValue = scale[i];
+      normalizedPoint.push(
+        ((value - minValue) / (maxValue - minValue)) * scaleValue,
+      );
+    }
+    normalized.push(normalizedPoint);
+  }
 
   return normalized;
-};
+}
 
-const dataToPolylinePoints = (data) => {
+function dataToPolylinePoints(data: Point[]) {
   let points = "";
-  for (let i = 0; i < data.length; i++) {
-    const point = data[i];
+  for (const point of data) {
     points += point[0] + "," + point[1] + " ";
   }
   return points;
-};
+}
 
 class LineChart extends Component<Props> {
   ref: RefObject<HTMLDivElement>;
@@ -105,9 +120,9 @@ class LineChart extends Component<Props> {
   render() {
     const {
       data = [],
+      fillColor = "none",
       rangeX,
       rangeY,
-      fillColor = "none",
       strokeColor = "#ffffff",
       strokeWidth = 2,
       ...rest
@@ -116,7 +131,7 @@ class LineChart extends Component<Props> {
     const normalized = normalizeData(data, viewBox, rangeX, rangeY);
     // Push data outside viewBox and form a fillable polygon
     if (normalized.length > 0) {
-      const first = normalized[0];
+      const [first] = normalized;
       const last = normalized[normalized.length - 1];
       normalized.push([viewBox[0] + strokeWidth, last[1]]);
       normalized.push([viewBox[0] + strokeWidth, -strokeWidth]);
@@ -130,7 +145,6 @@ class LineChart extends Component<Props> {
       <Box position="relative" {...rest}>
         <Box {...divProps}>
           <svg
-            viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
             preserveAspectRatio="none"
             style={{
               position: "absolute",
@@ -140,13 +154,14 @@ class LineChart extends Component<Props> {
               bottom: 0,
               overflow: "hidden",
             }}
+            viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
           >
             <polyline
-              transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
               fill={fillColor}
+              points={points}
               stroke={strokeColor}
               strokeWidth={strokeWidth}
-              points={points}
+              transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
             />
           </svg>
         </Box>

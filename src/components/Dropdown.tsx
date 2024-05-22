@@ -1,7 +1,7 @@
-import { classes } from "../common/react";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
-import { BoxProps, unit } from "./Box";
+import { classes } from "../common/react";
+import { type BoxProps, unit } from "./Box";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
 import { Popper } from "./Popper";
@@ -14,11 +14,11 @@ export type DropdownEntry = {
 type DropdownOption = string | DropdownEntry;
 
 type Props = {
+  /** Called when a value is picked from the list, `value` is the value that was picked */
+  onSelected: (value: any) => void;
   /** An array of strings which will be displayed in the
   dropdown when open. See Dropdown.tsx for more advanced usage with DropdownEntry */
   options: DropdownOption[];
-  /** Called when a value is picked from the list, `value` is the value that was picked */
-  onSelected: (value: any) => void;
   /** Currently selected entry to display. Can be left stateless to permanently display this value. */
   selected: DropdownOption | null | undefined;
 } & Partial<{
@@ -54,9 +54,9 @@ type Props = {
   BoxProps;
 
 enum DIRECTION {
-  Previous = "previous",
-  Next = "next",
   Current = "current",
+  Next = "next",
+  Previous = "previous",
 }
 
 const NONE = -1;
@@ -147,14 +147,11 @@ export function Dropdown(props: Props) {
 
   return (
     <Popper
-      isOpen={open}
-      onClickOutside={() => setOpen(false)}
-      placement={over ? "top-start" : "bottom-start"}
       content={
         <div
           className="Layout Dropdown__menu"
-          style={{ minWidth: menuWidth }}
           ref={innerRef}
+          style={{ minWidth: menuWidth }}
         >
           {options.length === 0 && (
             <div className="Dropdown__menuentry">No options</div>
@@ -181,6 +178,9 @@ export function Dropdown(props: Props) {
           })}
         </div>
       }
+      isOpen={open}
+      onClickOutside={() => setOpen(false)}
+      placement={over ? "top-start" : "bottom-start"}
     >
       <div className="Dropdown" style={{ width: unit(width) }}>
         <div
@@ -209,8 +209,8 @@ export function Dropdown(props: Props) {
               overflow: clipSelectedText ? "hidden" : "visible",
             }}
           >
-            {displayText ||
-              (selected && getOptionValue(selected)) ||
+            {displayText ??
+              (selected && getOptionValue(selected)) ??
               placeholder}
           </span>
           {!noChevron && (

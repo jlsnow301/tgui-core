@@ -4,11 +4,11 @@
  * @license MIT
  */
 
+import { type PropsWithChildren } from "react";
+
 import { clamp01, keyOfMatchingRange, scale } from "../common/math";
 import { classes } from "../common/react";
-import { PropsWithChildren } from "react";
-
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 import { DraggableControl } from "./DraggableControl";
 
 type Props = {
@@ -59,22 +59,22 @@ export function Slider(props: Props) {
   const {
     // Draggable props (passthrough)
     animated,
+    children,
+    className,
+    color,
+    fillValue,
     format,
     maxValue,
     minValue,
     onChange,
     onDrag,
+    ranges = {},
+    // Own props
     step,
     stepPixelSize,
     suppressFlicker,
     unit,
     value,
-    // Own props
-    className,
-    fillValue,
-    color,
-    ranges = {},
-    children,
     ...rest
   } = props;
 
@@ -112,12 +112,12 @@ export function Slider(props: Props) {
         const scaledFillValue = scale(
           fillValue ?? displayValue,
           minValue,
-          maxValue
+          maxValue,
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
 
         const effectiveColor =
-          color || keyOfMatchingRange(fillValue ?? value, ranges) || "default";
+          color ?? keyOfMatchingRange(fillValue ?? value, ranges) ?? "default";
 
         return (
           <div

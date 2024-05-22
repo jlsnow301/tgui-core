@@ -14,19 +14,19 @@ const FRAME_DURATION = 1000 / FPS;
 // True if Performance API is supported
 const supportsPerf = !!window.performance?.now;
 // High precision markers
-let hpMarkersByName: Record<string, number> = {};
+const hpMarkersByName: Record<string, number> = {};
 // Low precision markers
-let lpMarkersByName: Record<string, number> = {};
+const lpMarkersByName: Record<string, number> = {};
 
 /**
  * Marks a certain spot in the code for later measurements.
  */
 function mark(name: string, timestamp?: number): void {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     if (supportsPerf && !timestamp) {
       hpMarkersByName[name] = performance.now();
     }
-    lpMarkersByName[name] = timestamp || Date.now();
+    lpMarkersByName[name] = timestamp ?? Date.now();
   }
 }
 
@@ -36,7 +36,7 @@ function mark(name: string, timestamp?: number): void {
  * Use logger.log() to print the measurement.
  */
 function measure(markerNameA: string, markerNameB: string): string | undefined {
-  if (process.env.NODE_ENV === 'production') return;
+  if (process.env.NODE_ENV === "production") return;
 
   let markerA = hpMarkersByName[markerNameA];
   let markerB = hpMarkersByName[markerNameB];
@@ -59,10 +59,10 @@ function formatDuration(duration: number): string {
 
   return (
     duration.toFixed(duration < 10 ? 1 : 0) +
-    'ms ' +
-    '(' +
+    "ms " +
+    "(" +
     durationInFrames.toFixed(2) +
-    ' frames)'
+    " frames)"
   );
 }
 

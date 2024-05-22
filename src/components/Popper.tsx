@@ -1,7 +1,7 @@
-import { Placement } from '@popperjs/core';
+import { type Placement } from '@popperjs/core';
 import {
-  PropsWithChildren,
-  ReactNode,
+  type PropsWithChildren,
+  type ReactNode,
   useEffect,
   useRef,
   useState,
@@ -16,14 +16,14 @@ type RequiredProps = {
 };
 
 type OptionalProps = Partial<{
-  /** Called when the user clicks outside the popper */
-  onClickOutside: () => void;
-  /** Where to place the popper relative to the reference element */
-  placement: Placement;
   /** Base z-index of the popper div
    * @default 5
    */
   baseZIndex: number;
+  /** Called when the user clicks outside the popper */
+  onClickOutside: () => void;
+  /** Where to place the popper relative to the reference element */
+  placement: Placement;
 }>;
 
 type Props = RequiredProps & OptionalProps;
@@ -47,7 +47,7 @@ export function Popper(props: PropsWithChildren<Props>) {
   const popperRef = useRef<HTMLDivElement | null>(null);
   const parentRef = useRef<HTMLDivElement | null>(null);
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  const { attributes, styles } = usePopper(referenceElement, popperElement, {
     placement,
   });
 

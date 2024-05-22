@@ -1,11 +1,12 @@
 import { describe, it } from "vitest";
+
 import {
-  Action,
+  type Action,
   applyMiddleware,
   combineReducers,
   createAction,
   createStore,
-  Reducer,
+  type Reducer,
 } from "./redux";
 
 // Dummy Reducer
@@ -21,7 +22,7 @@ const counterReducer: Reducer<number, Action<string>> = (state = 0, action) => {
 };
 
 // Dummy Middleware
-const loggingMiddleware = (storeApi) => (next) => (action) => {
+const loggingMiddleware = () => (next: (action: any) => void) => (action) => {
   console.log("Middleware:", action);
   return next(action);
 };
@@ -39,7 +40,7 @@ describe("Redux implementation tests", () => {
   it("createStore with applyMiddleware works", ({ expect }) => {
     const store = createStore(
       counterReducer,
-      applyMiddleware(loggingMiddleware)
+      applyMiddleware(loggingMiddleware),
     );
     expect(store.getState()).toBe(0);
   });

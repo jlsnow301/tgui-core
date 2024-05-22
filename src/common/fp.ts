@@ -26,7 +26,7 @@ export const flow =
   (input: any, ...rest: any[]): any => {
     let output = input;
 
-    for (let func of funcs) {
+    for (const func of funcs) {
       // Recurse into the array of functions
       if (Array.isArray(func)) {
         output = flow(...func)(output, ...rest);

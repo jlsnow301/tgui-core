@@ -1,4 +1,5 @@
-import { describe, afterEach, it, vitest } from "vitest";
+import { afterEach, describe, it, vitest } from "vitest";
+
 import {
   addScrollableNode,
   canStealFocus,

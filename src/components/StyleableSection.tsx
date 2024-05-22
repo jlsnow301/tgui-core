@@ -1,12 +1,12 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { type PropsWithChildren, type ReactNode } from 'react';
 
 import { Box } from './Box';
 
 type Props = Partial<{
   style: Record<string, any>;
-  titleStyle: Record<string, any>;
   textStyle: Record<string, any>;
   title: ReactNode;
+  titleStyle: Record<string, any>;
   titleSubtext: string;
 }> &
   PropsWithChildren;

@@ -1,7 +1,9 @@
-import { describe, test, expect } from "vitest";
+import { describe, test } from "vitest";
+
 import { range, zip } from "./collections";
 
 // Type assertions, these will lint if the types are wrong.
+// eslint-disable-next-line
 const _zip1: [string, number] = zip(["a"], [1])[0];
 
 describe("range", () => {

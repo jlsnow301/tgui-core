@@ -5,11 +5,10 @@
  */
 
 import { classes } from "../common/react";
-
-import { Box, BoxProps } from "./Box";
+import { Box, type BoxProps } from "./Box";
 
 export function Dimmer(props: BoxProps) {
-  const { className, children, ...rest } = props;
+  const { children, className, ...rest } = props;
 
   return (
     <Box className={classes(["Dimmer", className])} {...rest}>

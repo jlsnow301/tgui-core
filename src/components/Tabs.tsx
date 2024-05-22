@@ -4,10 +4,10 @@
  * @license MIT
  */
 
-import { canRender, classes } from "../common/react";
-import { PropsWithChildren, ReactNode } from "react";
+import { type PropsWithChildren, type ReactNode } from "react";
 
-import { BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { canRender, classes } from "../common/react";
+import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
 import { Icon } from "./Icon";
 
 type Props = Partial<{
@@ -32,7 +32,7 @@ type TabProps = Partial<{
   PropsWithChildren;
 
 export const Tabs = (props: Props) => {
-  const { className, vertical, fill, fluid, children, ...rest } = props;
+  const { children, className, fill, fluid, vertical, ...rest } = props;
 
   return (
     <div
@@ -53,13 +53,13 @@ export const Tabs = (props: Props) => {
 
 const Tab = (props: TabProps) => {
   const {
+    children,
     className,
-    selected,
     color,
     icon,
     leftSlot,
     rightSlot,
-    children,
+    selected,
     ...rest
   } = props;
 

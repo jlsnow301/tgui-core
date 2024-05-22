@@ -1,9 +1,9 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from "react";
 
-import { resolveAsset } from '../assets';
-import { fetchRetry } from '../http';
-import { BoxProps } from './Box';
-import { Image } from './Image';
+import { resolveAsset } from "../assets";
+import { fetchRetry } from "../http";
+import { type BoxProps } from "./Box";
+import { Image } from "./Image";
 
 enum Direction {
   NORTH = 1,
@@ -37,23 +37,24 @@ let refMap: Record<string, string> | undefined;
 
 export function DmIcon(props: Props) {
   const {
+    // eslint-disable-next-line
     className,
     direction = Direction.SOUTH,
     fallback,
     frame = 1,
-    icon_state,
     icon,
+    icon_state,
     movement = false,
     ...rest
   } = props;
 
-  const [iconRef, setIconRef] = useState('');
+  const [iconRef, setIconRef] = useState("");
 
   const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${movement}&frame=${frame}`;
 
   useEffect(() => {
     async function fetchRefMap() {
-      const response = await fetchRetry(resolveAsset('icon_ref_map.json'));
+      const response = await fetchRetry(resolveAsset("icon_ref_map.json"));
       const data = await response.json();
       refMap = data;
       setIconRef(data[icon]);

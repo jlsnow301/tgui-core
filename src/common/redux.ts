@@ -11,13 +11,13 @@ export type Reducer<State = any, ActionType extends Action = AnyAction> = (
 
 export type Store<State = any, ActionType extends Action = AnyAction> = {
   dispatch: Dispatch<ActionType>;
-  subscribe: (listener: () => void) => void;
   getState: () => State;
+  subscribe: (listener: () => void) => void;
 };
 
 type MiddlewareAPI<State = any, ActionType extends Action = AnyAction> = {
-  getState: () => State;
   dispatch: Dispatch<ActionType>;
+  getState: () => State;
 };
 
 export type Middleware = <State = any, ActionType extends Action = AnyAction>(
@@ -28,19 +28,19 @@ export type Action<TType = any> = {
   type: TType;
 };
 
-export type AnyAction = Action & {
-  [extraProps: string]: any;
-};
+export type AnyAction = Action & Record<string, any>;
 
 export type Dispatch<ActionType extends Action = AnyAction> = (
   action: ActionType,
 ) => void;
 
-type StoreEnhancer = (createStoreFunction: Function) => Function;
+type Fn = (...args: any[]) => any;
+
+type StoreEnhancer = (createStoreFn: Fn) => Fn;
 
 type PreparedAction = {
-  payload?: any;
   meta?: any;
+  payload?: any;
 };
 
 /**
@@ -52,11 +52,11 @@ export const createStore = <State, ActionType extends Action = AnyAction>(
 ): Store<State, ActionType> => {
   // Apply a store enhancer (applyMiddleware is one of them).
   if (enhancer) {
-    return enhancer(createStore)(reducer);
+    return enhancer(createStore)(reducer) as Store<State, ActionType>;
   }
 
   let currentState: State;
-  let listeners: Array<() => void> = [];
+  const listeners: Array<() => void> = [];
 
   const getState = (): State => currentState;
 
@@ -66,14 +66,15 @@ export const createStore = <State, ActionType extends Action = AnyAction>(
 
   const dispatch = (action: ActionType): void => {
     currentState = reducer(currentState, action);
-    for (let i = 0; i < listeners.length; i++) {
-      listeners[i]();
+
+    for (const listener of listeners) {
+      listener();
     }
   };
 
   // This creates the initial store by causing each reducer to be called
   // with an undefined state
-  dispatch({ type: '@@INIT' } as ActionType);
+  dispatch({ type: "@@INIT" } as ActionType);
 
   return {
     dispatch,
@@ -90,14 +91,14 @@ export const applyMiddleware = (
   ...middlewares: Middleware[]
 ): StoreEnhancer => {
   return (
-    createStoreFunction: (reducer: Reducer, enhancer?: StoreEnhancer) => Store,
+    createStoreFn: (reducer: Reducer, enhancer?: StoreEnhancer) => Store,
   ) => {
     return (reducer, ...args): Store => {
-      const store = createStoreFunction(reducer, ...args);
+      const store = createStoreFn(reducer, ...args);
 
-      let dispatch: Dispatch = (action, ...args) => {
+      let dispatch: Dispatch = () => {
         throw new Error(
-          'Dispatching while constructing your middleware is not allowed.',
+          "Dispatching while constructing your middleware is not allowed.",
         );
       };
 
@@ -125,7 +126,7 @@ export const applyMiddleware = (
  * defined in reducersObj paramter.
  *
  * Main difference from redux/combineReducers is that it preserves keys
- * in the state that are not present in the reducers object. This function
+ * in the state that are not present in the reducers object. This Fn
  * is also more flexible than the redux counterpart.
  */
 export const combineReducers = (
@@ -133,8 +134,8 @@ export const combineReducers = (
 ): Reducer => {
   const keys = Object.keys(reducersObj);
 
-  return (prevState = {}, action) => {
-    const nextState = { ...prevState };
+  return (prevState: Reducer = {} as Reducer, action) => {
+    const nextState = { ...prevState } as Reducer;
     let hasChanged = false;
 
     for (const key of keys) {
@@ -153,10 +154,10 @@ export const combineReducers = (
 };
 
 /**
- * A utility function to create an action creator for the given action
+ * A utility Fn to create an action creator for the given action
  * type string. The action creator accepts a single argument, which will
  * be included in the action object as a field called payload. The action
- * creator function will also have its toString() overriden so that it
+ * creator Fn will also have its toString() overriden so that it
  * returns the action type, allowing it to be used in reducer logic that
  * is looking for that action type.
  *
@@ -178,11 +179,12 @@ export const createAction = <TAction extends string>(
     if (prepare) {
       const prepared = prepare(...args);
       if (!prepared) {
-        throw new Error('prepare function did not return an object');
+        throw new Error("prepare Fn did not return an object");
       }
       action = { ...action, ...prepared };
     } else {
-      action.payload = args[0];
+      const [payload] = args;
+      action.payload = payload;
     }
 
     return action;

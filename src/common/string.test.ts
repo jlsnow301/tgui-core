@@ -1,4 +1,5 @@
 import { describe, it } from "vitest";
+
 import { createSearch, decodeHtmlEntities, toTitleCase } from "./string";
 
 describe("createSearch", () => {

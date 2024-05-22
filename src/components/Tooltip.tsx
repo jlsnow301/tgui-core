@@ -1,7 +1,11 @@
 /* eslint-disable react/no-deprecated */
 // TODO: Rewrite as an FC, remove this lint disable
-import { createPopper, Placement, VirtualElement } from "@popperjs/core";
-import { Component, ReactNode } from "react";
+import {
+  createPopper,
+  type Placement,
+  type VirtualElement,
+} from "@popperjs/core";
+import { Component, type ReactNode } from "react";
 import { findDOMNode, render } from "react-dom";
 
 type TooltipProps = {
@@ -70,7 +74,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
     }
 
     domNode.addEventListener("mouseenter", () => {
-      let renderedTooltip = Tooltip.renderedTooltip;
+      let { renderedTooltip } = Tooltip;
       if (renderedTooltip === undefined) {
         renderedTooltip = document.createElement("div");
         renderedTooltip.className = "Tooltip";
@@ -100,28 +104,28 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
   }
 
   renderPopperContent() {
-    const renderedTooltip = Tooltip.renderedTooltip;
+    const { renderedTooltip } = Tooltip;
     if (!renderedTooltip) {
       return;
     }
 
     render(<span>{this.props.content}</span>, renderedTooltip, () => {
-      let singletonPopper = Tooltip.singletonPopper;
+      let { singletonPopper } = Tooltip;
       if (singletonPopper === undefined) {
         singletonPopper = createPopper(
           Tooltip.virtualElement,
-          renderedTooltip!,
+          renderedTooltip,
           {
             ...DEFAULT_OPTIONS,
-            placement: this.props.position || "auto",
-          }
+            placement: this.props.position ?? "auto",
+          },
         );
 
         Tooltip.singletonPopper = singletonPopper;
       } else {
         singletonPopper.setOptions({
           ...DEFAULT_OPTIONS,
-          placement: this.props.position || "auto",
+          placement: this.props.position ?? "auto",
         });
 
         singletonPopper.update();
