@@ -31,7 +31,7 @@ type TabProps = Partial<{
   BoxProps &
   PropsWithChildren;
 
-export const Tabs = (props: Props) => {
+export function Tabs(props: Props) {
   const { children, className, fill, fluid, vertical, ...rest } = props;
 
   return (
@@ -49,9 +49,9 @@ export const Tabs = (props: Props) => {
       {children}
     </div>
   );
-};
+}
 
-const Tab = (props: TabProps) => {
+function Tab(props: TabProps) {
   const {
     children,
     className,
@@ -85,6 +85,6 @@ const Tab = (props: TabProps) => {
       {canRender(rightSlot) && <div className="Tab__right">{rightSlot}</div>}
     </div>
   );
-};
+}
 
 Tabs.Tab = Tab;

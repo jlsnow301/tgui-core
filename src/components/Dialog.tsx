@@ -14,8 +14,9 @@ type DialogProps = {
   width?: string;
 };
 
-export const Dialog = (props: DialogProps) => {
+export function Dialog(props: DialogProps) {
   const { children, height, onClose, title, width } = props;
+
   return (
     <div className="Dialog">
       <Box className="Dialog__content" height={height} width={width ?? "370px"}>
@@ -39,15 +40,16 @@ export const Dialog = (props: DialogProps) => {
       </Box>
     </div>
   );
-};
+}
 
 type DialogButtonProps = {
   children: any;
   onClick: () => void;
 };
 
-const DialogButton = (props: DialogButtonProps) => {
+function DialogButton(props: DialogButtonProps) {
   const { children, onClick } = props;
+
   return (
     <Button
       className="Dialog__button"
@@ -57,7 +59,7 @@ const DialogButton = (props: DialogButtonProps) => {
       {children}
     </Button>
   );
-};
+}
 
 Dialog.Button = DialogButton;
 
@@ -68,8 +70,9 @@ type UnsavedChangesDialogProps = {
   onSave: () => void;
 };
 
-export const UnsavedChangesDialog = (props: UnsavedChangesDialogProps) => {
+export function UnsavedChangesDialog(props: UnsavedChangesDialogProps) {
   const { documentName, onClose, onDiscard, onSave } = props;
+
   return (
     <Dialog onClose={onClose} title="Notepad">
       <div className="Dialog__body">
@@ -82,4 +85,4 @@ export const UnsavedChangesDialog = (props: UnsavedChangesDialogProps) => {
       </div>
     </Dialog>
   );
-};
+}

@@ -11,10 +11,10 @@ import { Box, unit } from "./Box";
 import { Divider } from "./Divider";
 import { Tooltip } from "./Tooltip";
 
-export const LabeledList = (props: PropsWithChildren) => {
+export function LabeledList(props: PropsWithChildren) {
   const { children } = props;
   return <table className="LabeledList">{children}</table>;
-};
+}
 
 type LabeledListItemProps = Partial<{
   buttons: ReactNode;
@@ -32,7 +32,7 @@ type LabeledListItemProps = Partial<{
   verticalAlign: string;
 }>;
 
-const LabeledListItem = (props: LabeledListItemProps) => {
+function LabeledListItem(props: LabeledListItemProps) {
   const {
     buttons,
     children,
@@ -105,13 +105,15 @@ const LabeledListItem = (props: LabeledListItemProps) => {
       )}
     </tr>
   );
-};
+}
+
+LabeledList.Item = LabeledListItem;
 
 type LabeledListDividerProps = {
   size?: number;
 };
 
-const LabeledListDivider = (props: LabeledListDividerProps) => {
+function LabeledListDivider(props: LabeledListDividerProps) {
   const padding = props.size ? unit(Math.max(0, props.size - 1)) : 0;
   return (
     <tr className="LabeledList__row">
@@ -126,7 +128,6 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
       </td>
     </tr>
   );
-};
+}
 
-LabeledList.Item = LabeledListItem;
 LabeledList.Divider = LabeledListDivider;

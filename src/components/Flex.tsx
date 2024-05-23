@@ -23,15 +23,15 @@ export type FlexProps = Partial<{
 }> &
   BoxProps;
 
-export const computeFlexClassName = (props: FlexProps) => {
+export function computeFlexClassName(props: FlexProps) {
   return classes([
     "Flex",
     props.inline && "Flex--inline",
     computeBoxClassName(props),
   ]);
-};
+}
 
-export const computeFlexProps = (props: FlexProps) => {
+export function computeFlexProps(props: FlexProps) {
   const { align, direction, justify, wrap, ...rest } = props;
 
   return computeBoxProps({
@@ -44,9 +44,9 @@ export const computeFlexProps = (props: FlexProps) => {
     },
     ...rest,
   });
-};
+}
 
-export const Flex = (props) => {
+export function Flex(props) {
   const { className, ...rest } = props;
   return (
     <div
@@ -54,7 +54,7 @@ export const Flex = (props) => {
       {...computeFlexProps(rest)}
     />
   );
-};
+}
 
 export type FlexItemProps = BoxProps &
   Partial<{
@@ -66,11 +66,11 @@ export type FlexItemProps = BoxProps &
     style: Partial<HTMLDivElement["style"]>;
   }>;
 
-export const computeFlexItemClassName = (props: FlexItemProps) => {
+export function computeFlexItemClassName(props: FlexItemProps) {
   return classes(["Flex__item", computeBoxClassName(props)]);
-};
+}
 
-export const computeFlexItemProps = (props: FlexItemProps) => {
+export function computeFlexItemProps(props: FlexItemProps) {
   const { align, basis, grow, order, shrink, style, ...rest } = props;
 
   const computedBasis =
@@ -93,16 +93,17 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
     },
     ...rest,
   });
-};
+}
 
-const FlexItem = (props) => {
+function FlexItem(props) {
   const { className, ...rest } = props;
+
   return (
     <div
       className={classes([className, computeFlexItemClassName(props)])}
       {...computeFlexItemProps(rest)}
     />
   );
-};
+}
 
 Flex.Item = FlexItem;

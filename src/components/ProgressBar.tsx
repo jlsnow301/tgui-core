@@ -28,7 +28,7 @@ type Props = {
   Partial<BoxProps> &
   PropsWithChildren;
 
-export const ProgressBar = (props: Props) => {
+export function ProgressBar(props: Props) {
   const {
     children,
     className,
@@ -76,4 +76,4 @@ export const ProgressBar = (props: Props) => {
       </div>
     </div>
   );
-};
+}

@@ -34,7 +34,7 @@ const keyListeners: ((key: KeyEvent) => void)[] = [];
 /**
  * Converts a browser keycode to BYOND keycode.
  */
-const keyCodeToByond = (keyCode: number) => {
+function keyCodeToByond(keyCode: number) {
   if (keyCode === 16) return "Shift";
   if (keyCode === 17) return "Ctrl";
   if (keyCode === 18) return "Alt";
@@ -61,13 +61,13 @@ const keyCodeToByond = (keyCode: number) => {
   if (keyCode === 188) return ",";
   if (keyCode === 189) return "-";
   if (keyCode === 190) return ".";
-};
+}
 
 /**
  * Keyboard passthrough logic. This allows you to keep doing things
  * in game while the browser window is focused.
  */
-const handlePassthrough = (key: KeyEvent) => {
+function handlePassthrough(key: KeyEvent) {
   const keyString = String(key);
   // In addition to F5, support reloading with Ctrl+R and Ctrl+F5
   if (keyString === "Ctrl+F5" || keyString === "Ctrl+R") {
@@ -110,27 +110,27 @@ const handlePassthrough = (key: KeyEvent) => {
 
     return Byond.command(command);
   }
-};
+}
 
 /**
  * Acquires a lock on the hotkey, which prevents it from being
  * passed through to BYOND.
  */
-export const acquireHotKey = (keyCode: number) => {
+export function acquireHotKey(keyCode: number) {
   hotKeysAcquired.push(keyCode);
-};
+}
 
 /**
  * Makes the hotkey available to BYOND again.
  */
-export const releaseHotKey = (keyCode: number) => {
+export function releaseHotKey(keyCode: number) {
   const index = hotKeysAcquired.indexOf(keyCode);
   if (index >= 0) {
     hotKeysAcquired.splice(index, 1);
   }
-};
+}
 
-export const releaseHeldKeys = () => {
+export function releaseHeldKeys() {
   for (const byondKeyCode of Object.keys(keyState)) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
@@ -138,14 +138,21 @@ export const releaseHeldKeys = () => {
       Byond.command(`KeyUp "${byondKeyCode}"`);
     }
   }
-};
+}
 
 type ByondSkinMacro = {
   command: string;
   name: string;
 };
 
-export const setupHotKeys = () => {
+// Insert macros
+const escapedQuotRegex = /\\"/g;
+
+function unescape(str: string) {
+  return str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
+}
+
+export function setupHotKeys() {
   // Read macros
   Byond.winget("default.*").then((data: Record<string, string>) => {
     // Group each macro by ref
@@ -165,11 +172,7 @@ export const setupHotKeys = () => {
         groupedByRef[ref][prop] = data[key];
       }
     }
-    // Insert macros
-    const escapedQuotRegex = /\\"/g;
 
-    const unescape = (str: string) =>
-      str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
     for (const ref of Object.keys(groupedByRef)) {
       const macro = groupedByRef[ref];
       const byondKeyName = unescape(macro.name);
@@ -186,7 +189,7 @@ export const setupHotKeys = () => {
     }
     handlePassthrough(key);
   });
-};
+}
 
 /**
  * Registers for any key events, such as key down or key up.
@@ -199,7 +202,7 @@ export const setupHotKeys = () => {
  * @param callback The function to call whenever a key event occurs
  * @returns A callback to stop listening
  */
-export const listenForKeyEvents = (callback: (key: KeyEvent) => void) => {
+export function listenForKeyEvents(callback: (key: KeyEvent) => void) {
   keyListeners.push(callback);
 
   let removed = false;
@@ -212,4 +215,4 @@ export const listenForKeyEvents = (callback: (key: KeyEvent) => void) => {
     removed = true;
     keyListeners.splice(keyListeners.indexOf(callback), 1);
   };
-};
+}

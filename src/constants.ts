@@ -301,7 +301,7 @@ const GASES = [
 ] as const;
 
 // Returns gas label based on gasId
-export const getGasLabel = (gasId: string, fallbackValue?: string) => {
+export function getGasLabel(gasId: string, fallbackValue?: string) {
   if (!gasId) return fallbackValue ?? "None";
 
   const gasSearchString = gasId.toLowerCase();
@@ -313,10 +313,10 @@ export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   }
 
   return fallbackValue ?? "None";
-};
+}
 
 // Returns gas color based on gasId
-export const getGasColor = (gasId: string) => {
+export function getGasColor(gasId: string) {
   if (!gasId) return "black";
 
   const gasSearchString = gasId.toLowerCase();
@@ -328,10 +328,10 @@ export const getGasColor = (gasId: string) => {
   }
 
   return "black";
-};
+}
 
 // Returns gas object based on gasId
-export const getGasFromId = (gasId: string): Gas | undefined => {
+export function getGasFromId(gasId: string): Gas | undefined {
   if (!gasId) return;
 
   const gasSearchString = gasId.toLowerCase();
@@ -341,10 +341,10 @@ export const getGasFromId = (gasId: string): Gas | undefined => {
       return gas;
     }
   }
-};
+}
 
 // Returns gas object based on gasPath
-export const getGasFromPath = (gasPath: string): Gas | undefined => {
+export function getGasFromPath(gasPath: string): Gas | undefined {
   if (!gasPath) return;
 
   for (const gas of GASES) {
@@ -352,4 +352,4 @@ export const getGasFromPath = (gasPath: string): Gas | undefined => {
       return gas;
     }
   }
-};
+}

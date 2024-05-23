@@ -21,9 +21,10 @@ type Func = (...args: any[]) => any;
  * const composedFunction2 = flow([add2, multiplyBy3], subtract5); // ((4 + 2) * 3) - 5 = 13
  *
  */
-export const flow =
-  (...funcs: Array<Func | Func[]>) =>
-  (input: any, ...rest: any[]): any => {
+export function flow(
+  ...funcs: Array<Func | Func[]>
+): (input: any, ...rest: any[]) => any {
+  return (input, ...rest): any => {
     let output = input;
 
     for (const func of funcs) {
@@ -36,3 +37,4 @@ export const flow =
     }
     return output;
   };
+}

@@ -12,7 +12,7 @@ type Props = Partial<{
   PropsWithChildren;
 
 // The cost of flexibility and prettiness.
-export const StyleableSection = (props: Props) => {
+export function StyleableSection(props: Props) {
   return (
     <Box style={props.style}>
       {/* Yes, this box (line above) is missing the "Section" class. This is very intentional, as the layout looks *ugly* with it.*/}
@@ -27,4 +27,4 @@ export const StyleableSection = (props: Props) => {
       </Box>
     </Box>
   );
-};
+}

@@ -8,8 +8,9 @@
  * Returns a range of numbers from start to end, exclusively.
  * For example, range(0, 5) will return [0, 1, 2, 3, 4].
  */
-export const range = (start: number, end: number): number[] =>
-  new Array(end - start).fill(null).map((_, index) => index + start);
+export function range(start: number, end: number): number[] {
+  return new Array(end - start).fill(null).map((_, index) => index + start);
+}
 
 /**
  * Creates a duplicate-free version of an array, using SameValueZero for
@@ -22,10 +23,7 @@ export const range = (start: number, end: number): number[] =>
  * is determined by the order they occur in the array. The iteratee is
  * invoked with one argument: value.
  */
-export const uniqBy = <T>(
-  array: T[],
-  iterateeFn?: (value: T) => unknown,
-): T[] => {
+export function uniqBy<T>(array: T[], iterateeFn?: (value: T) => unknown): T[] {
   const { length } = array;
   const result: T[] = [];
   const seen: unknown[] = iterateeFn ? [] : result;
@@ -53,9 +51,11 @@ export const uniqBy = <T>(
     }
   }
   return result;
-};
+}
 
-export const uniq = <T>(array: T[]): T[] => uniqBy(array);
+export function uniq<T>(array: T[]): T[] {
+  return uniqBy(array);
+}
 
 type Zip<T extends unknown[][]> = {
   [I in keyof T]: T[I] extends (infer U)[] ? U : never;
@@ -66,7 +66,7 @@ type Zip<T extends unknown[][]> = {
  * the first elements of the given arrays, the second of which contains
  * the second elements of the given arrays, and so on.
  */
-export const zip = <T extends unknown[][]>(...arrays: T): Zip<T> => {
+export function zip<T extends unknown[][]>(...arrays: T): Zip<T> {
   if (arrays.length === 0) {
     return [];
   }
@@ -83,13 +83,13 @@ export const zip = <T extends unknown[][]>(...arrays: T): Zip<T> => {
     result.push(entry as any);
   }
   return result;
-};
+}
 
-const binarySearch = <T, U = unknown>(
+function binarySearch<T, U = unknown>(
   getKey: (value: T) => U,
   collection: readonly T[],
   inserting: T,
-): number => {
+): number {
   if (collection.length === 0) {
     return 0;
   }
@@ -118,23 +118,23 @@ const binarySearch = <T, U = unknown>(
   }
 
   return compare > insertingKey ? middle : middle + 1;
-};
+}
 
-export const binaryInsertWith = <T, U = unknown>(
+export function binaryInsertWith<T, U = unknown>(
   collection: readonly T[],
   value: T,
   getKey: (value: T) => U,
-): T[] => {
+): T[] {
   const copy = [...collection];
   copy.splice(binarySearch(getKey, collection, value), 0, value);
   return copy;
-};
+}
 
 /**
  * This method takes a collection of items and a number, returning a collection
  * of collections, where the maximum amount of items in each is that second arg
  */
-export const paginate = <T>(collection: T[], maxPerPage: number): T[][] => {
+export function paginate<T>(collection: T[], maxPerPage: number): T[][] {
   const pages: T[][] = [];
   let page: T[] = [];
   let itemsToAdd = maxPerPage;
@@ -152,18 +152,21 @@ export const paginate = <T>(collection: T[], maxPerPage: number): T[][] => {
     pages.push(page);
   }
   return pages;
-};
+}
 
-const isObject = (obj: unknown): obj is object =>
-  typeof obj === "object" && obj !== null;
+function isObject(obj: unknown): obj is object {
+  return typeof obj === "object" && obj !== null;
+}
 
 // Does a deep merge of two objects. DO NOT FEED CIRCULAR OBJECTS!!
-export const deepMerge = (...objects: any[]): any => {
+export function deepMerge(...objects: any[]): any {
   const target = {};
+
   for (const object of objects) {
     for (const key of Object.keys(object)) {
       const targetValue = target[key];
       const objectValue = object[key];
+
       if (Array.isArray(targetValue) && Array.isArray(objectValue)) {
         target[key] = [...targetValue, ...objectValue];
       } else if (isObject(targetValue) && isObject(objectValue)) {
@@ -174,4 +177,4 @@ export const deepMerge = (...objects: any[]): any => {
     }
   }
   return target;
-};
+}

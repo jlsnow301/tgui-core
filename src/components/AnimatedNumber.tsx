@@ -8,11 +8,11 @@ import { Component, createRef } from "react";
 
 import { clamp, toFixed } from "../common/math";
 
-const isSafeNumber = (value: number) => {
+function isSafeNumber(value: number) {
   return (
     typeof value === "number" && Number.isFinite(value) && !Number.isNaN(value)
   );
-};
+}
 
 export type AnimatedNumberProps = {
   /**

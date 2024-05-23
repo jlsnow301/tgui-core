@@ -10,19 +10,19 @@
  * called for N milliseconds. If `immediate` is passed, trigger the
  * function on the leading edge, instead of the trailing.
  */
-export const debounce = <F extends (...args: any[]) => any>(
+export function debounce<F extends (...args: any[]) => any>(
   fn: F,
   time: number,
   immediate = false,
-): ((...args: Parameters<F>) => void) => {
+): (...args: Parameters<F>) => void {
   let timeout: ReturnType<typeof setTimeout> | null;
   return (...args: Parameters<F>) => {
-    const later = () => {
+    function later() {
       timeout = null;
       if (!immediate) {
         fn(...args);
       }
-    };
+    }
     const callNow = immediate && !timeout;
     clearTimeout(timeout!);
     timeout = setTimeout(later, time);
@@ -30,16 +30,16 @@ export const debounce = <F extends (...args: any[]) => any>(
       fn(...args);
     }
   };
-};
+}
 
 /**
  * Returns a function, that, when invoked, will only be triggered at most once
  * during a given window of time.
  */
-export const throttle = <F extends (...args: any[]) => any>(
+export function throttle<F extends (...args: any[]) => any>(
   fn: F,
   time: number,
-): ((...args: Parameters<F>) => void) => {
+): (...args: Parameters<F>) => void {
   let previouslyRun: number | null,
     queuedToRun: ReturnType<typeof setTimeout> | null;
   return function invokeFn(...args: Parameters<F>) {
@@ -57,12 +57,13 @@ export const throttle = <F extends (...args: any[]) => any>(
       );
     }
   };
-};
+}
 
 /**
  * Suspends an asynchronous function for N milliseconds.
  *
  * @param {number} time
  */
-export const sleep = (time: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, time));
+export function sleep(time: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}

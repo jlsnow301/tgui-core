@@ -86,49 +86,49 @@ function isColorClass(str: unknown): boolean {
   return typeof str === "string" && CSS_COLORS.includes(str as any);
 }
 
-const mapRawPropTo =
-  (attrName: string) =>
-  (style: Record<string, any>, value: string | number) => {
+function mapRawPropTo(attrName: string) {
+  return function (style: Record<string, any>, value: string | number) {
     if (typeof value === "number" || typeof value === "string") {
       style[attrName] = value;
     }
   };
+}
 
 type UnitFn = (value: unknown) => string | undefined;
 
-const mapUnitPropTo =
-  (attrName: string, unit: UnitFn) =>
-  (style: Record<string, any>, value: string | number) => {
+function mapUnitPropTo(attrName: string, unit: UnitFn) {
+  return function (style: Record<string, any>, value: string | number) {
     if (typeof value === "number" || typeof value === "string") {
       style[attrName] = unit(value);
     }
   };
+}
 
-const mapBooleanPropTo =
-  (attrName: string, attrValue: string | number) =>
-  (style: Record<string, any>, value: boolean) => {
+function mapBooleanPropTo(attrName: string, attrValue: string | number) {
+  return function (style: Record<string, any>, value: boolean) {
     if (value) {
       style[attrName] = attrValue;
     }
   };
+}
 
-const mapDirectionalUnitPropTo =
-  (attrName: string, unit: UnitFn, dirs) =>
-  (style: Record<string, any>, value: string | number) => {
+function mapDirectionalUnitPropTo(attrName: string, unit: UnitFn, dirs) {
+  return function (style: Record<string, any>, value: string | number) {
     if (typeof value === "number" || typeof value === "string") {
       for (const dir of dirs) {
         style[`${attrName}-${dir}`] = unit(value);
       }
     }
   };
+}
 
-const mapColorPropTo =
-  (attrName: string) =>
-  (style: Record<string, any>, value: string | number) => {
+function mapColorPropTo(attrName: string) {
+  return function (style: Record<string, any>, value: string | number) {
     if (isColorCode(value)) {
       style[attrName] = value;
     }
   };
+}
 
 // String / number props
 const stringStyleMap = {

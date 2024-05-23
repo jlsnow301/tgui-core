@@ -23,7 +23,7 @@ type IconPropsUnique = { name: string } & Partial<{
 
 export type IconProps = IconPropsUnique & BoxProps;
 
-export const Icon = (props: IconProps) => {
+export function Icon(props: IconProps) {
   const { className, name, rotation, size, spin, ...rest } = props;
 
   const customStyle = rest.style ?? {};
@@ -67,7 +67,7 @@ export const Icon = (props: IconProps) => {
       {...boxProps}
     />
   );
-};
+}
 
 type IconStackUnique = {
   children: ReactNode;
@@ -76,8 +76,9 @@ type IconStackUnique = {
 
 export type IconStackProps = IconStackUnique & BoxProps;
 
-export const IconStack = (props: IconStackProps) => {
+export function IconStack(props: IconStackProps) {
   const { children, className, ...rest } = props;
+
   return (
     <span
       className={classes(["IconStack", className, computeBoxClassName(rest)])}
@@ -86,6 +87,6 @@ export const IconStack = (props: IconStackProps) => {
       {children}
     </span>
   );
-};
+}
 
 Icon.Stack = IconStack;

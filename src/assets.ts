@@ -14,8 +14,9 @@ import {
 const EXCLUDED_PATTERNS = [/v4shim/i];
 const loadedMappings: Record<string, string> = {};
 
-export const resolveAsset = (name: string): string =>
-  loadedMappings[name] || name;
+export function resolveAsset(name: string): string {
+  return loadedMappings[name] || name;
+}
 
 export const assetMiddleware: Middleware =
   () =>
