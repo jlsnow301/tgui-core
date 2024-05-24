@@ -5,20 +5,20 @@
  * @license MIT
  */
 
+import { KEY } from '../common/keys';
+import { classes } from '../common/react';
 import {
   forwardRef,
-  type RefObject,
+  RefObject,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
-} from "react";
-import { type KeyboardEvent, type SyntheticEvent } from "react";
+} from 'react';
+import { KeyboardEvent, SyntheticEvent } from 'react';
 
-import { KEY } from "../common/keys";
-import { classes } from "../common/react";
-import { Box, type BoxProps } from "./Box";
-import { toInputValue } from "./Input";
+import { Box, BoxProps } from './Box';
+import { toInputValue } from './Input';
 
 type Props = Partial<{
   autoFocus: boolean;
@@ -67,7 +67,7 @@ export const TextArea = forwardRef(
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [scrolledAmount, setScrolledAmount] = useState(0);
 
-    function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
       if (event.key === KEY.Enter) {
         if (event.shiftKey) {
           event.currentTarget.focus();
@@ -76,7 +76,7 @@ export const TextArea = forwardRef(
 
         onEnter?.(event, event.currentTarget.value);
         if (selfClear) {
-          event.currentTarget.value = "";
+          event.currentTarget.value = '';
         }
         event.currentTarget.blur();
         return;
@@ -85,7 +85,7 @@ export const TextArea = forwardRef(
       if (event.key === KEY.Escape) {
         onEscape?.(event);
         if (selfClear) {
-          event.currentTarget.value = "";
+          event.currentTarget.value = '';
         } else {
           event.currentTarget.value = toInputValue(value);
           event.currentTarget.blur();
@@ -96,16 +96,19 @@ export const TextArea = forwardRef(
 
       if (!dontUseTabForIndent && event.key === KEY.Tab) {
         event.preventDefault();
-        const { selectionEnd, selectionStart, value } = event.currentTarget;
+        const { value, selectionStart, selectionEnd } = event.currentTarget;
         event.currentTarget.value =
           value.substring(0, selectionStart) +
-          "\t" +
+          '\t' +
           value.substring(selectionEnd);
         event.currentTarget.selectionEnd = selectionStart + 1;
       }
-    }
+    };
 
-    useImperativeHandle(forwardedRef, () => textareaRef.current!);
+    useImperativeHandle(
+      forwardedRef,
+      () => textareaRef.current as HTMLTextAreaElement
+    );
 
     /** Focuses the input on mount */
     useEffect(() => {
@@ -114,7 +117,7 @@ export const TextArea = forwardRef(
       const input = textareaRef.current;
       if (!input) return;
 
-      if (autoFocus ?? autoSelect) {
+      if (autoFocus || autoSelect) {
         setTimeout(() => {
           input.focus();
 
@@ -139,9 +142,9 @@ export const TextArea = forwardRef(
     return (
       <Box
         className={classes([
-          "TextArea",
-          fluid && "TextArea--fluid",
-          noborder && "TextArea--noborder",
+          'TextArea',
+          fluid && 'TextArea--fluid',
+          noborder && 'TextArea--noborder',
           className,
         ])}
         {...rest}
@@ -149,16 +152,16 @@ export const TextArea = forwardRef(
         {!!displayedValue && (
           <div
             style={{
-              height: "100%",
-              overflow: "hidden",
-              position: "absolute",
-              width: "100%",
+              height: '100%',
+              overflow: 'hidden',
+              position: 'absolute',
+              width: '100%',
             }}
           >
             <div
               className={classes([
-                "TextArea__textarea",
-                "TextArea__textarea_custom",
+                'TextArea__textarea',
+                'TextArea__textarea_custom',
               ])}
               style={{
                 transform: `translateY(-${scrolledAmount}px)`,
@@ -170,9 +173,9 @@ export const TextArea = forwardRef(
         )}
         <textarea
           className={classes([
-            "TextArea__textarea",
-            scrollbar && "TextArea__textarea--scrollable",
-            nowrap && "TextArea__nowrap",
+            'TextArea__textarea',
+            scrollbar && 'TextArea__textarea--scrollable',
+            nowrap && 'TextArea__nowrap',
           ])}
           maxLength={maxLength}
           onBlur={(event) => onChange?.(event, event.target.value)}
@@ -186,10 +189,10 @@ export const TextArea = forwardRef(
           placeholder={placeholder}
           ref={textareaRef}
           style={{
-            color: displayedValue ? "rgba(0, 0, 0, 0)" : "inherit",
+            color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
           }}
         />
       </Box>
     );
-  },
+  }
 );

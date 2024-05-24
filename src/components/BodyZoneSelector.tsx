@@ -1,21 +1,21 @@
-import { Component, createRef } from "react";
+import { Component, createRef } from 'react';
 
-import { resolveAsset } from "../assets";
-import { Image } from "./Image";
+import { resolveAsset } from '../assets';
+import { Image } from './Image';
 
 export enum BodyZone {
-  Chest = "chest",
-  Eyes = "eyes",
-  Groin = "groin",
-  Head = "head",
-  LeftArm = "l_arm",
-  LeftLeg = "l_leg",
-  Mouth = "mouth",
-  RightArm = "r_arm",
-  RightLeg = "r_leg",
+  Head = 'head',
+  Chest = 'chest',
+  LeftArm = 'l_arm',
+  RightArm = 'r_arm',
+  LeftLeg = 'l_leg',
+  RightLeg = 'r_leg',
+  Eyes = 'eyes',
+  Mouth = 'mouth',
+  Groin = 'groin',
 }
 
-function bodyZonePixelToZone(x: number, y: number): BodyZone | null {
+const bodyZonePixelToZone = (x: number, y: number): BodyZone | null => {
   // TypeScript translation of /atom/movable/screen/zone_sel/proc/get_zone_at
   if (y < 1) {
     return null;
@@ -52,7 +52,7 @@ function bodyZonePixelToZone(x: number, y: number): BodyZone | null {
   }
 
   return null;
-}
+};
 
 type BodyZoneSelectorProps = {
   onClick?: (zone: BodyZone) => void;
@@ -76,7 +76,7 @@ export class BodyZoneSelector extends Component<
 
   render() {
     const { hoverZone } = this.state;
-    const { scale = 3, selectedZone, theme = "midnight" } = this.props;
+    const { scale = 3, selectedZone, theme = 'midnight' } = this.props;
 
     return (
       <div
@@ -84,12 +84,13 @@ export class BodyZoneSelector extends Component<
         style={{
           width: `${32 * scale}px`,
           height: `${32 * scale}px`,
-          position: "relative",
+          position: 'relative',
         }}
       >
         <Image
+          src={resolveAsset(`body_zones.base_${theme}.png`)}
           onClick={() => {
-            const { onClick } = this.props;
+            const onClick = this.props.onClick;
             if (onClick && this.state.hoverZone) {
               onClick(this.state.hoverZone);
             }
@@ -111,9 +112,8 @@ export class BodyZoneSelector extends Component<
               hoverZone: bodyZonePixelToZone(x / scale, y / scale),
             });
           }}
-          src={resolveAsset(`body_zones.base_${theme}.png`)}
           style={{
-            position: "absolute",
+            position: 'absolute',
             width: `${32 * scale}px`,
             height: `${32 * scale}px`,
           }}
@@ -123,8 +123,8 @@ export class BodyZoneSelector extends Component<
           <Image
             src={resolveAsset(`body_zones.${selectedZone}.png`)}
             style={{
-              pointerEvents: "none",
-              position: "absolute",
+              pointerEvents: 'none',
+              position: 'absolute',
               width: `${32 * scale}px`,
               height: `${32 * scale}px`,
             }}
@@ -135,9 +135,9 @@ export class BodyZoneSelector extends Component<
           <Image
             src={resolveAsset(`body_zones.${hoverZone}.png`)}
             style={{
-              opacity: "0.5",
-              pointerEvents: "none",
-              position: "absolute",
+              opacity: '0.5',
+              pointerEvents: 'none',
+              position: 'absolute',
               width: `${32 * scale}px`,
               height: `${32 * scale}px`,
             }}

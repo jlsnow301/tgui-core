@@ -6,29 +6,29 @@
  * @license MIT
  */
 
-import { type ReactNode } from "react";
+import { BooleanLike, classes } from '../common/react';
+import { ReactNode } from 'react';
 
-import { type BooleanLike, classes } from "../common/react";
-import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 const FA_OUTLINE_REGEX = /-o$/;
 
 type IconPropsUnique = { name: string } & Partial<{
-  className: string;
-  rotation: number;
   size: number;
   spin: BooleanLike;
-  style: Partial<HTMLDivElement["style"]>;
+  className: string;
+  rotation: number;
+  style: Partial<HTMLDivElement['style']>;
 }>;
 
 export type IconProps = IconPropsUnique & BoxProps;
 
-export function Icon(props: IconProps) {
-  const { className, name, rotation, size, spin, ...rest } = props;
+export const Icon = (props: IconProps) => {
+  const { name, size, spin, className, rotation, ...rest } = props;
 
-  const customStyle = rest.style ?? {};
+  const customStyle = rest.style || {};
   if (size) {
-    customStyle.fontSize = size * 100 + "%";
+    customStyle.fontSize = size * 100 + '%';
   }
   if (rotation) {
     customStyle.transform = `rotate(${rotation}deg)`;
@@ -37,29 +37,29 @@ export function Icon(props: IconProps) {
 
   const boxProps = computeBoxProps(rest);
 
-  let iconClass = "";
-  if (name.startsWith("tg-")) {
+  let iconClass = '';
+  if (name.startsWith('tg-')) {
     // tgfont icon
     iconClass = name;
   } else {
     // font awesome icon
-    const faRegular = name.endsWith("-o");
-    const faName = name.replace(FA_OUTLINE_REGEX, "");
-    const preprendFa = !faName.startsWith("fa-");
+    const faRegular = FA_OUTLINE_REGEX.test(name);
+    const faName = name.replace(FA_OUTLINE_REGEX, '');
+    const preprendFa = !faName.startsWith('fa-');
 
-    iconClass = faRegular ? "far " : "fas ";
+    iconClass = faRegular ? 'far ' : 'fas ';
     if (preprendFa) {
-      iconClass += "fa-";
+      iconClass += 'fa-';
     }
     iconClass += faName;
     if (spin) {
-      iconClass += " fa-spin";
+      iconClass += ' fa-spin';
     }
   }
   return (
     <i
       className={classes([
-        "Icon",
+        'Icon',
         iconClass,
         className,
         computeBoxClassName(rest),
@@ -67,7 +67,7 @@ export function Icon(props: IconProps) {
       {...boxProps}
     />
   );
-}
+};
 
 type IconStackUnique = {
   children: ReactNode;
@@ -76,17 +76,16 @@ type IconStackUnique = {
 
 export type IconStackProps = IconStackUnique & BoxProps;
 
-export function IconStack(props: IconStackProps) {
-  const { children, className, ...rest } = props;
-
+export const IconStack = (props: IconStackProps) => {
+  const { className, children, ...rest } = props;
   return (
     <span
-      className={classes(["IconStack", className, computeBoxClassName(rest)])}
+      className={classes(['IconStack', className, computeBoxClassName(rest)])}
       {...computeBoxProps(rest)}
     >
       {children}
     </span>
   );
-}
+};
 
 Icon.Stack = IconStack;

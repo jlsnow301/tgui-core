@@ -4,17 +4,17 @@
  * @license MIT
  */
 
-import { type RefObject } from "react";
+import { classes } from '../common/react';
+import { RefObject } from 'react';
 
-import { classes } from "../common/react";
 import {
   computeFlexClassName,
   computeFlexItemClassName,
   computeFlexItemProps,
   computeFlexProps,
-  type FlexItemProps,
-  type FlexProps,
-} from "./Flex";
+  FlexItemProps,
+  FlexProps,
+} from './Flex';
 
 type Props = Partial<{
   /** Fills available space. */
@@ -29,19 +29,19 @@ type Props = Partial<{
   FlexProps;
 
 export function Stack(props: Props) {
-  const { className, fill, reverse, vertical, zebra, ...rest } = props;
+  const { className, vertical, fill, reverse, zebra, ...rest } = props;
 
-  const directionPrefix = vertical ? "column" : "row";
-  const directionSuffix = reverse ? "-reverse" : "";
+  const directionPrefix = vertical ? 'column' : 'row';
+  const directionSuffix = reverse ? '-reverse' : '';
 
   return (
     <div
       className={classes([
-        "Stack",
-        fill && "Stack--fill",
-        vertical ? "Stack--vertical" : "Stack--horizontal",
-        zebra && "Stack--zebra",
-        reverse && `Stack--reverse${vertical ? "--vertical" : ""}`,
+        'Stack',
+        fill && 'Stack--fill',
+        vertical ? 'Stack--vertical' : 'Stack--horizontal',
+        zebra && 'Stack--zebra',
+        reverse && `Stack--reverse${vertical ? '--vertical' : ''}`,
         className,
         computeFlexClassName(props),
       ])}
@@ -64,7 +64,7 @@ function StackItem(props: StackItemProps) {
   return (
     <div
       className={classes([
-        "Stack__item",
+        'Stack__item',
         className,
         computeFlexItemClassName(rest),
       ])}
@@ -87,9 +87,9 @@ function StackDivider(props: StackDividerProps) {
   return (
     <div
       className={classes([
-        "Stack__item",
-        "Stack__divider",
-        hidden && "Stack__divider--hidden",
+        'Stack__item',
+        'Stack__divider',
+        hidden && 'Stack__divider--hidden',
         className,
         computeFlexItemClassName(rest),
       ])}

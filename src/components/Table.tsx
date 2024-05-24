@@ -4,8 +4,9 @@
  * @license MIT
  */
 
-import { classes } from "../common/react";
-import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { classes } from '../common/react';
+
+import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
   /** Collapses table to the smallest possible size. */
@@ -14,13 +15,13 @@ type Props = Partial<{
   BoxProps;
 
 export function Table(props: Props) {
-  const { children, className, collapsing, ...rest } = props;
+  const { className, collapsing, children, ...rest } = props;
 
   return (
     <table
       className={classes([
-        "Table",
-        collapsing && "Table--collapsing",
+        'Table',
+        collapsing && 'Table--collapsing',
         className,
         computeBoxClassName(rest),
       ])}
@@ -43,8 +44,8 @@ export function TableRow(props: RowProps) {
   return (
     <tr
       className={classes([
-        "Table__row",
-        header && "Table__row--header",
+        'Table__row',
+        header && 'Table__row--header',
         className,
         computeBoxClassName(props),
       ])}
@@ -56,11 +57,11 @@ export function TableRow(props: RowProps) {
 Table.Row = TableRow;
 
 type CellProps = Partial<{
-  /** Additional columns for this cell to expand, assuming there is room. */
-  colSpan: number;
   /** Collapses table cell to the smallest possible size,
   and stops any text inside from wrapping. */
   collapsing: boolean;
+  /** Additional columns for this cell to expand, assuming there is room. */
+  colSpan: number;
   /** Whether this is a header cell. */
   header: boolean;
   /** Rows for this cell to expand, assuming there is room. */
@@ -74,9 +75,9 @@ export function TableCell(props: CellProps) {
   return (
     <td
       className={classes([
-        "Table__cell",
-        collapsing && "Table__cell--collapsing",
-        header && "Table__cell--header",
+        'Table__cell',
+        collapsing && 'Table__cell--collapsing',
+        header && 'Table__cell--header',
         className,
         computeBoxClassName(props),
       ])}

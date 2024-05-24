@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
-import { type BoxProps, computeBoxProps } from "./Box";
+import { BoxProps, computeBoxProps } from './Box';
 
 type Props = Partial<{
   /** True is default, this fixes an ie thing */
@@ -8,7 +8,7 @@ type Props = Partial<{
   /** False by default. Good if you're fetching images on UIs that do not auto update. This will attempt to fix the 'x' icon 5 times. */
   fixErrors: boolean;
   /** Fill is default. */
-  objectFit: "contain" | "cover";
+  objectFit: 'contain' | 'cover';
 }> &
   IconUnion &
   BoxProps;
@@ -16,12 +16,12 @@ type Props = Partial<{
 // at least one of these is required
 type IconUnion =
   | {
-      className?: never;
+      className?: string;
       src: string;
     }
   | {
       className: string;
-      src?: never;
+      src?: string;
     };
 
 const maxAttempts = 5;
@@ -31,16 +31,16 @@ export function Image(props: Props) {
   const {
     fixBlur = true,
     fixErrors = false,
-    objectFit = "fill",
+    objectFit = 'fill',
     src,
     ...rest
   } = props;
   const attempts = useRef(0);
 
   const computedProps = computeBoxProps(rest);
-  computedProps.style = {
+  computedProps['style'] = {
     ...computedProps.style,
-    "-ms-interpolation-mode": fixBlur ? "nearest-neighbor" : "auto",
+    '-ms-interpolation-mode': fixBlur ? 'nearest-neighbor' : 'auto',
     objectFit,
   };
 

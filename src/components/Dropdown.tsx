@@ -1,10 +1,10 @@
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { classes } from '../common/react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
-import { classes } from "../common/react";
-import { type BoxProps, unit } from "./Box";
-import { Button } from "./Button";
-import { Icon } from "./Icon";
-import { Popper } from "./Popper";
+import { BoxProps, unit } from './Box';
+import { Button } from './Button';
+import { Icon } from './Icon';
+import { Popper } from './Popper';
 
 export type DropdownEntry = {
   displayText: ReactNode;
@@ -14,11 +14,11 @@ export type DropdownEntry = {
 type DropdownOption = string | DropdownEntry;
 
 type Props = {
-  /** Called when a value is picked from the list, `value` is the value that was picked */
-  onSelected: (value: any) => void;
   /** An array of strings which will be displayed in the
   dropdown when open. See Dropdown.tsx for more advanced usage with DropdownEntry */
   options: DropdownOption[];
+  /** Called when a value is picked from the list, `value` is the value that was picked */
+  onSelected: (value: any) => void;
   /** Currently selected entry to display. Can be left stateless to permanently display this value. */
   selected: DropdownOption | null | undefined;
 } & Partial<{
@@ -54,15 +54,15 @@ type Props = {
   BoxProps;
 
 enum DIRECTION {
-  Current = "current",
-  Next = "next",
-  Previous = "previous",
+  Previous = 'previous',
+  Next = 'next',
+  Current = 'current',
 }
 
 const NONE = -1;
 
 function getOptionValue(option: DropdownOption) {
-  return typeof option === "string" ? option : option.value;
+  return typeof option === 'string' ? option : option.value;
 }
 
 export function Dropdown(props: Props) {
@@ -71,21 +71,21 @@ export function Dropdown(props: Props) {
     buttons,
     className,
     clipSelectedText = true,
-    color = "default",
+    color = 'default',
     disabled,
     displayText,
     icon,
     iconRotation,
     iconSpin,
-    menuWidth = "15rem",
+    menuWidth = '15rem',
     noChevron,
     onClick,
     onSelected,
     options = [],
     over,
-    placeholder = "Select...",
+    placeholder = 'Select...',
     selected,
-    width = "15rem",
+    width = '15rem',
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -105,7 +105,7 @@ export function Dropdown(props: Props) {
     }
 
     const element = innerRef.current?.children[scrollPos];
-    element?.scrollIntoView({ block: "nearest" });
+    element?.scrollIntoView({ block: 'nearest' });
   }
 
   /** Update the selected value when clicking the left/right buttons */
@@ -119,8 +119,8 @@ export function Dropdown(props: Props) {
 
     let newIndex: number;
     if (selectedIndex < 0) {
-      newIndex = direction === "next" ? endIndex : startIndex; // No selection yet
-    } else if (direction === "next") {
+      newIndex = direction === 'next' ? endIndex : startIndex; // No selection yet
+    } else if (direction === 'next') {
       newIndex = selectedIndex === endIndex ? startIndex : selectedIndex + 1; // Move to next option
     } else {
       newIndex = selectedIndex === startIndex ? endIndex : selectedIndex - 1; // Move to previous option
@@ -147,11 +147,14 @@ export function Dropdown(props: Props) {
 
   return (
     <Popper
+      isOpen={open}
+      onClickOutside={() => setOpen(false)}
+      placement={over ? 'top-start' : 'bottom-start'}
       content={
         <div
           className="Layout Dropdown__menu"
-          ref={innerRef}
           style={{ minWidth: menuWidth }}
+          ref={innerRef}
         >
           {options.length === 0 && (
             <div className="Dropdown__menuentry">No options</div>
@@ -163,8 +166,8 @@ export function Dropdown(props: Props) {
             return (
               <div
                 className={classes([
-                  "Dropdown__menuentry",
-                  selected === value && "selected",
+                  'Dropdown__menuentry',
+                  selected === value && 'selected',
                 ])}
                 key={index}
                 onClick={() => {
@@ -172,24 +175,21 @@ export function Dropdown(props: Props) {
                   onSelected?.(value);
                 }}
               >
-                {typeof option === "string" ? option : option.displayText}
+                {typeof option === 'string' ? option : option.displayText}
               </div>
             );
           })}
         </div>
       }
-      isOpen={open}
-      onClickOutside={() => setOpen(false)}
-      placement={over ? "top-start" : "bottom-start"}
     >
       <div className="Dropdown" style={{ width: unit(width) }}>
         <div
           className={classes([
-            "Dropdown__control",
-            "Button",
-            "Button--dropdown",
-            "Button--color--" + color,
-            disabled && "Button--disabled",
+            'Dropdown__control',
+            'Button',
+            'Button--dropdown',
+            'Button--color--' + color,
+            disabled && 'Button--disabled',
             className,
           ])}
           onClick={(event) => {
@@ -206,16 +206,16 @@ export function Dropdown(props: Props) {
           <span
             className="Dropdown__selected-text"
             style={{
-              overflow: clipSelectedText ? "hidden" : "visible",
+              overflow: clipSelectedText ? 'hidden' : 'visible',
             }}
           >
-            {displayText ??
-              (selected && getOptionValue(selected)) ??
+            {displayText ||
+              (selected && getOptionValue(selected)) ||
               placeholder}
           </span>
           {!noChevron && (
             <span className="Dropdown__arrow-button">
-              <Icon name={adjustedOpen ? "chevron-up" : "chevron-down"} />
+              <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
             </span>
           )}
         </div>

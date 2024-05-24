@@ -4,85 +4,70 @@
  * @license MIT
  */
 
-import { Component, createRef, type RefObject } from "react";
+import { map, zip } from '../common/collections';
+import { Component, createRef, RefObject } from 'react';
 
-import { Box, type BoxProps } from "./Box";
+import { Box, BoxProps } from './Box';
 
 type Props = {
   data: number[][];
 } & Partial<{
   fillColor: string;
-  rangeX: Range;
-  rangeY: Range;
+  rangeX: [number, number];
+  rangeY: [number, number];
   strokeColor: string;
   strokeWidth: number;
 }> &
   BoxProps;
 
 type State = {
-  viewBox: Range;
+  viewBox: [number, number];
 };
 
 type Point = number[];
 type Range = [number, number];
 
-function normalizeData(
+const normalizeData = (
   data: Point[],
   scale: number[],
   rangeX?: Range,
-  rangeY?: Range,
-) {
+  rangeY?: Range
+) => {
   if (data.length === 0) {
     return [];
   }
 
-  const min: Point = [];
-  const max: Point = [];
-
-  for (const point of data) {
-    min.push(Math.min(...point));
-    max.push(Math.max(...point));
-  }
+  const min = map(zip(...data), (p) => Math.min(...p));
+  const max = map(zip(...data), (p) => Math.max(...p));
 
   if (rangeX !== undefined) {
-    const [minX, maxX] = rangeX;
-    min[0] = minX;
-    max[0] = maxX;
+    min[0] = rangeX[0];
+    max[0] = rangeX[1];
   }
 
   if (rangeY !== undefined) {
-    const [minY, maxY] = rangeY;
-    min[1] = minY;
-    max[1] = maxY;
+    min[1] = rangeY[0];
+    max[1] = rangeY[1];
   }
 
-  const normalized: Point[] = [];
-
-  for (const point of data) {
-    const normalizedPoint: Point = [];
-
-    for (let i = 0; i < point.length; i++) {
-      const value = point[i];
-      const minValue = min[i];
-      const maxValue = max[i];
-      const scaleValue = scale[i];
-      normalizedPoint.push(
-        ((value - minValue) / (maxValue - minValue)) * scaleValue,
-      );
-    }
-    normalized.push(normalizedPoint);
-  }
+  const normalized = map(data, (point) =>
+    map(
+      zip(point, min, max, scale),
+      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale
+    )
+  );
 
   return normalized;
-}
+};
 
-function dataToPolylinePoints(data: Point[]) {
-  let points = "";
-  for (const point of data) {
-    points += point[0] + "," + point[1] + " ";
+const dataToPolylinePoints = (data) => {
+  let points = '';
+  for (let i = 0; i < data.length; i++) {
+    const point = data[i];
+    points += point[0] + ',' + point[1] + ' ';
   }
   return points;
-}
+};
 
 class LineChart extends Component<Props> {
   ref: RefObject<HTMLDivElement>;
@@ -99,12 +84,12 @@ class LineChart extends Component<Props> {
   }
 
   componentDidMount() {
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize);
     this.handleResize();
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener('resize', this.handleResize);
   }
 
   handleResize = () => {
@@ -120,10 +105,10 @@ class LineChart extends Component<Props> {
   render() {
     const {
       data = [],
-      fillColor = "none",
       rangeX,
       rangeY,
-      strokeColor = "#ffffff",
+      fillColor = 'none',
+      strokeColor = '#ffffff',
       strokeWidth = 2,
       ...rest
     } = this.props;
@@ -131,7 +116,7 @@ class LineChart extends Component<Props> {
     const normalized = normalizeData(data, viewBox, rangeX, rangeY);
     // Push data outside viewBox and form a fillable polygon
     if (normalized.length > 0) {
-      const [first] = normalized;
+      const first = normalized[0];
       const last = normalized[normalized.length - 1];
       normalized.push([viewBox[0] + strokeWidth, last[1]]);
       normalized.push([viewBox[0] + strokeWidth, -strokeWidth]);
@@ -139,29 +124,29 @@ class LineChart extends Component<Props> {
       normalized.push([-strokeWidth, first[1]]);
     }
     const points = dataToPolylinePoints(normalized);
-    const divProps = { ...rest, className: "", ref: this.ref };
+    const divProps = { ...rest, className: '', ref: this.ref };
 
     return (
       <Box position="relative" {...rest}>
         <Box {...divProps}>
           <svg
+            viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
             preserveAspectRatio="none"
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              overflow: "hidden",
+              overflow: 'hidden',
             }}
-            viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
           >
             <polyline
+              transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
               fill={fillColor}
-              points={points}
               stroke={strokeColor}
               strokeWidth={strokeWidth}
-              transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
+              points={points}
             />
           </svg>
         </Box>

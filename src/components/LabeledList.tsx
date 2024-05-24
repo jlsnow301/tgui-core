@@ -4,53 +4,53 @@
  * @license MIT
  */
 
-import { type PropsWithChildren, type ReactNode } from "react";
+import { BooleanLike, classes } from '../common/react';
+import { PropsWithChildren, ReactNode } from 'react';
 
-import { type BooleanLike, classes } from "../common/react";
-import { Box, unit } from "./Box";
-import { Divider } from "./Divider";
-import { Tooltip } from "./Tooltip";
+import { Box, unit } from './Box';
+import { Divider } from './Divider';
+import { Tooltip } from './Tooltip';
 
-export function LabeledList(props: PropsWithChildren) {
+export const LabeledList = (props: PropsWithChildren) => {
   const { children } = props;
   return <table className="LabeledList">{children}</table>;
-}
+};
 
 type LabeledListItemProps = Partial<{
   buttons: ReactNode;
-  children: ReactNode;
   className: string | BooleanLike;
   color: string;
-  /** @deprecated */
-  content: any;
   key: string | number;
   label: string | ReactNode | BooleanLike;
   labelColor: string;
   labelWrap: boolean;
   textAlign: string;
-  tooltip: string;
+  /** @deprecated */
+  content: any;
+  children: ReactNode;
   verticalAlign: string;
+  tooltip: string;
 }>;
 
-function LabeledListItem(props: LabeledListItemProps) {
+const LabeledListItem = (props: LabeledListItemProps) => {
   const {
-    buttons,
-    children,
     className,
-    color,
-    content,
     label,
-    labelColor = "label",
+    labelColor = 'label',
     labelWrap,
+    color,
     textAlign,
+    buttons,
+    content,
+    children,
+    verticalAlign = 'baseline',
     tooltip,
-    verticalAlign = "baseline",
   } = props;
 
   let innerLabel;
   if (label) {
     innerLabel = label;
-    if (typeof label === "string") innerLabel += ":";
+    if (typeof label === 'string') innerLabel += ':';
   }
 
   if (tooltip !== undefined) {
@@ -59,7 +59,7 @@ function LabeledListItem(props: LabeledListItemProps) {
         <Box
           as="span"
           style={{
-            borderBottom: "2px dotted rgba(255, 255, 255, 0.8)",
+            borderBottom: '2px dotted rgba(255, 255, 255, 0.8)',
           }}
         >
           {innerLabel}
@@ -68,15 +68,15 @@ function LabeledListItem(props: LabeledListItemProps) {
     );
   }
 
-  const labelChild = (
+  let labelChild = (
     <Box
       as="td"
-      className={classes([
-        "LabeledList__cell",
-        // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
-        !labelWrap && "LabeledList__label--nowrap",
-      ])}
       color={labelColor}
+      className={classes([
+        'LabeledList__cell',
+        // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
+        !labelWrap && 'LabeledList__label--nowrap',
+      ])}
       verticalAlign={verticalAlign}
     >
       {innerLabel}
@@ -84,17 +84,15 @@ function LabeledListItem(props: LabeledListItemProps) {
   );
 
   return (
-    <tr className={classes(["LabeledList__row", className])}>
+    <tr className={classes(['LabeledList__row', className])}>
       {labelChild}
       <Box
         as="td"
-        className={classes(["LabeledList__cell", "LabeledList__content"])}
         color={color}
-        // I really don't feel like making a union type for td's, spans, etc.
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        textAlign={textAlign}
+        className={classes(['LabeledList__cell', 'LabeledList__content'])}
         // @ts-ignore
         colSpan={buttons ? undefined : 2}
-        textAlign={textAlign}
         verticalAlign={verticalAlign}
       >
         {content}
@@ -105,15 +103,13 @@ function LabeledListItem(props: LabeledListItemProps) {
       )}
     </tr>
   );
-}
-
-LabeledList.Item = LabeledListItem;
+};
 
 type LabeledListDividerProps = {
   size?: number;
 };
 
-function LabeledListDivider(props: LabeledListDividerProps) {
+const LabeledListDivider = (props: LabeledListDividerProps) => {
   const padding = props.size ? unit(Math.max(0, props.size - 1)) : 0;
   return (
     <tr className="LabeledList__row">
@@ -128,6 +124,7 @@ function LabeledListDivider(props: LabeledListDividerProps) {
       </td>
     </tr>
   );
-}
+};
 
+LabeledList.Item = LabeledListItem;
 LabeledList.Divider = LabeledListDivider;

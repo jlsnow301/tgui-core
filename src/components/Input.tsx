@@ -4,17 +4,12 @@
  * @license MIT
  */
 
-import {
-  type KeyboardEvent,
-  type SyntheticEvent,
-  useEffect,
-  useRef,
-} from "react";
+import { KEY } from '../common/keys';
+import { classes } from '../common/react';
+import { debounce } from '../common/timer';
+import { KeyboardEvent, SyntheticEvent, useEffect, useRef } from 'react';
 
-import { KEY } from "../common/keys";
-import { classes } from "../common/react";
-import { debounce } from "../common/timer";
-import { Box, type BoxProps } from "./Box";
+import { Box, BoxProps } from './Box';
 
 type ConditionalProps =
   | {
@@ -71,8 +66,8 @@ type OptionalProps = Partial<{
 type Props = OptionalProps & ConditionalProps & BoxProps;
 
 export function toInputValue(value: string | number | undefined) {
-  return typeof value !== "number" && typeof value !== "string"
-    ? ""
+  return typeof value !== 'number' && typeof value !== 'string'
+    ? ''
     : String(value);
 }
 
@@ -123,7 +118,7 @@ export function Input(props: Props) {
     if (event.key === KEY.Enter) {
       onEnter?.(event, event.currentTarget.value);
       if (selfClear) {
-        event.currentTarget.value = "";
+        event.currentTarget.value = '';
       } else {
         event.currentTarget.blur();
         onChange?.(event, event.currentTarget.value);
@@ -163,9 +158,9 @@ export function Input(props: Props) {
   return (
     <Box
       className={classes([
-        "Input",
-        fluid && "Input--fluid",
-        monospace && "Input--monospace",
+        'Input',
+        fluid && 'Input--fluid',
+        monospace && 'Input--monospace',
         className,
       ])}
       {...rest}

@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * Browser-agnostic abstraction of key-value web storage.
  *
@@ -12,11 +11,11 @@ export const IMPL_LOCAL_STORAGE = 1;
 export const IMPL_INDEXED_DB = 2;
 
 const INDEXED_DB_VERSION = 1;
-const INDEXED_DB_NAME = "tgui";
-const INDEXED_DB_STORE_NAME = "storage-v1";
+const INDEXED_DB_NAME = 'tgui';
+const INDEXED_DB_STORE_NAME = 'storage-v1';
 
-const READ_ONLY = "readonly";
-const READ_WRITE = "readwrite";
+const READ_ONLY = 'readonly';
+const READ_WRITE = 'readwrite';
 
 const testGeneric = (testFn) => () => {
   try {
@@ -30,12 +29,14 @@ const testGeneric = (testFn) => () => {
 // disabled in IE11 settings.
 // See: https://superuser.com/questions/1080011
 
-const testLocalStorage = testGeneric(() => window.localStorage?.getItem);
+const testLocalStorage = testGeneric(
+  () => window.localStorage && window.localStorage.getItem
+);
 
 const testIndexedDb = testGeneric(
   () =>
     (window.indexedDB || window.msIndexedDB) &&
-    (window.IDBTransaction || window.msIDBTransaction),
+    (window.IDBTransaction || window.msIDBTransaction)
 );
 
 class MemoryBackend {
@@ -68,7 +69,7 @@ class LocalStorageBackend {
 
   get(key) {
     const value = localStorage.getItem(key);
-    if (typeof value === "string") {
+    if (typeof value === 'string') {
       return JSON.parse(value);
     }
   }
@@ -97,12 +98,12 @@ class IndexedDbBackend {
         try {
           req.result.createObjectStore(INDEXED_DB_STORE_NAME);
         } catch (err) {
-          reject(new Error("Failed to upgrade IDB: " + req.error));
+          reject(new Error('Failed to upgrade IDB: ' + req.error));
         }
       };
       req.onsuccess = () => resolve(req.result);
       req.onerror = () => {
-        reject(new Error("Failed to open IDB: " + req.error));
+        reject(new Error('Failed to open IDB: ' + req.error));
       };
     });
   }
@@ -111,7 +112,7 @@ class IndexedDbBackend {
     return this.dbPromise.then((db) =>
       db
         .transaction(INDEXED_DB_STORE_NAME, mode)
-        .objectStore(INDEXED_DB_STORE_NAME),
+        .objectStore(INDEXED_DB_STORE_NAME)
     );
   }
 

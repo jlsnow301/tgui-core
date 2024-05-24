@@ -4,10 +4,10 @@
  * @license MIT
  */
 
-import { clamp } from "../common/math";
-import { Component, createRef } from "react";
+import { clamp } from '../common/math';
+import { Component, createRef } from 'react';
 
-import { AnimatedNumber } from "./AnimatedNumber";
+import { AnimatedNumber } from './AnimatedNumber';
 
 const DEFAULT_UPDATE_RATE = 400;
 
@@ -54,7 +54,7 @@ export class DraggableControl extends Component {
       if (editing) {
         return;
       }
-      document.body.style["pointer-events"] = "none";
+      document.body.style['pointer-events'] = 'none';
       this.ref = e.target;
       this.setState({
         dragging: false,
@@ -74,8 +74,8 @@ export class DraggableControl extends Component {
           onDrag(e, value);
         }
       }, this.props.updateRate || DEFAULT_UPDATE_RATE);
-      document.addEventListener("mousemove", this.handleDragMove);
-      document.addEventListener("mouseup", this.handleDragEnd);
+      document.addEventListener('mousemove', this.handleDragMove);
+      document.addEventListener('mouseup', this.handleDragEnd);
     };
 
     this.handleDragMove = (e) => {
@@ -91,13 +91,13 @@ export class DraggableControl extends Component {
           state.internalValue = clamp(
             state.internalValue + (offset * step) / stepPixelSize,
             minValue - step,
-            maxValue + step,
+            maxValue + step
           );
           // Clamp the final value
           state.value = clamp(
             state.internalValue - (state.internalValue % step) + stepOffset,
             minValue,
-            maxValue,
+            maxValue
           );
           state.origin = getScalarScreenOffset(e, dragMatrix);
         } else if (Math.abs(offset) > 4) {
@@ -110,7 +110,7 @@ export class DraggableControl extends Component {
     this.handleDragEnd = (e) => {
       const { onChange, onDrag } = this.props;
       const { dragging, value, internalValue } = this.state;
-      document.body.style["pointer-events"] = "auto";
+      document.body.style['pointer-events'] = 'auto';
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
       this.setState({
@@ -118,8 +118,8 @@ export class DraggableControl extends Component {
         editing: !dragging,
         origin: null,
       });
-      document.removeEventListener("mousemove", this.handleDragMove);
-      document.removeEventListener("mouseup", this.handleDragEnd);
+      document.removeEventListener('mousemove', this.handleDragMove);
+      document.removeEventListener('mouseup', this.handleDragEnd);
       if (dragging) {
         this.suppressFlicker();
         if (onChange) {
@@ -179,7 +179,7 @@ export class DraggableControl extends Component {
           displayValue
         )}
 
-        {unit ? " " + unit : ""}
+        {unit ? ' ' + unit : ''}
       </>
     );
 
@@ -190,7 +190,7 @@ export class DraggableControl extends Component {
         ref={this.inputRef}
         className="NumberInput__input"
         style={{
-          display: !editing ? "none" : undefined,
+          display: !editing ? 'none' : undefined,
           height: height,
           lineHeight: lineHeight,
           fontsize: fontSize,

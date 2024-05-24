@@ -8,77 +8,44 @@
  * @license MIT
  */
 
+import { map, reduce, zip } from './collections';
+
+const ADD = (a: number, b: number): number => a + b;
+const SUB = (a: number, b: number): number => a - b;
+const MUL = (a: number, b: number): number => a * b;
+const DIV = (a: number, b: number): number => a / b;
+
 export type Vector = number[];
 
-export function vecAdd(...vecs: Vector[]): Vector {
-  const result: Vector = [];
-  for (const vec of vecs) {
-    for (let i = 0; i < vec.length; i++) {
-      result[i] = (result[i] || 0) + vec[i];
-    }
-  }
-  return result;
-}
+export const vecAdd = (...vecs: Vector[]): Vector => {
+  return map(zip(...vecs), (x) => reduce(x, ADD));
+};
 
-export function vecSubtract(...vecs: Vector[]): Vector {
-  const result: Vector = [];
-  for (const vec of vecs) {
-    for (let i = 0; i < vec.length; i++) {
-      result[i] = (result[i] || 0) - vec[i];
-    }
-  }
-  return result;
-}
+export const vecSubtract = (...vecs: Vector[]): Vector => {
+  return map(zip(...vecs), (x) => reduce(x, SUB));
+};
 
-export function vecMultiply(...vecs: Vector[]): Vector {
-  const result: Vector = [];
-  for (const vec of vecs) {
-    for (let i = 0; i < vec.length; i++) {
-      result[i] = (result[i] || 0) * vec[i];
-    }
-  }
-  return result;
-}
+export const vecMultiply = (...vecs: Vector[]): Vector => {
+  return map(zip(...vecs), (x) => reduce(x, MUL));
+};
 
-export function vecDivide(...vecs: Vector[]): Vector {
-  const result: Vector = [];
-  for (const vec of vecs) {
-    for (let i = 0; i < vec.length; i++) {
-      result[i] = (result[i] || 0) / vec[i];
-    }
-  }
-  return result;
-}
+export const vecDivide = (...vecs: Vector[]): Vector => {
+  return map(zip(...vecs), (x) => reduce(x, DIV));
+};
 
-export function vecScale(vec: Vector, n: number): Vector {
-  const result: Vector = [];
-  for (const x of vec) {
-    result.push(x * n);
-  }
-  return result;
-}
+export const vecScale = (vec: Vector, n: number): Vector => {
+  return map(vec, (x) => x * n);
+};
 
-export function vecInverse(vec: Vector): Vector {
-  const result: Vector = [];
-  for (const x of vec) {
-    result.push(-x);
-  }
-  return result;
-}
+export const vecInverse = (vec: Vector): Vector => {
+  return map(vec, (x) => -x);
+};
 
-export function vecLength(vec: Vector): number {
-  let sum = 0;
-  for (const x of vec) {
-    sum += x * x;
-  }
-  return Math.sqrt(sum);
-}
+export const vecLength = (vec: Vector): number => {
+  return Math.sqrt(reduce(vecMultiply(vec, vec), ADD));
+};
 
-export function vecNormalize(vec: Vector): Vector {
+export const vecNormalize = (vec: Vector): Vector => {
   const length = vecLength(vec);
-  const result: Vector = [];
-  for (const c of vec) {
-    result.push(c / length);
-  }
-  return result;
-}
+  return map(vec, (c) => c / length);
+};

@@ -1,47 +1,47 @@
+import { KEY } from '../common/keys';
+import { clamp } from '../common/math';
+import { BooleanLike, classes } from '../common/react';
 import {
   Component,
   createRef,
-  type FocusEventHandler,
-  type KeyboardEventHandler,
-  type MouseEventHandler,
-  type RefObject,
-} from "react";
+  FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  RefObject,
+} from 'react';
 
-import { KEY } from "../common/keys";
-import { clamp } from "../common/math";
-import { type BooleanLike, classes } from "../common/react";
-import { AnimatedNumber } from "./AnimatedNumber";
-import { Box } from "./Box";
+import { AnimatedNumber } from './AnimatedNumber';
+import { Box } from './Box';
 
 type Props = Required<{
-  maxValue: number;
-  minValue: number;
-  step: number;
   value: number | string;
+  minValue: number;
+  maxValue: number;
+  step: number;
 }> &
   Partial<{
-    animated: BooleanLike;
-    className: string;
-
+    stepPixelSize: number;
     disabled: BooleanLike;
+
+    className: string;
     fluid: BooleanLike;
+    animated: BooleanLike;
+    unit: string;
+    height: string;
+    width: string;
+    lineHeight: string;
     fontSize: string;
     format: (value: number) => string;
-    height: string;
-    lineHeight: string;
     onChange: (value: number) => void;
     onDrag: (value: number) => void;
-    stepPixelSize: number;
-    unit: string;
-    width: string;
   }>;
 
 type State = {
-  currentValue: number;
-  dragging: BooleanLike;
   editing: BooleanLike;
-  origin: number;
+  dragging: BooleanLike;
+  currentValue: number;
   previousValue: number;
+  origin: number;
 };
 
 export class NumberInput extends Component<Props, State> {
@@ -68,7 +68,7 @@ export class NumberInput extends Component<Props, State> {
   }
 
   componentDidMount(): void {
-    const displayValue = parseFloat(this.props.value.toString());
+    let displayValue = parseFloat(this.props.value.toString());
 
     this.setState({
       currentValue: displayValue,
@@ -77,12 +77,12 @@ export class NumberInput extends Component<Props, State> {
   }
 
   handleDragStart: MouseEventHandler<HTMLDivElement> = (event) => {
-    const { disabled, value } = this.props;
+    const { value, disabled } = this.props;
     const { editing } = this.state;
-    if (disabled ?? editing) {
+    if (disabled || editing) {
       return;
     }
-    document.body.style["pointer-events"] = "none";
+    document.body.style['pointer-events'] = 'none';
 
     const parsedValue = parseFloat(value.toString());
     this.setState({
@@ -98,7 +98,7 @@ export class NumberInput extends Component<Props, State> {
       });
     }, 250);
     this.dragInterval = setInterval(() => {
-      const { currentValue, dragging, previousValue } = this.state;
+      const { dragging, currentValue, previousValue } = this.state;
       const { onDrag } = this.props;
       if (dragging && currentValue !== previousValue) {
         this.setState({
@@ -108,12 +108,12 @@ export class NumberInput extends Component<Props, State> {
       }
     }, 400);
 
-    document.addEventListener("mousemove", this.handleDragMove);
-    document.addEventListener("mouseup", this.handleDragEnd);
+    document.addEventListener('mousemove', this.handleDragMove);
+    document.addEventListener('mouseup', this.handleDragEnd);
   };
 
   handleDragMove = (event: MouseEvent) => {
-    const { disabled, maxValue, minValue, step, stepPixelSize } = this.props;
+    const { minValue, maxValue, step, stepPixelSize, disabled } = this.props;
     if (disabled) {
       return;
     }
@@ -127,15 +127,15 @@ export class NumberInput extends Component<Props, State> {
         // Translate mouse movement to value
         // Give it some headroom (by increasing clamp range by 1 step)
         state.currentValue = clamp(
-          state.currentValue + (offset * step) / (stepPixelSize ?? 1),
+          state.currentValue + (offset * step) / (stepPixelSize || 1),
           minValue - step,
-          maxValue + step,
+          maxValue + step
         );
         // Clamp the final value
         state.currentValue = clamp(
           state.currentValue - (state.currentValue % step) + stepOffset,
           minValue,
-          maxValue,
+          maxValue
         );
         // Set the new origin
         state.origin = event.screenY;
@@ -146,13 +146,13 @@ export class NumberInput extends Component<Props, State> {
     });
   };
 
-  handleDragEnd = () => {
-    const { currentValue, dragging } = this.state;
-    const { disabled, onChange, onDrag } = this.props;
+  handleDragEnd = (event: MouseEvent) => {
+    const { dragging, currentValue } = this.state;
+    const { onDrag, onChange, disabled } = this.props;
     if (disabled) {
       return;
     }
-    document.body.style["pointer-events"] = "auto";
+    document.body.style['pointer-events'] = 'auto';
 
     clearInterval(this.dragInterval);
     clearTimeout(this.dragTimeout);
@@ -176,21 +176,21 @@ export class NumberInput extends Component<Props, State> {
       }
     }
 
-    document.removeEventListener("mousemove", this.handleDragMove);
-    document.removeEventListener("mouseup", this.handleDragEnd);
+    document.removeEventListener('mousemove', this.handleDragMove);
+    document.removeEventListener('mouseup', this.handleDragEnd);
   };
 
   handleBlur: FocusEventHandler<HTMLInputElement> = (event) => {
     const { editing, previousValue } = this.state;
-    const { disabled, maxValue, minValue, onChange, onDrag } = this.props;
-    if (disabled ?? !editing) {
+    const { minValue, maxValue, onChange, onDrag, disabled } = this.props;
+    if (disabled || !editing) {
       return;
     }
 
     const targetValue = clamp(
       parseFloat(event.target.value),
       minValue,
-      maxValue,
+      maxValue
     );
     if (isNaN(targetValue)) {
       this.setState({
@@ -211,7 +211,7 @@ export class NumberInput extends Component<Props, State> {
   };
 
   handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    const { disabled, maxValue, minValue, onChange, onDrag } = this.props;
+    const { minValue, maxValue, onChange, onDrag, disabled } = this.props;
     if (disabled) {
       return;
     }
@@ -221,7 +221,7 @@ export class NumberInput extends Component<Props, State> {
       const targetValue = clamp(
         parseFloat(event.currentTarget.value),
         minValue,
-        maxValue,
+        maxValue
       );
       if (isNaN(targetValue)) {
         this.setState({
@@ -247,21 +247,21 @@ export class NumberInput extends Component<Props, State> {
   };
 
   render() {
-    const { currentValue, dragging, editing } = this.state;
+    const { dragging, editing, currentValue } = this.state;
 
     const {
-      animated,
       className,
       fluid,
-      fontSize,
-      format,
-      height,
-      lineHeight,
-      maxValue,
-      minValue,
+      animated,
       unit,
       value,
+      minValue,
+      maxValue,
+      height,
       width,
+      lineHeight,
+      fontSize,
+      format,
     } = this.props;
 
     let displayValue = parseFloat(value.toString());
@@ -272,28 +272,28 @@ export class NumberInput extends Component<Props, State> {
     const contentElement = (
       <div className="NumberInput__content">
         {animated && !dragging ? (
-          <AnimatedNumber format={format} value={displayValue} />
+          <AnimatedNumber value={displayValue} format={format} />
         ) : format ? (
           format(displayValue)
         ) : (
           displayValue
         )}
 
-        {unit ? " " + unit : ""}
+        {unit ? ' ' + unit : ''}
       </div>
     );
 
     return (
       <Box
         className={classes([
-          "NumberInput",
-          fluid && "NumberInput--fluid",
+          'NumberInput',
+          fluid && 'NumberInput--fluid',
           className,
         ])}
-        fontSize={fontSize}
-        lineHeight={lineHeight}
-        minHeight={height}
         minWidth={width}
+        minHeight={height}
+        lineHeight={lineHeight}
+        fontSize={fontSize}
         onMouseDown={this.handleDragStart}
       >
         <div className="NumberInput__barContainer">
@@ -304,23 +304,23 @@ export class NumberInput extends Component<Props, State> {
                 clamp(
                   ((displayValue - minValue) / (maxValue - minValue)) * 100,
                   0,
-                  100,
-                ) + "%",
+                  100
+                ) + '%',
             }}
           />
         </div>
         {contentElement}
         <input
-          className="NumberInput__input"
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
           ref={this.inputRef}
+          className="NumberInput__input"
           style={{
-            display: !editing ? "none" : "inline",
+            display: !editing ? 'none' : 'inline',
             height: height,
             lineHeight: lineHeight,
             fontSize: fontSize,
           }}
+          onBlur={this.handleBlur}
+          onKeyDown={this.handleKeyDown}
         />
       </Box>
     );

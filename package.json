@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src --fix",
-    "prettier": "prettier --write src",
-    "prepublishOnly": "yarn build",
-    "test": "vitest"
+    "prepublishOnly": "yarn build"
   },
   "keywords": [
     "TGUI",
@@ -23,23 +20,10 @@
     "react-dom": "^18.3.1",
     "react-popper": "^2.3.0"
   },
+  "packageManager": "pnpm@9.1.2+sha512.127dc83b9ea10c32be65d22a8efb4a65fb952e8fefbdfded39bdc3c97efc32d31b48b00420df2c1187ace28c921c902f0cb5a134a4d032b8b5295cbfa2c681e2",
   "devDependencies": {
     "@types/node": "^20.12.12",
-    "@types/react": "^18.3.2",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.10.0",
-    "@typescript-eslint/parser": "^7.10.0",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-simple-import-sort": "^12.1.0",
-    "eslint-plugin-sort-destructure-keys": "^2.0.0",
-    "eslint-plugin-typescript-sort-keys": "^3.2.0",
-    "eslint-plugin-unused-imports": "^3.2.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
-  },
-  "packageManager": "pnpm@9.1.2+sha512.127dc83b9ea10c32be65d22a8efb4a65fb952e8fefbdfded39bdc3c97efc32d31b48b00420df2c1187ace28c921c902f0cb5a134a4d032b8b5295cbfa2c681e2"
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0"
+  }
 }

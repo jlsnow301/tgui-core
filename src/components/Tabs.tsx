@@ -4,11 +4,11 @@
  * @license MIT
  */
 
-import { type PropsWithChildren, type ReactNode } from "react";
+import { canRender, classes } from '../common/react';
+import { PropsWithChildren, ReactNode } from 'react';
 
-import { canRender, classes } from "../common/react";
-import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
-import { Icon } from "./Icon";
+import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { Icon } from './Icon';
 
 type Props = Partial<{
   className: string;
@@ -31,16 +31,16 @@ type TabProps = Partial<{
   BoxProps &
   PropsWithChildren;
 
-export function Tabs(props: Props) {
-  const { children, className, fill, fluid, vertical, ...rest } = props;
+export const Tabs = (props: Props) => {
+  const { className, vertical, fill, fluid, children, ...rest } = props;
 
   return (
     <div
       className={classes([
-        "Tabs",
-        vertical ? "Tabs--vertical" : "Tabs--horizontal",
-        fill && "Tabs--fill",
-        fluid && "Tabs--fluid",
+        'Tabs',
+        vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
+        fill && 'Tabs--fill',
+        fluid && 'Tabs--fluid',
         className,
         computeBoxClassName(rest),
       ])}
@@ -49,27 +49,27 @@ export function Tabs(props: Props) {
       {children}
     </div>
   );
-}
+};
 
-function Tab(props: TabProps) {
+const Tab = (props: TabProps) => {
   const {
-    children,
     className,
+    selected,
     color,
     icon,
     leftSlot,
     rightSlot,
-    selected,
+    children,
     ...rest
   } = props;
 
   return (
     <div
       className={classes([
-        "Tab",
-        "Tabs__Tab",
-        "Tab--color--" + color,
-        selected && "Tab--selected",
+        'Tab',
+        'Tabs__Tab',
+        'Tab--color--' + color,
+        selected && 'Tab--selected',
         className,
         computeBoxClassName(rest),
       ])}
@@ -85,6 +85,6 @@ function Tab(props: TabProps) {
       {canRender(rightSlot) && <div className="Tab__right">{rightSlot}</div>}
     </div>
   );
-}
+};
 
 Tabs.Tab = Tab;

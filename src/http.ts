@@ -1,11 +1,11 @@
 /**
  * An equivalent to `fetch`, except will automatically retry.
  */
-export function fetchRetry(
+export const fetchRetry = (
   url: string,
   options?: RequestInit,
-  retryTimer = 1000,
-): Promise<Response> {
+  retryTimer: number = 1000,
+): Promise<Response> => {
   return fetch(url, options).catch(() => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -13,4 +13,4 @@ export function fetchRetry(
       }, retryTimer);
     });
   });
-}
+};

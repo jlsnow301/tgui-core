@@ -17,16 +17,15 @@ export function getShallowTypes(
 
       // Return the first array item if it exists
       if (data[key].length > 0) {
-        const [first] = arr;
-        output[key] = first;
+        output[key] = arr[0];
         continue;
       }
 
-      output[key] = "emptyarray";
-    } else if (typeof data[key] === "object" && data[key] !== null) {
+      output[key] = 'emptyarray';
+    } else if (typeof data[key] === 'object' && data[key] !== null) {
       // Please inspect it further and make a new type for it
-      output[key] = "object (inspect) || Record<string, any>";
-    } else if (typeof data[key] === "number") {
+      output[key] = 'object (inspect) || Record<string, any>';
+    } else if (typeof data[key] === 'number') {
       const num = Number(data[key]);
 
       // 0 and 1 could be booleans from byond

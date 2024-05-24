@@ -1,9 +1,9 @@
-import { KEY_ENTER, KEY_ESCAPE } from "../common/keycodes";
-import { clamp } from "../common/math";
-import { classes } from "../common/react";
-import { Component, createRef } from "react";
+import { KEY_ENTER, KEY_ESCAPE } from '../common/keycodes';
+import { clamp } from '../common/math';
+import { classes } from '../common/react';
+import { Component, createRef } from 'react';
 
-import { Box } from "./Box";
+import { Box } from './Box';
 
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 10000;
@@ -22,18 +22,18 @@ const softSanitizeNumber = (value, minValue, maxValue, allowFloats) => {
   const maximum = maxValue || maxValue === 0 ? maxValue : DEFAULT_MAX;
 
   let sanitizedString = allowFloats
-    ? value.replace(/[^\-\d.]/g, "")
-    : value.replace(/[^\-\d]/g, "");
+    ? value.replace(/[^\-\d.]/g, '')
+    : value.replace(/[^\-\d]/g, '');
 
   if (allowFloats) {
     sanitizedString = maybeLeadWithMin(sanitizedString, minimum);
-    sanitizedString = keepOnlyFirstOccurrence(".", sanitizedString);
+    sanitizedString = keepOnlyFirstOccurrence('.', sanitizedString);
   }
   if (minValue < 0) {
     sanitizedString = maybeMoveMinusSign(sanitizedString);
-    sanitizedString = keepOnlyFirstOccurrence("-", sanitizedString);
+    sanitizedString = keepOnlyFirstOccurrence('-', sanitizedString);
   } else {
-    sanitizedString = sanitizedString.replaceAll("-", "");
+    sanitizedString = sanitizedString.replaceAll('-', '');
   }
   if (minimum <= 1 && maximum >= 0) {
     return clampGuessedNumber(sanitizedString, minimum, maximum, allowFloats);
@@ -51,14 +51,14 @@ const clampGuessedNumber = (
   softSanitizedNumber,
   minValue,
   maxValue,
-  allowFloats,
+  allowFloats
 ) => {
   let parsed = allowFloats
     ? parseFloat(softSanitizedNumber)
     : parseInt(softSanitizedNumber, 10);
   if (
     !isNaN(parsed) &&
-    (softSanitizedNumber.slice(-1) !== "." || parsed < Math.floor(minValue))
+    (softSanitizedNumber.slice(-1) !== '.' || parsed < Math.floor(minValue))
   ) {
     let clamped = clamp(parsed, minValue, maxValue);
     if (parsed !== clamped) {
@@ -76,13 +76,13 @@ const clampGuessedNumber = (
 const maybeMoveMinusSign = (string) => {
   let retString = string;
   // if minus sign is present but not first
-  let minusIdx = string.indexOf("-");
+  let minusIdx = string.indexOf('-');
   if (minusIdx > 0) {
-    string = string.replace("-", "");
-    retString = "-".concat(string);
+    string = string.replace('-', '');
+    retString = '-'.concat(string);
   } else if (minusIdx === 0) {
-    if (string.indexOf("-", minusIdx + 1) > 0) {
-      retString = string.replaceAll("-", "");
+    if (string.indexOf('-', minusIdx + 1) > 0) {
+      retString = string.replaceAll('-', '');
     }
   }
   return retString;
@@ -95,10 +95,10 @@ const maybeMoveMinusSign = (string) => {
 const maybeLeadWithMin = (string, min) => {
   let retString = string;
   let cuttedVal = Math.sign(min) * Math.floor(Math.abs(min));
-  if (string.indexOf(".") === 0) {
+  if (string.indexOf('.') === 0) {
     retString = String(cuttedVal).concat(string);
-  } else if (string.indexOf("-") === 0 && string.indexOf(".") === 1) {
-    retString = cuttedVal + ".".concat(string.slice(2));
+  } else if (string.indexOf('-') === 0 && string.indexOf('.') === 1) {
+    retString = cuttedVal + '.'.concat(string.slice(2));
   }
   return retString;
 };
@@ -115,7 +115,7 @@ const keepOnlyFirstOccurrence = (needle, haystack) => {
   let newHaystack = haystack;
   if (idx !== -1 && idx < len - 1) {
     let trailingString = haystack.slice(idx + 1, len);
-    trailingString = trailingString.replaceAll(needle, "");
+    trailingString = trailingString.replaceAll(needle, '');
     newHaystack = haystack.slice(0, idx + 1).concat(trailingString);
   }
   return newHaystack;
@@ -133,8 +133,8 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
     return String(minimum);
   }
   let parsedValue = allowFloats
-    ? parseFloat(value.replace(/[^\-\d.]/g, ""))
-    : parseInt(value.replace(/[^\-\d]/g, ""), 10);
+    ? parseFloat(value.replace(/[^\-\d.]/g, ''))
+    : parseInt(value.replace(/[^\-\d]/g, ''), 10);
   if (isNaN(parsedValue)) {
     return String(minimum);
   } else {
@@ -159,7 +159,7 @@ export class RestrictedInput extends Component {
         e.target.value,
         minValue,
         maxValue,
-        allowFloats,
+        allowFloats
       );
       if (onBlur) {
         onBlur(e, +safeNum);
@@ -171,7 +171,7 @@ export class RestrictedInput extends Component {
         e.target.value,
         minValue,
         maxValue,
-        allowFloats,
+        allowFloats
       );
       if (onChange) {
         onChange(e, +e.target.value);
@@ -200,7 +200,7 @@ export class RestrictedInput extends Component {
           e.target.value,
           minValue,
           maxValue,
-          allowFloats,
+          allowFloats
         );
         this.setEditing(false);
         if (onChange) {
@@ -234,7 +234,7 @@ export class RestrictedInput extends Component {
         nextValue,
         minValue,
         maxValue,
-        allowFloats,
+        allowFloats
       );
     }
     if (this.props.autoFocus || this.props.autoSelect) {
@@ -260,7 +260,7 @@ export class RestrictedInput extends Component {
           nextValue,
           minValue,
           maxValue,
-          allowFloats,
+          allowFloats
         );
       }
     }
@@ -277,9 +277,9 @@ export class RestrictedInput extends Component {
     return (
       <Box
         className={classes([
-          "Input",
-          fluid && "Input--fluid",
-          monospace && "Input--monospace",
+          'Input',
+          fluid && 'Input--fluid',
+          monospace && 'Input--monospace',
           className,
         ])}
         {...rest}

@@ -1,17 +1,17 @@
 import {
   Component,
   createRef,
-  type HTMLAttributes,
-  type PropsWithChildren,
-  type RefObject,
-} from "react";
+  HTMLAttributes,
+  PropsWithChildren,
+  RefObject,
+} from 'react';
 
 const DEFAULT_ACCEPTABLE_DIFFERENCE = 5;
 
 type Props = {
   acceptableDifference?: number;
-  maxFontSize: number;
   maxWidth: number;
+  maxFontSize: number;
   native?: HTMLAttributes<HTMLDivElement>;
 } & PropsWithChildren;
 
@@ -30,7 +30,7 @@ export class FitText extends Component<Props, State> {
 
     this.resize = this.resize.bind(this);
 
-    window.addEventListener("resize", this.resize.bind(this));
+    window.addEventListener('resize', this.resize);
   }
 
   componentDidUpdate(prevProps) {
@@ -40,7 +40,7 @@ export class FitText extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.resize.bind(this));
+    window.removeEventListener('resize', this.resize);
   }
 
   resize() {
@@ -49,7 +49,7 @@ export class FitText extends Component<Props, State> {
       return;
     }
 
-    const { maxWidth } = this.props;
+    const maxWidth = this.props.maxWidth;
 
     let start = 0;
     let end = this.props.maxFontSize;
@@ -87,7 +87,7 @@ export class FitText extends Component<Props, State> {
         ref={this.ref}
         style={{
           fontSize: `${this.state.fontSize}px`,
-          ...(typeof this.props.native?.style === "object"
+          ...(typeof this.props.native?.style === 'object'
             ? this.props.native.style
             : {}),
         }}

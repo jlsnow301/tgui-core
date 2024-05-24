@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { classes } from "../common/react";
+import { classes } from '../common/react';
 
 type Props = Partial<{
   hidden: boolean;
@@ -17,9 +17,9 @@ export function Divider(props: Props) {
   return (
     <div
       className={classes([
-        "Divider",
-        hidden && "Divider--hidden",
-        vertical ? "Divider--vertical" : "Divider--horizontal",
+        'Divider',
+        hidden && 'Divider--hidden',
+        vertical ? 'Divider--vertical' : 'Divider--horizontal',
       ])}
     />
   );

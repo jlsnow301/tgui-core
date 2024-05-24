@@ -22,7 +22,7 @@ export class Color {
   toString(): string {
     // Alpha component needs to permit fractional values, so cannot use |
     let alpha = this.a;
-    if (typeof alpha === "string") {
+    if (typeof alpha === 'string') {
       alpha = parseFloat(this.a as any);
     }
     if (isNaN(alpha)) {
@@ -78,7 +78,7 @@ export class Color {
   static lookup(value: number, colors: Color[]): Color {
     const len = colors.length;
     if (len < 2) {
-      throw new Error("Needs at least two colors!");
+      throw new Error('Needs at least two colors!');
     }
     const scaled = value * (len - 1);
     if (value < EPSILON) {

@@ -1,12 +1,12 @@
-import { type Placement } from "@popperjs/core";
+import { Placement } from '@popperjs/core';
 import {
-  type PropsWithChildren,
-  type ReactNode,
+  PropsWithChildren,
+  ReactNode,
   useEffect,
   useRef,
   useState,
-} from "react";
-import { usePopper } from "react-popper";
+} from 'react';
+import { usePopper } from 'react-popper';
 
 type RequiredProps = {
   /** The content to display in the popper */
@@ -16,14 +16,14 @@ type RequiredProps = {
 };
 
 type OptionalProps = Partial<{
-  /** Base z-index of the popper div
-   * @default 5
-   */
-  baseZIndex: number;
   /** Called when the user clicks outside the popper */
   onClickOutside: () => void;
   /** Where to place the popper relative to the reference element */
   placement: Placement;
+  /** Base z-index of the popper div
+   * @default 5
+   */
+  baseZIndex: number;
 }>;
 
 type Props = RequiredProps & OptionalProps;
@@ -47,7 +47,7 @@ export function Popper(props: PropsWithChildren<Props>) {
   const popperRef = useRef<HTMLDivElement | null>(null);
   const parentRef = useRef<HTMLDivElement | null>(null);
 
-  const { attributes, styles } = usePopper(referenceElement, popperElement, {
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement,
   });
 
@@ -63,13 +63,13 @@ export function Popper(props: PropsWithChildren<Props>) {
 
   useEffect(() => {
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
 

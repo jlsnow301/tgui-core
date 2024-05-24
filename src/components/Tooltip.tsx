@@ -1,12 +1,8 @@
 /* eslint-disable react/no-deprecated */
 // TODO: Rewrite as an FC, remove this lint disable
-import {
-  createPopper,
-  type Placement,
-  type VirtualElement,
-} from "@popperjs/core";
-import { Component, type ReactNode } from "react";
-import { findDOMNode, render } from "react-dom";
+import { createPopper, Placement, VirtualElement } from '@popperjs/core';
+import { Component, ReactNode } from 'react';
+import { findDOMNode, render } from 'react-dom';
 
 type TooltipProps = {
   children?: ReactNode;
@@ -21,7 +17,7 @@ type TooltipState = {
 const DEFAULT_OPTIONS = {
   modifiers: [
     {
-      name: "eventListeners",
+      name: 'eventListeners',
       enabled: false,
     },
   ],
@@ -73,23 +69,23 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
       return;
     }
 
-    domNode.addEventListener("mouseenter", () => {
-      let { renderedTooltip } = Tooltip;
+    domNode.addEventListener('mouseenter', () => {
+      let renderedTooltip = Tooltip.renderedTooltip;
       if (renderedTooltip === undefined) {
-        renderedTooltip = document.createElement("div");
-        renderedTooltip.className = "Tooltip";
+        renderedTooltip = document.createElement('div');
+        renderedTooltip.className = 'Tooltip';
         document.body.appendChild(renderedTooltip);
         Tooltip.renderedTooltip = renderedTooltip;
       }
 
       Tooltip.currentHoveredElement = domNode;
 
-      renderedTooltip.style.opacity = "1";
+      renderedTooltip.style.opacity = '1';
 
       this.renderPopperContent();
     });
 
-    domNode.addEventListener("mouseleave", () => {
+    domNode.addEventListener('mouseleave', () => {
       this.fadeOut();
     });
   }
@@ -100,32 +96,32 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
     }
 
     Tooltip.currentHoveredElement = undefined;
-    Tooltip.renderedTooltip!.style.opacity = "0";
+    Tooltip.renderedTooltip!.style.opacity = '0';
   }
 
   renderPopperContent() {
-    const { renderedTooltip } = Tooltip;
+    const renderedTooltip = Tooltip.renderedTooltip;
     if (!renderedTooltip) {
       return;
     }
 
     render(<span>{this.props.content}</span>, renderedTooltip, () => {
-      let { singletonPopper } = Tooltip;
+      let singletonPopper = Tooltip.singletonPopper;
       if (singletonPopper === undefined) {
         singletonPopper = createPopper(
           Tooltip.virtualElement,
-          renderedTooltip,
+          renderedTooltip!,
           {
             ...DEFAULT_OPTIONS,
-            placement: this.props.position ?? "auto",
-          },
+            placement: this.props.position || 'auto',
+          }
         );
 
         Tooltip.singletonPopper = singletonPopper;
       } else {
         singletonPopper.setOptions({
           ...DEFAULT_OPTIONS,
-          placement: this.props.position ?? "auto",
+          placement: this.props.position || 'auto',
         });
 
         singletonPopper.update();

@@ -4,11 +4,13 @@
  * @license MIT
  */
 
-import { Component, createRef } from "react";
+import { shallowDiffers } from '../common/react';
+import { debounce } from '../common/timer';
+import { Component, createRef } from 'react';
 
-import { shallowDiffers } from "../common/react";
-import { debounce } from "../common/timer";
-import { computeBoxProps } from "./Box";
+import { computeBoxProps } from './Box';
+
+const logger = createLogger('ByondUi');
 
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];
@@ -18,31 +20,33 @@ const createByondUiElement = (elementId) => {
   const index = byondUiStack.length;
   byondUiStack.push(null);
   // Get a unique id
-  const id = elementId || "byondui_" + index;
-
+  const id = elementId || 'byondui_' + index;
   // Return a control structure
   return {
     render: (params) => {
+      logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
       Byond.winset(id, params);
     },
     unmount: () => {
+      logger.log(`unmounting '${id}'`);
       byondUiStack[index] = null;
       Byond.winset(id, {
-        parent: "",
+        parent: '',
       });
     },
   };
 };
 
-window.addEventListener("beforeunload", () => {
+window.addEventListener('beforeunload', () => {
   // Cleanly unmount all visible UI elements
   for (let index = 0; index < byondUiStack.length; index++) {
     const id = byondUiStack[index];
-    if (typeof id === "string") {
+    if (typeof id === 'string') {
+      logger.log(`unmounting '${id}' (beforeunload)`);
       byondUiStack[index] = null;
       Byond.winset(id, {
-        parent: "",
+        parent: '',
       });
     }
   }
@@ -53,7 +57,6 @@ window.addEventListener("beforeunload", () => {
  */
 const getBoundingBox = (element) => {
   const pixelRatio = window.devicePixelRatio ?? 1;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const rect = element.getBoundingClientRect();
 
   return {
@@ -85,7 +88,7 @@ export class ByondUi extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize);
     this.componentDidUpdate();
     this.handleResize();
   }
@@ -93,25 +96,25 @@ export class ByondUi extends Component {
   componentDidUpdate() {
     const { params = {} } = this.props;
     const box = getBoundingBox(this.containerRef.current);
-
     this.byondUiElement.render({
       parent: Byond.windowId,
       ...params,
-      pos: box.pos[0] + "," + box.pos[1],
-      size: box.size[0] + "x" + box.size[1],
+      pos: box.pos[0] + ',' + box.pos[1],
+      size: box.size[0] + 'x' + box.size[1],
     });
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener('resize', this.handleResize);
     this.byondUiElement.unmount();
   }
 
   render() {
+    const { params, ...rest } = this.props;
     return (
-      <div ref={this.containerRef} {...computeBoxProps(...this.props)}>
+      <div ref={this.containerRef} {...computeBoxProps(rest)}>
         {/* Filler */}
-        <div style={{ minHeight: "22px" }} />
+        <div style={{ minHeight: '22px' }} />
       </div>
     );
   }

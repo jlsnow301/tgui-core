@@ -4,11 +4,12 @@
  * @license MIT
  */
 
-import { classes } from "../common/react";
-import { Box, type BoxProps } from "./Box";
+import { classes } from '../common/react';
+
+import { Box, BoxProps } from './Box';
 
 export function BlockQuote(props: BoxProps) {
   const { className, ...rest } = props;
 
-  return <Box className={classes(["BlockQuote", className])} {...rest} />;
+  return <Box className={classes(['BlockQuote', className])} {...rest} />;
 }

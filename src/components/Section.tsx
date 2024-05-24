@@ -4,29 +4,29 @@
  * @license MIT
  */
 
-import { forwardRef, type ReactNode, type RefObject, useEffect } from "react";
+import { canRender, classes } from '../common/react';
+import { forwardRef, ReactNode, RefObject, useEffect } from 'react';
 
-import { canRender, classes } from "../common/react";
-import { addScrollableNode, removeScrollableNode } from "../events";
-import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
+import { addScrollableNode, removeScrollableNode } from '../events';
+import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
   /** Buttons to render aside the section title. */
   buttons: ReactNode;
-  /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
-  container_id: string;
   /** If true, fills all available vertical space. */
   fill: boolean;
   /** If true, removes all section padding. */
   fitted: boolean;
-  /** @member Callback function for the `scroll` event */
-  onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
   /** Shows or hides the scrollbar. */
   scrollable: boolean;
   /** Shows or hides the horizontal scrollbar. */
   scrollableHorizontal: boolean;
   /** Title of the section. */
   title: ReactNode;
+  /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
+  container_id: string;
+  /** @member Callback function for the `scroll` event */
+  onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
 }> &
   BoxProps;
 
@@ -63,13 +63,13 @@ export const Section = forwardRef(
       buttons,
       children,
       className,
-      container_id,
       fill,
       fitted,
       onScroll,
       scrollable,
       scrollableHorizontal,
       title,
+      container_id,
       ...rest
     } = props;
 
@@ -84,22 +84,22 @@ export const Section = forwardRef(
 
       return () => {
         if (!forwardedRef?.current) return;
-        removeScrollableNode(forwardedRef.current);
+        removeScrollableNode(forwardedRef.current!);
       };
     }, []);
 
     return (
       <div
+        id={container_id || ''}
         className={classes([
-          "Section",
-          fill && "Section--fill",
-          fitted && "Section--fitted",
-          scrollable && "Section--scrollable",
-          scrollableHorizontal && "Section--scrollableHorizontal",
+          'Section',
+          fill && 'Section--fill',
+          fitted && 'Section--fitted',
+          scrollable && 'Section--scrollable',
+          scrollableHorizontal && 'Section--scrollableHorizontal',
           className,
           computeBoxClassName(rest),
         ])}
-        id={container_id ?? ""}
         {...computeBoxProps(rest)}
       >
         {hasTitle && (
@@ -121,5 +121,5 @@ export const Section = forwardRef(
         </div>
       </div>
     );
-  },
+  }
 );

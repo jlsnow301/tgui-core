@@ -1,17 +1,17 @@
 import {
-  type PropsWithChildren,
+  PropsWithChildren,
   useCallback,
   useEffect,
   useRef,
   useState,
-} from "react";
+} from 'react';
 
 /**
  * A vertical list that renders items to fill space up to the extents of the
  * current window, and then defers rendering of other items until they come
  * into view.
  */
-export function VirtualList(props: PropsWithChildren) {
+export const VirtualList = (props: PropsWithChildren) => {
   const { children } = props;
   const containerRef = useRef(null as HTMLDivElement | null);
   const [visibleElements, setVisibleElements] = useState(1);
@@ -56,14 +56,14 @@ export function VirtualList(props: PropsWithChildren) {
   }, [adjustExtents]);
 
   return (
-    <div className={"VirtualList"}>
-      <div className={"VirtualList__Container"} ref={containerRef}>
+    <div className={'VirtualList'}>
+      <div className={'VirtualList__Container'} ref={containerRef}>
         {Array.isArray(children) ? children.slice(0, visibleElements) : null}
       </div>
       <div
-        className={"VirtualList__Padding"}
+        className={'VirtualList__Padding'}
         style={{ paddingBottom: `${padding}px` }}
       />
     </div>
   );
-}
+};

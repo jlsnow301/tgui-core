@@ -4,22 +4,20 @@
  * @license MIT
  */
 
-import { Component, createRef } from "react";
+import { clamp, toFixed } from '../common/math';
+import { Component, createRef } from 'react';
 
-import { clamp, toFixed } from "../common/math";
-
-function isSafeNumber(value: number) {
+const isSafeNumber = (value: number) => {
   return (
-    typeof value === "number" && Number.isFinite(value) && !Number.isNaN(value)
+    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
   );
-}
+};
 
 export type AnimatedNumberProps = {
   /**
-   * If provided, a function that formats the inner string. By default,
-   * attempts to match the numeric precision of `value`.
+   * The target value to approach.
    */
-  format?: (value: number) => string;
+  value: number;
 
   /**
    * If provided, the initial value displayed. By default, the same as `value`.
@@ -29,9 +27,10 @@ export type AnimatedNumberProps = {
   initial?: number;
 
   /**
-   * The target value to approach.
+   * If provided, a function that formats the inner string. By default,
+   * attempts to match the numeric precision of `value`.
    */
-  value: number;
+  format?: (value: number) => string;
 };
 
 /**
@@ -68,7 +67,7 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
   /**
    * The current value. This values approaches the target value.
    */
-  currentValue = 0;
+  currentValue: number = 0;
 
   constructor(props: AnimatedNumberProps) {
     super(props);
@@ -163,7 +162,7 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
    * Gets the inner text of the span.
    */
   getText() {
-    const { currentValue, props } = this;
+    const { props, currentValue } = this;
     const { format, value } = props;
 
     if (!isSafeNumber(value)) {
@@ -174,8 +173,7 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
       return format(this.currentValue);
     }
 
-    // eslint-disable-next-line
-    const [_, fraction] = String(value).split(".");
+    const fraction = String(value).split('.')[1];
     const precision = fraction ? fraction.length : 0;
 
     return toFixed(currentValue, clamp(precision, 0, 8));

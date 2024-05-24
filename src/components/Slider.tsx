@@ -4,12 +4,12 @@
  * @license MIT
  */
 
-import { type PropsWithChildren } from "react";
+import { clamp01, keyOfMatchingRange, scale } from '../common/math';
+import { classes } from '../common/react';
+import { PropsWithChildren } from 'react';
 
-import { clamp01, keyOfMatchingRange, scale } from "../common/math";
-import { classes } from "../common/react";
-import { type BoxProps, computeBoxClassName, computeBoxProps } from "./Box";
-import { DraggableControl } from "./DraggableControl";
+import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { DraggableControl } from './DraggableControl';
 
 type Props = {
   /** Highest possible value. */
@@ -59,22 +59,22 @@ export function Slider(props: Props) {
   const {
     // Draggable props (passthrough)
     animated,
-    children,
-    className,
-    color,
-    fillValue,
     format,
     maxValue,
     minValue,
     onChange,
     onDrag,
-    ranges = {},
-    // Own props
     step,
     stepPixelSize,
     suppressFlicker,
     unit,
     value,
+    // Own props
+    className,
+    fillValue,
+    color,
+    ranges = {},
+    children,
     ...rest
   } = props;
 
@@ -112,19 +112,19 @@ export function Slider(props: Props) {
         const scaledFillValue = scale(
           fillValue ?? displayValue,
           minValue,
-          maxValue,
+          maxValue
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
 
         const effectiveColor =
-          color ?? keyOfMatchingRange(fillValue ?? value, ranges) ?? "default";
+          color || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
 
         return (
           <div
             className={classes([
-              "Slider",
-              "ProgressBar",
-              "ProgressBar--color--" + effectiveColor,
+              'Slider',
+              'ProgressBar',
+              'ProgressBar--color--' + effectiveColor,
               className,
               computeBoxClassName(rest),
             ])}
@@ -133,11 +133,11 @@ export function Slider(props: Props) {
           >
             <div
               className={classes([
-                "ProgressBar__fill",
-                hasFillValue && "ProgressBar__fill--animated",
+                'ProgressBar__fill',
+                hasFillValue && 'ProgressBar__fill--animated',
               ])}
               style={{
-                width: clamp01(scaledFillValue) * 100 + "%",
+                width: clamp01(scaledFillValue) * 100 + '%',
                 opacity: 0.4,
               }}
             />
@@ -146,13 +146,13 @@ export function Slider(props: Props) {
               style={{
                 width:
                   clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100 +
-                  "%",
+                  '%',
               }}
             />
             <div
               className="Slider__cursorOffset"
               style={{
-                width: clamp01(scaledDisplayValue) * 100 + "%",
+                width: clamp01(scaledDisplayValue) * 100 + '%',
               }}
             >
               <div className="Slider__cursor" />
