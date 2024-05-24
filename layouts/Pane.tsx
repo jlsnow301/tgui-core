@@ -6,7 +6,7 @@
 
 import { classes } from '../common/react';
 
-import { useBackend } from '../backend';
+import { useBackend } from '../src/backend';
 import { Box, BoxProps } from '../components/Box';
 import { useDebug } from '../debug';
 import { Layout } from './Layout';

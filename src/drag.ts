@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { storage } from './common/storage';
-import { vecAdd, vecMultiply, vecScale, vecSubtract } from './common/vector';
+import { storage } from '../common/storage';
+import { vecAdd, vecMultiply, vecScale, vecSubtract } from '../common/vector';
 
 const pixelRatio = window.devicePixelRatio ?? 1;
 let windowKey = Byond.windowId;

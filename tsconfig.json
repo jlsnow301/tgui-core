@@ -2,7 +2,6 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "checkJs": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,26 +16,6 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "noEmit": true,
-    "paths": {
-      "components/*": [
-        "src/components/*"
-      ],
-      "common/*": [
-        "src/common/*"
-      ],
-      "debug/*": [
-        "src/debug/*"
-      ],
-      "layouts/*": [
-        "src/layouts/*"
-      ],
-      "interfaces/*": [
-        "src/interfaces/*"
-      ],
-      "styles/*": [
-        "src/styles/*"
-      ]
-    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,

@@ -6,8 +6,8 @@
 
 import { BooleanLike } from '../common/react';
 
-import { resolveAsset } from '../assets';
-import { useBackend } from '../backend';
+import { resolveAsset } from '../src/assets';
+import { useBackend } from '../src/backend';
 import { Box } from '../components/Box';
 import { Button } from '../components/Button';
 import { Window } from './Window';

@@ -8,18 +8,18 @@ import { classes } from '../common/react';
 import { decodeHtmlEntities, toTitleCase } from '../common/string';
 import { PropsWithChildren, ReactNode, useEffect } from 'react';
 
-import { backendSuspendStart, globalStore, useBackend } from '../backend';
+import { backendSuspendStart, globalStore, useBackend } from '../src/backend';
 import { Icon } from '../components/Icon';
 import { BoxProps } from '../components/Box';
-import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
-import { useDebug } from '../debug';
+import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../src/constants';
+import { useDebug } from '..//debug';
 import { toggleKitchenSink } from '../debug/actions';
 import {
   dragStartHandler,
   recallWindowGeometry,
   resizeStartHandler,
   setWindowKey,
-} from '../drag';
+} from '../src/drag';
 import { Layout } from './Layout';
 
 const DEFAULT_SIZE: [number, number] = [400, 600];

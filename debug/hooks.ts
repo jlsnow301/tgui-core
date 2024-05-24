@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useSelector } from '../backend';
+import { useSelector } from '../src/backend';
 import { selectDebug } from './selectors';
 
 export const useDebug = () => useSelector(selectDebug);

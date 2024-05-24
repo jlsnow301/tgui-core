@@ -12,7 +12,7 @@ import {
   computeBoxClassName,
   computeBoxProps,
 } from '../components/Box';
-import { addScrollableNode, removeScrollableNode } from '../events';
+import { addScrollableNode, removeScrollableNode } from '../src/events';
 
 type Props = Partial<{
   theme: string;

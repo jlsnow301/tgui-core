@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { createAction } from 'common/redux';
+import { createAction } from '../common/redux';
 
 export const toggleKitchenSink = createAction('debug/toggleKitchenSink');
 export const toggleDebugLayout = createAction('debug/toggleDebugLayout');

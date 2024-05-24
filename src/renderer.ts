@@ -1,4 +1,4 @@
-import { perf } from './common/perf';
+import { perf } from '../common/perf';
 import { ReactNode } from 'react';
 import { createRoot, Root } from 'react-dom/client';
 

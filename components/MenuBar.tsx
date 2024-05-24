@@ -7,7 +7,6 @@
 import { classes } from '../common/react';
 import { Component, createRef, ReactNode, RefObject } from 'react';
 
-import { logger } from '../logging';
 import { Box } from './Box';
 import { Icon } from './Icon';
 
@@ -25,20 +24,16 @@ class Menu extends Component<MenuProps> {
     super(props);
     this.handleClick = (event) => {
       if (!this.props.menuRef.current) {
-        logger.log(`Menu.handleClick(): No ref`);
         return;
       }
 
       if (this.props.menuRef.current.contains(event.target)) {
-        logger.log(`Menu.handleClick(): Inside`);
       } else {
-        logger.log(`Menu.handleClick(): Outside`);
         this.props.onOutsideClick();
       }
     };
   }
 
-  // eslint-disable-next-line react/no-deprecated
   componentWillMount() {
     window.addEventListener('click', this.handleClick);
   }
