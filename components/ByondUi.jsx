@@ -10,8 +10,6 @@ import { Component, createRef } from 'react';
 
 import { computeBoxProps } from './Box';
 
-const logger = createLogger('ByondUi');
-
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];
 
@@ -24,12 +22,10 @@ const createByondUiElement = (elementId) => {
   // Return a control structure
   return {
     render: (params) => {
-      logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
       Byond.winset(id, params);
     },
     unmount: () => {
-      logger.log(`unmounting '${id}'`);
       byondUiStack[index] = null;
       Byond.winset(id, {
         parent: '',
@@ -43,7 +39,6 @@ window.addEventListener('beforeunload', () => {
   for (let index = 0; index < byondUiStack.length; index++) {
     const id = byondUiStack[index];
     if (typeof id === 'string') {
-      logger.log(`unmounting '${id}' (beforeunload)`);
       byondUiStack[index] = null;
       Byond.winset(id, {
         parent: '',
