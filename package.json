@@ -2,11 +2,6 @@
   "name": "tgui-core",
   "version": "1.0.0",
   "description": "TGUI core component library",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "yarn build"
-  },
   "keywords": [
     "TGUI",
     "library",
