@@ -25,26 +25,26 @@ enum Render {
   Finish = 'render/finish',
 }
 
-// prettier-ignore
-export const createRenderer: CreateRenderer = (getVNode) => (...args) => {
-  perf.mark(Render.Start);
-  // Start rendering
-  if (!reactRoot) {
-    const element = document.getElementById('react-root');
-    reactRoot = createRoot(element!);
-  }
-  if (getVNode) {
-    reactRoot.render(getVNode(...args));
-  }
-  else {
-    reactRoot.render(args[0] as any);
-  }
-  perf.mark(Render.Finish);
-  if (suspended) {
-    return;
-  }
- 
-  if (initialRender) {
-    initialRender = false;
-  }
-};
+export const createRenderer: CreateRenderer =
+  (getVNode) =>
+  (...args) => {
+    perf.mark(Render.Start);
+    // Start rendering
+    if (!reactRoot) {
+      const element = document.getElementById('react-root');
+      reactRoot = createRoot(element!);
+    }
+    if (getVNode) {
+      reactRoot.render(getVNode(...args));
+    } else {
+      reactRoot.render(args[0] as any);
+    }
+    perf.mark(Render.Finish);
+    if (suspended) {
+      return;
+    }
+
+    if (initialRender) {
+      initialRender = false;
+    }
+  };

@@ -14,11 +14,7 @@ import {
   toggleKitchenSink,
 } from './actions';
 
-// prettier-ignore
-const relayedTypes = [
-  'backend/update',
-  'chat/message',
-];
+const relayedTypes = ['backend/update', 'chat/message'];
 
 export const debugMiddleware = (store) => {
   acquireHotKey(KEY_F11);
@@ -34,11 +30,11 @@ export const debugMiddleware = (store) => {
       // NOTE: We need to call this in a timeout, because we need a clean
       // stack in order for this to be a fatal error.
       setTimeout(() => {
-        // prettier-ignore
         throw new Error(
-          'OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle'
-          + ' fucko boingo! The code monkeys at our headquarters are'
-          + ' working VEWY HAWD to fix this!');
+          'OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle' +
+            ' fucko boingo! The code monkeys at our headquarters are' +
+            ' working VEWY HAWD to fix this!'
+        );
       });
     }
   });
@@ -46,18 +42,9 @@ export const debugMiddleware = (store) => {
 };
 
 export const relayMiddleware = (store) => {
-  const devServer = require('tgui-dev-server/link/client.cjs');
   const externalBrowser = location.search === '?external';
   if (externalBrowser) {
-    devServer.subscribe((msg) => {
-      const { type, payload } = msg;
-      if (type === 'relay' && payload.windowId === Byond.windowId) {
-        store.dispatch({
-          ...payload.action,
-          relayed: true,
-        });
-      }
-    });
+    // todo: implement
   } else {
     acquireHotKey(KEY_F10);
     globalEvents.on('keydown', (key) => {
@@ -73,13 +60,7 @@ export const relayMiddleware = (store) => {
       return;
     }
     if (relayedTypes.includes(type) && !relayed && !externalBrowser) {
-      devServer.sendMessage({
-        type: 'relay',
-        payload: {
-          windowId: Byond.windowId,
-          action,
-        },
-      });
+      // todo: implement
     }
     return next(action);
   };
