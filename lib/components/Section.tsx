@@ -7,7 +7,7 @@
 import { canRender, classes } from '../common/react';
 import { forwardRef, ReactNode, RefObject, useEffect } from 'react';
 
-import { addScrollableNode, removeScrollableNode } from '../src/events';
+import { addScrollableNode, removeScrollableNode } from '../../src/events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{

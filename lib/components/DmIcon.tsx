@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 
-import { resolveAsset } from '../src/assets';
-import { fetchRetry } from '../src/http';
+import { resolveAsset } from '../../src/assets';
+import { fetchRetry } from '../../src/http';
 import { BoxProps } from './Box';
 import { Image } from './Image';
 
