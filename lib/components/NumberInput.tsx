@@ -146,7 +146,7 @@ export class NumberInput extends Component<Props, State> {
     });
   };
 
-  handleDragEnd = (event: MouseEvent) => {
+  handleDragEnd = (_event: MouseEvent) => {
     const { dragging, currentValue } = this.state;
     const { onDrag, onChange, disabled } = this.props;
     if (disabled) {

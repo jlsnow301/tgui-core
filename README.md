@@ -2,9 +2,9 @@
 
 A collection of utilities and components for the [tgui](https://github.com/tgstation/tgstation) framework.
 
-You can view the code on [GitHub](https://github.com/jlsnow301/tgui-core).
+This package was built to help the various downstream SS13 servers stay up to date with TGUI without having to keep a local version of each file.
 
-This package was built to help the various downstream SS13 servers of SS13 update TGUI to the latest version.
+You can view the code on [GitHub](https://github.com/jlsnow301/tgui-core).
 
 ## Installation
 

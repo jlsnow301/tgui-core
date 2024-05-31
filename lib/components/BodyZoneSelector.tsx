@@ -1,6 +1,6 @@
 import { Component, createRef } from 'react';
 
-import { resolveAsset } from '../src/assets';
+import { resolveAsset } from '../assets';
 import { Image } from './Image';
 
 export enum BodyZone {

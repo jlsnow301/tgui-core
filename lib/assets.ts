@@ -13,7 +13,7 @@ export const resolveAsset = (name: string): string =>
   loadedMappings[name] || name;
 
 export const assetMiddleware: Middleware =
-  (storeApi) =>
+  (_storeApi) =>
   <ActionType extends Action = AnyAction>(next: Dispatch<ActionType>) =>
   (action: ActionType) => {
     const { type, payload } = action as AnyAction;
