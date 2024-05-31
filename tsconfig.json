@@ -6,10 +6,10 @@
       "DOM",
       "DOM.Iterable",
       "ESNext",
-      "ScriptHost"],
+      "ScriptHost"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -17,14 +17,29 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
     /* Linting */
     "strict": false,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "tgui-core/components/*": [
+        "dist/components/*"
+      ],
+      "tgui-core/common/*": [
+        "dist/common/*"
+      ]
+    }
   },
-  "include": ["lib", "global.d.ts",],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "lib",
+    "global.d.ts",
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

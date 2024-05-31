@@ -11,10 +11,6 @@
     "dist"
   ],
   "exports": {
-    "./*": {
-      "import": "./dist/*.js",
-      "require": "./dist/*.cjs"
-    },
     "./common/*": {
       "import": "./dist/common/*.js",
       "require": "./dist/common/*.cjs"
@@ -25,8 +21,8 @@
     }
   },
   "scripts": {
-    "build": "vite build",
-    "prepublishOnly": "vite build"
+    "build": "tsc && vite build",
+    "prepublishOnly": "tsc &&vite build"
   },
   "author": "jlsnow301",
   "license": "MIT",
