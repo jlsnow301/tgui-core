@@ -4,6 +4,8 @@
  * @license MIT
  */
 
+import '../styles/components/Button.scss';
+
 import { Placement } from '@popperjs/core';
 import { KEY } from '../common/keys';
 import { BooleanLike, classes } from '../common/react';
