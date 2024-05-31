@@ -26,11 +26,14 @@
     "baseUrl": ".",
     "paths": {
       "tgui-core/components/*": [
-        "dist/components/*"
+        "dist/components/*.d.ts"
       ],
       "tgui-core/common/*": [
-        "dist/common/*"
-      ]
+        "dist/common/*.d.ts"
+      ],
+      "tgui-core/*": [
+        "dist/*.d.ts"
+      ],
     }
   },
   "include": [

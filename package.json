@@ -1,6 +1,6 @@
 {
   "name": "tgui-core",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "TGUI core component library",
   "keywords": [
     "TGUI",
@@ -18,6 +18,10 @@
     "./components": {
       "import": "./dist/components/index.js",
       "require": "./dist/components/index.cjs"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs"
     }
   },
   "scripts": {
