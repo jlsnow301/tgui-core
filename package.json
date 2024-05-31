@@ -1,6 +1,6 @@
 {
   "name": "tgui-core",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "TGUI core component library",
   "keywords": [
     "TGUI",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "tsc && vite build",
-    "prepublishOnly": "tsc &&vite build"
+    "prepublishOnly": "tsc && vite build"
   },
   "author": "jlsnow301",
   "license": "MIT",
