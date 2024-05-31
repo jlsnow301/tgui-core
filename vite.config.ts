@@ -1,14 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import { extname, relative, resolve } from 'path';
-import {glob} from 'glob'
-import { fileURLToPath } from 'node:url'
-import dts from 'vite-plugin-dts'
-
+import { defineConfig } from 'vite';
+import { extname, relative } from 'path';
+import { fileURLToPath } from 'node:url';
+import { glob } from 'glob';
+import { libInjectCss } from 'vite-plugin-lib-inject-css';
+import dts from 'vite-plugin-dts';
+import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({ include: ['lib'] })],
+  plugins: [react(), libInjectCss(), dts({ include: ['lib'] })],
   build: {
     lib: {
       entry: 'lib/components/index.ts',
