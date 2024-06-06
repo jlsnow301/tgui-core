@@ -5,10 +5,11 @@ import { glob } from 'glob';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import dts from 'vite-plugin-dts';
 import react from '@vitejs/plugin-react-swc';
+import sassDts from 'vite-plugin-sass-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), libInjectCss(), dts({ include: ['lib'] })],
+  plugins: [react(), libInjectCss(), dts({ include: ['lib'] }), sassDts()],
   build: {
     lib: {
       entry: 'lib/components/index.ts',
@@ -32,7 +33,7 @@ export default defineConfig({
             // The absolute path to the entry file
             // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
             fileURLToPath(new URL(file, import.meta.url)),
-          ])
+          ]),
       ),
     },
   },
