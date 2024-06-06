@@ -3,6 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import style from '../styles/components/Divider.module.scss';
 
 import { classes } from '../common/react';
 
@@ -17,9 +18,8 @@ export function Divider(props: Props) {
   return (
     <div
       className={classes([
-        'Divider',
-        hidden && 'Divider--hidden',
-        vertical ? 'Divider--vertical' : 'Divider--horizontal',
+        hidden && style.hidden,
+        vertical ? style.vertical : style.horizontal,
       ])}
     />
   );

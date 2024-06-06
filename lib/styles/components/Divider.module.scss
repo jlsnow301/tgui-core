@@ -9,19 +9,19 @@ $color: rgba(255, 255, 255, 0.1) !default;
 $thickness: base.em(2px) !default;
 $spacing: 0.5em;
 
-.Divider--horizontal {
+.horizontal {
   margin: $spacing 0;
 
-  &:not(.Divider--hidden) {
+  &:not(.hidden) {
     border-top: $thickness solid $color;
   }
 }
 
-.Divider--vertical {
+.vertical {
   height: 100%;
   margin: 0 $spacing;
 
-  &:not(.Divider--hidden) {
+  &:not(.hidden) {
     border-left: $thickness solid $color;
   }
 }

@@ -3,10 +3,12 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import style from '../styles/components/Flex.module.scss';
 
 import { classes } from '../common/react';
 
 import { BoxProps, computeBoxClassName, computeBoxProps, unit } from './Box';
+import { CSSProperties } from 'react';
 
 export type FlexProps = Partial<{
   align: string | boolean;
@@ -14,15 +16,15 @@ export type FlexProps = Partial<{
   inline: boolean;
   justify: string;
   scrollable: boolean;
-  style: Partial<HTMLDivElement['style']>;
+  style: CSSProperties;
   wrap: string | boolean;
 }> &
   BoxProps;
 
 export const computeFlexClassName = (props: FlexProps) => {
   return classes([
-    'Flex',
-    props.inline && 'Flex--inline',
+    style.flex,
+    props.inline && style.inline,
     computeBoxClassName(props),
   ]);
 };
@@ -62,10 +64,6 @@ export type FlexItemProps = BoxProps &
     style: Partial<HTMLDivElement['style']>;
   }>;
 
-export const computeFlexItemClassName = (props: FlexItemProps) => {
-  return classes(['Flex__item', computeBoxClassName(props)]);
-};
-
 export const computeFlexItemProps = (props: FlexItemProps) => {
   const { className, style, grow, order, shrink, basis, align, ...rest } =
     props;
@@ -96,7 +94,7 @@ const FlexItem = (props) => {
   const { className, ...rest } = props;
   return (
     <div
-      className={classes([className, computeFlexItemClassName(props)])}
+      className={classes([className, computeBoxClassName(props)])}
       {...computeFlexItemProps(rest)}
     />
   );

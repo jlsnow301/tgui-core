@@ -4,6 +4,8 @@
  * @license MIT
  */
 
+import style from '../styles/components/ColorBox.module.scss';
+
 import { classes } from '../common/react';
 import { ReactNode } from 'react';
 
@@ -21,7 +23,11 @@ export function ColorBox(props: Props) {
 
   return (
     <div
-      className={classes(['ColorBox', className, computeBoxClassName(rest)])}
+      className={classes([
+        style.colorBox,
+        className,
+        computeBoxClassName(rest),
+      ])}
       {...computeBoxProps(rest)}
     >
       {content || '.'}

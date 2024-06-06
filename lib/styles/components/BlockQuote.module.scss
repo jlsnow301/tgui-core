@@ -8,7 +8,7 @@
 
 $color-default: colors.fg(colors.$label) !default;
 
-.BlockQuote {
+.blockQuote {
   color: $color-default;
   border-left: base.em(2px) solid $color-default;
   padding-left: 0.5em;
