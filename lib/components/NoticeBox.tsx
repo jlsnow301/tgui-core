@@ -3,7 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
-
+import styles from '../styles/components/NoticeBox.module.scss';
 import { classes } from '../common/react';
 
 import { Box, BoxProps } from './Box';
@@ -35,11 +35,11 @@ export function NoticeBox(props: Props) {
   return (
     <Box
       className={classes([
-        'NoticeBox',
-        color && 'NoticeBox--color--' + color,
-        info && 'NoticeBox--type--info',
-        success && 'NoticeBox--type--success',
-        danger && 'NoticeBox--type--danger',
+        styles.noticeBox,
+        color && styles['color__' + color],
+        info && styles.info,
+        success && styles.success,
+        danger && styles.danger,
         className,
       ])}
       {...rest}

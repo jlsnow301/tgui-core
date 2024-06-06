@@ -3,6 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/Section.module.scss';
 
 import { canRender, classes } from '../common/react';
 import { forwardRef, ReactNode, RefObject, useEffect } from 'react';
@@ -92,25 +93,25 @@ export const Section = forwardRef(
       <div
         id={container_id || ''}
         className={classes([
-          'Section',
-          fill && 'Section--fill',
-          fitted && 'Section--fitted',
-          scrollable && 'Section--scrollable',
-          scrollableHorizontal && 'Section--scrollableHorizontal',
+          styles.section,
+          fill && styles.fill,
+          fitted && styles.fitted,
+          scrollable && styles.scrollable,
+          scrollableHorizontal && styles.scrollableHorizontal,
           className,
           computeBoxClassName(rest),
         ])}
         {...computeBoxProps(rest)}
       >
         {hasTitle && (
-          <div className="Section__title">
-            <span className="Section__titleText">{title}</span>
-            <div className="Section__buttons">{buttons}</div>
+          <div className={styles.title}>
+            <span className={styles.titleText}>{title}</span>
+            <div className={styles.buttons}>{buttons}</div>
           </div>
         )}
-        <div className="Section__rest">
+        <div className={styles.rest}>
           <div
-            className="Section__content"
+            className={styles.content}
             onScroll={onScroll}
             // For posterity: the forwarded ref needs to be here specifically
             // to actually let things interact with the scrolling.
@@ -121,5 +122,5 @@ export const Section = forwardRef(
         </div>
       </div>
     );
-  }
+  },
 );

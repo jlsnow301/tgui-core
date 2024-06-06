@@ -5,9 +5,10 @@
  * @author Changes ThePotato97
  * @license MIT
  */
+import style from '../styles/components/Icon.module.scss';
 
 import { BooleanLike, classes } from '../common/react';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
@@ -18,7 +19,7 @@ type IconPropsUnique = { name: string } & Partial<{
   spin: BooleanLike;
   className: string;
   rotation: number;
-  style: Partial<HTMLDivElement['style']>;
+  style: CSSProperties;
 }>;
 
 export type IconProps = IconPropsUnique & BoxProps;
@@ -59,7 +60,7 @@ export const Icon = (props: IconProps) => {
   return (
     <i
       className={classes([
-        'Icon',
+        style.icon,
         iconClass,
         className,
         computeBoxClassName(rest),
@@ -80,7 +81,11 @@ export const IconStack = (props: IconStackProps) => {
   const { className, children, ...rest } = props;
   return (
     <span
-      className={classes(['IconStack', className, computeBoxClassName(rest)])}
+      className={classes([
+        style.iconStack,
+        className,
+        computeBoxClassName(rest),
+      ])}
       {...computeBoxProps(rest)}
     >
       {children}

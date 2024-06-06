@@ -116,7 +116,13 @@ import '../assets/Button.css';const T = "_button_pi5yi_17", L = "_fa_pi5yi_34", 
             spin: I
           }
         ),
-        c ? /* @__PURE__ */ e("span", { className: N([o.ellipsis, n && o.textMargin]), children: h }) : h,
+        c ? /* @__PURE__ */ e(
+          "span",
+          {
+            className: N([o.ellipsis, n && o.textMargin]),
+            children: h
+          }
+        ) : h,
         n && m === "right" && /* @__PURE__ */ e(
           R,
           {

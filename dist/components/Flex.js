@@ -1,33 +1,36 @@
-import { jsx as a } from "react/jsx-runtime";
-import { classes as n } from "../common/react.js";
-import { computeBoxClassName as c, computeBoxProps as u, unit as p } from "./Box.js";
-const N = (e) => n([
-  "Flex",
-  e.inline && "Flex--inline",
-  c(e)
-]), d = (e) => {
-  const { className: o, direction: s, wrap: t, align: i, justify: r, inline: m, ...l } = e;
+import { jsx as m } from "react/jsx-runtime";
+import { classes as r } from "../common/react.js";
+import { computeBoxClassName as x, computeBoxProps as u, unit as p } from "./Box.js";
+import '../assets/Flex.css';const N = "_flex_djoni_5", y = "_inline_djoni_10", a = {
+  flex: N,
+  inline: y
+}, v = (e) => r([
+  a.flex,
+  e.inline && a.inline,
+  x(e)
+]), _ = (e) => {
+  const { className: n, direction: s, wrap: t, align: l, justify: i, inline: c, ...o } = e;
   return u({
     style: {
-      ...l.style,
+      ...o.style,
       flexDirection: s,
       flexWrap: t === !0 ? "wrap" : t,
-      alignItems: i,
-      justifyContent: r
+      alignItems: l,
+      justifyContent: i
     },
-    ...l
+    ...o
   });
-}, F = (e) => {
-  const { className: o, ...s } = e;
-  return /* @__PURE__ */ a(
+}, g = (e) => {
+  const { className: n, ...s } = e;
+  return /* @__PURE__ */ m(
     "div",
     {
-      className: n([o, N(s)]),
-      ...d(s)
+      className: r([n, v(s)]),
+      ..._(s)
     }
   );
-}, v = (e) => n(["Flex__item", c(e)]), y = (e) => {
-  const { className: o, style: s, grow: t, order: i, shrink: r, basis: m, align: l, ...x } = e, f = m ?? // IE11: Set basis to specified width if it's known, which fixes certain
+}, j = (e) => {
+  const { className: n, style: s, grow: t, order: l, shrink: i, basis: c, align: o, ...f } = e, d = c ?? // IE11: Set basis to specified width if it's known, which fixes certain
   // bugs when rendering tables inside the flex.
   e.width ?? // If grow is used, basis should be set to 0 to be consistent with
   // flex css shorthand `flex: 1`.
@@ -36,28 +39,27 @@ const N = (e) => n([
     style: {
       ...s,
       flexGrow: t !== void 0 && Number(t),
-      flexShrink: r !== void 0 && Number(r),
-      flexBasis: p(f),
-      order: i,
-      alignSelf: l
+      flexShrink: i !== void 0 && Number(i),
+      flexBasis: p(d),
+      order: l,
+      alignSelf: o
     },
-    ...x
+    ...f
   });
-}, g = (e) => {
-  const { className: o, ...s } = e;
-  return /* @__PURE__ */ a(
+}, w = (e) => {
+  const { className: n, ...s } = e;
+  return /* @__PURE__ */ m(
     "div",
     {
-      className: n([o, v(e)]),
-      ...y(s)
+      className: r([n, x(e)]),
+      ...j(s)
     }
   );
 };
-F.Item = g;
+g.Item = w;
 export {
-  F as Flex,
-  N as computeFlexClassName,
-  v as computeFlexItemClassName,
-  y as computeFlexItemProps,
-  d as computeFlexProps
+  g as Flex,
+  v as computeFlexClassName,
+  j as computeFlexItemProps,
+  _ as computeFlexProps
 };

@@ -4,6 +4,7 @@
  * @author Warlockd
  * @license MIT
  */
+import styles from '../styles/components/TextArea.module.scss';
 
 import { KEY } from '../common/keys';
 import { classes } from '../common/react';
@@ -107,7 +108,7 @@ export const TextArea = forwardRef(
 
     useImperativeHandle(
       forwardedRef,
-      () => textareaRef.current as HTMLTextAreaElement
+      () => textareaRef.current as HTMLTextAreaElement,
     );
 
     /** Focuses the input on mount */
@@ -142,27 +143,17 @@ export const TextArea = forwardRef(
     return (
       <Box
         className={classes([
-          'TextArea',
-          fluid && 'TextArea--fluid',
-          noborder && 'TextArea--noborder',
+          styles.textArea,
+          fluid && styles.fluid,
+          noborder && styles.noborder,
           className,
         ])}
         {...rest}
       >
         {!!displayedValue && (
-          <div
-            style={{
-              height: '100%',
-              overflow: 'hidden',
-              position: 'absolute',
-              width: '100%',
-            }}
-          >
+          <div className={styles.wrapper}>
             <div
-              className={classes([
-                'TextArea__textarea',
-                'TextArea__textarea_custom',
-              ])}
+              className={classes([styles.inner, styles.custom])}
               style={{
                 transform: `translateY(-${scrolledAmount}px)`,
               }}
@@ -173,9 +164,9 @@ export const TextArea = forwardRef(
         )}
         <textarea
           className={classes([
-            'TextArea__textarea',
-            scrollbar && 'TextArea__textarea--scrollable',
-            nowrap && 'TextArea__nowrap',
+            styles.inner,
+            scrollbar && styles.scrollable,
+            nowrap && styles.nowrap,
           ])}
           maxLength={maxLength}
           onBlur={(event) => onChange?.(event, event.target.value)}
@@ -194,5 +185,5 @@ export const TextArea = forwardRef(
         />
       </Box>
     );
-  }
+  },
 );

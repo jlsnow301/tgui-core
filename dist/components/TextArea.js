@@ -1,114 +1,109 @@
-import { jsxs as F, jsx as i } from "react/jsx-runtime";
-import { KEY as f } from "../common/keys.js";
+import { jsxs as I, jsx as f } from "react/jsx-runtime";
+import { KEY as p } from "../common/keys.js";
 import { classes as d } from "../common/react.js";
-import { forwardRef as I, useRef as Y, useState as C, useImperativeHandle as H, useEffect as p } from "react";
-import { Box as L } from "./Box.js";
+import { forwardRef as Y, useRef as C, useState as H, useImperativeHandle as L, useEffect as b } from "react";
+import { Box as P } from "./Box.js";
 import { toInputValue as g } from "./Input.js";
-const J = I(
-  (b, h) => {
+import '../assets/TextArea.css';const U = "_textArea_20wp8_13", $ = "_fluid_20wp8_26", q = "_noborder_20wp8_32", z = "_inner_20wp8_36", G = "_scrollable_20wp8_36", J = "_custom_20wp8_71", M = "_nowrap_20wp8_76", O = "_wrapper_20wp8_82", e = {
+  textArea: U,
+  fluid: $,
+  noborder: q,
+  inner: z,
+  scrollable: G,
+  custom: J,
+  nowrap: M,
+  wrapper: O
+}, er = Y(
+  (T, x) => {
     const {
       autoFocus: m,
-      autoSelect: o,
+      autoSelect: s,
       displayedValue: a,
-      dontUseTabForIndent: A,
-      maxLength: _,
-      noborder: y,
+      dontUseTabForIndent: y,
+      maxLength: h,
+      noborder: A,
       onChange: l,
-      onEnter: u,
-      onEscape: s,
+      onEnter: n,
+      onEscape: u,
       onInput: c,
-      placeholder: w,
+      placeholder: N,
       scrollbar: S,
-      selfClear: T,
-      value: n,
+      selfClear: _,
+      value: i,
       ...E
-    } = b, { className: K, fluid: N, nowrap: k, ...D } = E, e = Y(null), [R, V] = C(0), j = (r) => {
-      if (r.key === f.Enter) {
+    } = T, { className: K, fluid: k, nowrap: D, ...R } = E, t = C(null), [V, j] = H(0), B = (r) => {
+      if (r.key === p.Enter) {
         if (r.shiftKey) {
           r.currentTarget.focus();
           return;
         }
-        u == null || u(r, r.currentTarget.value), T && (r.currentTarget.value = ""), r.currentTarget.blur();
+        n == null || n(r, r.currentTarget.value), _ && (r.currentTarget.value = ""), r.currentTarget.blur();
         return;
       }
-      if (r.key === f.Escape) {
-        s == null || s(r), T ? r.currentTarget.value = "" : (r.currentTarget.value = g(n), r.currentTarget.blur());
+      if (r.key === p.Escape) {
+        u == null || u(r), _ ? r.currentTarget.value = "" : (r.currentTarget.value = g(i), r.currentTarget.blur());
         return;
       }
-      if (!A && r.key === f.Tab) {
+      if (!y && r.key === p.Tab) {
         r.preventDefault();
-        const { value: t, selectionStart: x, selectionEnd: B } = r.currentTarget;
-        r.currentTarget.value = t.substring(0, x) + "	" + t.substring(B), r.currentTarget.selectionEnd = x + 1;
+        const { value: o, selectionStart: w, selectionEnd: F } = r.currentTarget;
+        r.currentTarget.value = o.substring(0, w) + "	" + o.substring(F), r.currentTarget.selectionEnd = w + 1;
       }
     };
-    return H(
-      h,
-      () => e.current
-    ), p(() => {
-      if (!m && !o)
+    return L(
+      x,
+      () => t.current
+    ), b(() => {
+      if (!m && !s)
         return;
-      const r = e.current;
-      r && (m || o) && setTimeout(() => {
-        r.focus(), o && r.select();
+      const r = t.current;
+      r && (m || s) && setTimeout(() => {
+        r.focus(), s && r.select();
       }, 1);
-    }, []), p(() => {
-      const r = e.current;
+    }, []), b(() => {
+      const r = t.current;
       if (!r)
         return;
-      const t = g(n);
-      r.value !== t && (r.value = t);
-    }, [n]), /* @__PURE__ */ F(
-      L,
+      const o = g(i);
+      r.value !== o && (r.value = o);
+    }, [i]), /* @__PURE__ */ I(
+      P,
       {
         className: d([
-          "TextArea",
-          N && "TextArea--fluid",
-          y && "TextArea--noborder",
+          e.textArea,
+          k && e.fluid,
+          A && e.noborder,
           K
         ]),
-        ...D,
+        ...R,
         children: [
-          !!a && /* @__PURE__ */ i(
+          !!a && /* @__PURE__ */ f("div", { className: e.wrapper, children: /* @__PURE__ */ f(
             "div",
             {
+              className: d([e.inner, e.custom]),
               style: {
-                height: "100%",
-                overflow: "hidden",
-                position: "absolute",
-                width: "100%"
+                transform: `translateY(-${V}px)`
               },
-              children: /* @__PURE__ */ i(
-                "div",
-                {
-                  className: d([
-                    "TextArea__textarea",
-                    "TextArea__textarea_custom"
-                  ]),
-                  style: {
-                    transform: `translateY(-${R}px)`
-                  },
-                  children: a
-                }
-              )
+              children: a
             }
-          ),
-          /* @__PURE__ */ i(
+          ) }),
+          /* @__PURE__ */ f(
             "textarea",
             {
               className: d([
-                "TextArea__textarea",
-                S && "TextArea__textarea--scrollable",
-                k && "TextArea__nowrap"
+                e.inner,
+                S && e.scrollable,
+                D && e.nowrap
               ]),
-              maxLength: _,
+              maxLength: h,
               onBlur: (r) => l == null ? void 0 : l(r, r.target.value),
               onChange: (r) => c == null ? void 0 : c(r, r.target.value),
-              onKeyDown: j,
+              onKeyDown: B,
               onScroll: () => {
-                a && e.current && V(e.current.scrollTop);
+                a && t.current && j(t.current.scrollTop);
               },
-              placeholder: w,
-              ref: e,
+              placeholder: N,
+              ref: t,
               style: {
                 color: a ? "rgba(0, 0, 0, 0)" : "inherit"
               }
@@ -120,5 +115,5 @@ const J = I(
   }
 );
 export {
-  J as TextArea
+  er as TextArea
 };

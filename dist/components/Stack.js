@@ -1,60 +1,67 @@
-import { jsx as a } from "react/jsx-runtime";
-import { classes as i } from "../common/react.js";
-import { computeFlexClassName as k, computeFlexProps as v, computeFlexItemClassName as o, computeFlexItemProps as m } from "./Flex.js";
-function n(r) {
-  const { className: c, vertical: e, fill: t, reverse: s, zebra: l, ...d } = r, S = e ? "column" : "row", f = s ? "-reverse" : "";
-  return /* @__PURE__ */ a(
+import { jsx as c } from "react/jsx-runtime";
+import { classes as _ } from "../common/react.js";
+import { computeFlexClassName as f, computeFlexProps as w, computeFlexItemProps as o } from "./Flex.js";
+import { computeBoxClassName as a } from "./Box.js";
+import '../assets/Stack.css';const h = "_fill_wrul1_9", p = "_horizontal_wrul1_13", z = "_item_wrul1_13", x = "_vertical_wrul1_20", N = "_reverse_wrul1_27", S = "_reverse__vertical_wrul1_35", k = "_zebra_wrul1_43", b = "_divider_wrul1_47", F = "_divider__hidden_wrul1_47", t = {
+  fill: h,
+  horizontal: p,
+  item: z,
+  vertical: x,
+  reverse: N,
+  reverse__vertical: S,
+  zebra: k,
+  divider: b,
+  divider__hidden: F
+};
+function n(i) {
+  const { className: s, vertical: e, fill: r, reverse: l, zebra: d, ...v } = i, m = e ? "column" : "row", u = l ? "-reverse" : "";
+  return /* @__PURE__ */ c(
     "div",
     {
-      className: i([
-        "Stack",
-        t && "Stack--fill",
-        e ? "Stack--vertical" : "Stack--horizontal",
-        l && "Stack--zebra",
-        s && `Stack--reverse${e ? "--vertical" : ""}`,
-        c,
-        k(r)
+      className: _([
+        r && t.fill,
+        e ? t.vertical : t.horizontal,
+        d && t.zebra,
+        l && t[`reverse${e ? "__vertical" : ""}`],
+        s,
+        f(i)
       ]),
-      ...v({
-        direction: `${S}${f}`,
-        ...d
+      ...w({
+        direction: `${m}${u}`,
+        ...v
       })
     }
   );
 }
-function u(r) {
-  const { className: c, innerRef: e, ...t } = r;
-  return /* @__PURE__ */ a(
+function I(i) {
+  const { className: s, innerRef: e, ...r } = i;
+  return /* @__PURE__ */ c(
     "div",
     {
-      className: i([
-        "Stack__item",
-        c,
-        o(t)
-      ]),
+      className: _([t.item, s, a(r)]),
       ref: e,
-      ...m(t)
+      ...o(r)
     }
   );
 }
-n.Item = u;
-function p(r) {
-  const { className: c, hidden: e, ...t } = r;
-  return /* @__PURE__ */ a(
+n.Item = I;
+function P(i) {
+  const { className: s, hidden: e, ...r } = i;
+  return /* @__PURE__ */ c(
     "div",
     {
-      className: i([
+      className: _([
         "Stack__item",
         "Stack__divider",
         e && "Stack__divider--hidden",
-        c,
-        o(t)
+        s,
+        a(r)
       ]),
-      ...m(t)
+      ...o(r)
     }
   );
 }
-n.Divider = p;
+n.Divider = P;
 export {
   n as Stack
 };

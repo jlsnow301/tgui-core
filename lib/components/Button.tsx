@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import style from '../styles/components/Button.module.scss';
+import styles from '../styles/components/Button.module.scss';
 
 import { Placement } from '@popperjs/core';
 import { KEY } from '../common/keys';
@@ -94,21 +94,21 @@ export const Button = (props: Props) => {
   let buttonContent = (
     <div
       className={classes([
-        style.button,
-        fluid && style.fluid,
-        disabled && style.disabled,
-        selected && style.selected,
-        !!toDisplay && style.hasContent,
-        circular && style.circular,
-        compact && style.compact,
-        iconPosition && style['iconPosition__' + iconPosition],
-        verticalAlignContent && style.flex,
-        verticalAlignContent && fluid && style.flex__fluid,
+        styles.button,
+        fluid && styles.fluid,
+        disabled && styles.disabled,
+        selected && styles.selected,
+        !!toDisplay && styles.hasContent,
+        circular && styles.circular,
+        compact && styles.compact,
+        iconPosition && styles['iconPosition__' + iconPosition],
+        verticalAlignContent && styles.flex,
+        verticalAlignContent && fluid && styles.flex__fluid,
         verticalAlignContent &&
-          style['verticalAlignContent__' + verticalAlignContent],
+          styles['verticalAlignContent__' + verticalAlignContent],
         color && typeof color === 'string'
-          ? style['color__' + color]
-          : style['color__default'],
+          ? styles['color__' + color]
+          : styles['color__default'],
         className,
         computeBoxClassName(rest),
       ])}
@@ -139,7 +139,7 @@ export const Button = (props: Props) => {
       }}
       {...computeBoxProps(rest)}
     >
-      <div className={style.content}>
+      <div className={styles.content}>
         {icon && iconPosition !== 'right' && (
           <Icon
             name={icon}
@@ -151,7 +151,9 @@ export const Button = (props: Props) => {
         {!ellipsis ? (
           toDisplay
         ) : (
-          <span className={classes([style.ellipsis, icon && style.textMargin])}>
+          <span
+            className={classes([styles.ellipsis, icon && styles.textMargin])}
+          >
             {toDisplay}
           </span>
         )}
@@ -310,9 +312,9 @@ const ButtonInput = (props: InputProps) => {
   let buttonContent = (
     <Box
       className={classes([
-        style.button,
-        fluid && style.fluid,
-        style['color__' + color],
+        styles.button,
+        fluid && styles.fluid,
+        styles['color__' + color],
       ])}
       {...rest}
       onClick={() => setInInput(true)}

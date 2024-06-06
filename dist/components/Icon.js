@@ -1,42 +1,49 @@
-import { jsx as m } from "react/jsx-runtime";
-import { classes as l } from "../common/react.js";
-import { computeBoxProps as p, computeBoxClassName as N } from "./Box.js";
-const f = /-o$/, d = (c) => {
-  const { name: s, size: o, spin: a, className: u, rotation: n, ...e } = c, r = e.style || {};
-  o && (r.fontSize = o * 100 + "%"), n && (r.transform = `rotate(${n}deg)`), e.style = r;
-  const x = p(e);
-  let t = "";
-  if (s.startsWith("tg-"))
-    t = s;
+import { jsx as f } from "react/jsx-runtime";
+import { classes as m } from "../common/react.js";
+import { computeBoxProps as p, computeBoxClassName as S } from "./Box.js";
+import '../assets/Icon.css';const x = "_iconStack_bg05l_7", y = "_icon_bg05l_7", _ = {
+  iconStack: x,
+  icon: y
+}, l = /-o$/, b = (n) => {
+  const { name: t, size: o, spin: c, className: N, rotation: r, ...a } = n, e = a.style || {};
+  o && (e.fontSize = o * 100 + "%"), r && (e.transform = `rotate(${r}deg)`), a.style = e;
+  const k = p(a);
+  let s = "";
+  if (t.startsWith("tg-"))
+    s = t;
   else {
-    const I = f.test(s), i = s.replace(f, ""), S = !i.startsWith("fa-");
-    t = I ? "far " : "fas ", S && (t += "fa-"), t += i, a && (t += " fa-spin");
+    const u = l.test(t), i = t.replace(l, ""), g = !i.startsWith("fa-");
+    s = u ? "far " : "fas ", g && (s += "fa-"), s += i, c && (s += " fa-spin");
   }
-  return /* @__PURE__ */ m(
+  return /* @__PURE__ */ f(
     "i",
     {
-      className: l([
-        "Icon",
-        t,
-        u,
-        N(e)
+      className: m([
+        _.icon,
+        s,
+        N,
+        S(a)
       ]),
-      ...x
+      ...k
     }
   );
-}, g = (c) => {
-  const { className: s, children: o, ...a } = c;
-  return /* @__PURE__ */ m(
+}, d = (n) => {
+  const { className: t, children: o, ...c } = n;
+  return /* @__PURE__ */ f(
     "span",
     {
-      className: l(["IconStack", s, N(a)]),
-      ...p(a),
+      className: m([
+        _.iconStack,
+        t,
+        S(c)
+      ]),
+      ...p(c),
       children: o
     }
   );
 };
-d.Stack = g;
+b.Stack = d;
 export {
-  d as Icon,
-  g as IconStack
+  b as Icon,
+  d as IconStack
 };

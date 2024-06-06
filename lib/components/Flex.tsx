@@ -3,7 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
-import style from '../styles/components/Flex.module.scss';
+import styles from '../styles/components/Flex.module.scss';
 
 import { classes } from '../common/react';
 
@@ -23,8 +23,8 @@ export type FlexProps = Partial<{
 
 export const computeFlexClassName = (props: FlexProps) => {
   return classes([
-    style.flex,
-    props.inline && style.inline,
+    styles.flex,
+    props.inline && styles.inline,
     computeBoxClassName(props),
   ]);
 };

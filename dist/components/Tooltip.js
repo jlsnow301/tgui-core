@@ -30,7 +30,7 @@ const i = {
     const e = this.getDOMNode();
     e && (e.addEventListener("mouseenter", () => {
       let t = n.renderedTooltip;
-      t === void 0 && (t = document.createElement("div"), t.className = "Tooltip", document.body.appendChild(t), n.renderedTooltip = t), n.currentHoveredElement = e, t.style.opacity = "1", this.renderPopperContent();
+      t === void 0 && (t = document.createElement("div"), t.className = "toolTip", document.body.appendChild(t), n.renderedTooltip = t), n.currentHoveredElement = e, t.style.opacity = "1", this.renderPopperContent();
     }), e.addEventListener("mouseleave", () => {
       this.fadeOut();
     }));

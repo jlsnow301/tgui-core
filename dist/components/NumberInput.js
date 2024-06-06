@@ -1,65 +1,73 @@
-var E = Object.defineProperty;
-var x = (c, d, e) => d in c ? E(c, d, { enumerable: !0, configurable: !0, writable: !0, value: e }) : c[d] = e;
-var o = (c, d, e) => (x(c, typeof d != "symbol" ? d + "" : d, e), e);
-import { jsxs as N, jsx as h } from "react/jsx-runtime";
-import { KEY as S } from "../common/keys.js";
-import { clamp as m } from "../common/math.js";
+import '../assets/NumberInput.css';var E = Object.defineProperty;
+var I = (c, d, e) => d in c ? E(c, d, { enumerable: !0, configurable: !0, writable: !0, value: e }) : c[d] = e;
+var l = (c, d, e) => (I(c, typeof d != "symbol" ? d + "" : d, e), e);
+import { jsxs as S, jsx as g } from "react/jsx-runtime";
+import { KEY as x } from "../common/keys.js";
+import { clamp as h } from "../common/math.js";
 import { classes as D } from "../common/react.js";
-import { Component as _, createRef as T } from "react";
-import { AnimatedNumber as F } from "./AnimatedNumber.js";
-import { Box as M } from "./Box.js";
-class z extends _ {
+import { Component as T, createRef as F } from "react";
+import { AnimatedNumber as M } from "./AnimatedNumber.js";
+import { Box as w } from "./Box.js";
+const R = "_numberInput_x4pb3_13", B = "_fluid_x4pb3_29", K = "_content_x4pb3_33", L = "_barContainer_x4pb3_37", Y = "_bar_x4pb3_37", j = "_inner_x4pb3_54", p = {
+  numberInput: R,
+  fluid: B,
+  content: K,
+  barContainer: L,
+  bar: Y,
+  inner: j
+};
+class $ extends T {
   constructor(e) {
     super(e);
     // Ref to the input field to set focus & highlight
-    o(this, "inputRef", T());
+    l(this, "inputRef", F());
     // After this time has elapsed we are in drag mode so no editing when dragging ends
-    o(this, "dragTimeout");
+    l(this, "dragTimeout");
     // Call onDrag at this interval
-    o(this, "dragInterval");
+    l(this, "dragInterval");
     // default values for the number input state
-    o(this, "state", {
+    l(this, "state", {
       editing: !1,
       dragging: !1,
       currentValue: 0,
       previousValue: 0,
       origin: 0
     });
-    o(this, "handleDragStart", (e) => {
-      const { value: n, disabled: u } = this.props, { editing: i } = this.state;
+    l(this, "handleDragStart", (e) => {
+      const { value: a, disabled: u } = this.props, { editing: i } = this.state;
       if (u || i)
         return;
       document.body.style["pointer-events"] = "none";
-      const a = parseFloat(n.toString());
+      const n = parseFloat(a.toString());
       this.setState({
         dragging: !1,
         origin: e.screenY,
-        currentValue: a,
-        previousValue: a
+        currentValue: n,
+        previousValue: n
       }), this.dragTimeout = setTimeout(() => {
         this.setState({
           dragging: !0
         });
       }, 250), this.dragInterval = setInterval(() => {
-        const { dragging: l, currentValue: s, previousValue: t } = this.state, { onDrag: r } = this.props;
-        l && s !== t && (this.setState({
+        const { dragging: o, currentValue: s, previousValue: t } = this.state, { onDrag: r } = this.props;
+        o && s !== t && (this.setState({
           previousValue: s
         }), r == null || r(s));
       }, 400), document.addEventListener("mousemove", this.handleDragMove), document.addEventListener("mouseup", this.handleDragEnd);
     });
-    o(this, "handleDragMove", (e) => {
-      const { minValue: n, maxValue: u, step: i, stepPixelSize: a, disabled: l } = this.props;
-      l || this.setState((s) => {
+    l(this, "handleDragMove", (e) => {
+      const { minValue: a, maxValue: u, step: i, stepPixelSize: n, disabled: o } = this.props;
+      o || this.setState((s) => {
         const t = { ...s }, r = t.origin - e.screenY;
         if (s.dragging) {
-          const g = isFinite(n) ? n % i : 0;
-          t.currentValue = m(
-            t.currentValue + r * i / (a || 1),
-            n - i,
+          const f = isFinite(a) ? a % i : 0;
+          t.currentValue = h(
+            t.currentValue + r * i / (n || 1),
+            a - i,
             u + i
-          ), t.currentValue = m(
-            t.currentValue - t.currentValue % i + g,
-            n,
+          ), t.currentValue = h(
+            t.currentValue - t.currentValue % i + f,
+            a,
             u
           ), t.origin = e.screenY;
         } else
@@ -67,15 +75,15 @@ class z extends _ {
         return t;
       });
     });
-    o(this, "handleDragEnd", (e) => {
-      const { dragging: n, currentValue: u } = this.state, { onDrag: i, onChange: a, disabled: l } = this.props;
-      if (!l) {
+    l(this, "handleDragEnd", (e) => {
+      const { dragging: a, currentValue: u } = this.state, { onDrag: i, onChange: n, disabled: o } = this.props;
+      if (!o) {
         if (document.body.style["pointer-events"] = "auto", clearInterval(this.dragInterval), clearTimeout(this.dragTimeout), this.setState({
           dragging: !1,
-          editing: !n,
+          editing: !a,
           previousValue: u
-        }), n)
-          a == null || a(u), i == null || i(u);
+        }), a)
+          n == null || n(u), i == null || i(u);
         else if (this.inputRef) {
           const s = this.inputRef.current;
           s && (s.value = `${u}`, setTimeout(() => {
@@ -85,14 +93,14 @@ class z extends _ {
         document.removeEventListener("mousemove", this.handleDragMove), document.removeEventListener("mouseup", this.handleDragEnd);
       }
     });
-    o(this, "handleBlur", (e) => {
-      const { editing: n, previousValue: u } = this.state, { minValue: i, maxValue: a, onChange: l, onDrag: s, disabled: t } = this.props;
-      if (t || !n)
+    l(this, "handleBlur", (e) => {
+      const { editing: a, previousValue: u } = this.state, { minValue: i, maxValue: n, onChange: o, onDrag: s, disabled: t } = this.props;
+      if (t || !a)
         return;
-      const r = m(
+      const r = h(
         parseFloat(e.target.value),
         i,
-        a
+        n
       );
       if (isNaN(r)) {
         this.setState({
@@ -104,17 +112,17 @@ class z extends _ {
         editing: !1,
         currentValue: r,
         previousValue: r
-      }), u !== r && (l == null || l(r), s == null || s(r));
+      }), u !== r && (o == null || o(r), s == null || s(r));
     });
-    o(this, "handleKeyDown", (e) => {
-      const { minValue: n, maxValue: u, onChange: i, onDrag: a, disabled: l } = this.props;
-      if (l)
+    l(this, "handleKeyDown", (e) => {
+      const { minValue: a, maxValue: u, onChange: i, onDrag: n, disabled: o } = this.props;
+      if (o)
         return;
       const { previousValue: s } = this.state;
-      if (e.key === S.Enter) {
-        const t = m(
+      if (e.key === x.Enter) {
+        const t = h(
           parseFloat(e.currentTarget.value),
-          n,
+          a,
           u
         );
         if (isNaN(t)) {
@@ -127,9 +135,9 @@ class z extends _ {
           editing: !1,
           currentValue: t,
           previousValue: t
-        }), s !== t && (i == null || i(t), a == null || a(t));
+        }), s !== t && (i == null || i(t), n == null || n(t));
       } else
-        e.key === S.Escape && this.setState({
+        e.key === x.Escape && this.setState({
           editing: !1
         });
     });
@@ -142,64 +150,64 @@ class z extends _ {
     });
   }
   render() {
-    const { dragging: e, editing: n, currentValue: u } = this.state, {
+    const { dragging: e, editing: a, currentValue: u } = this.state, {
       className: i,
-      fluid: a,
-      animated: l,
+      fluid: n,
+      animated: o,
       unit: s,
       value: t,
       minValue: r,
-      maxValue: g,
-      height: V,
+      maxValue: f,
+      height: v,
       width: y,
-      lineHeight: v,
-      fontSize: b,
-      format: f
+      lineHeight: b,
+      fontSize: _,
+      format: V
     } = this.props;
-    let p = parseFloat(t.toString());
-    e && (p = u);
-    const I = /* @__PURE__ */ N("div", { className: "NumberInput__content", children: [
-      l && !e ? /* @__PURE__ */ h(F, { value: p, format: f }) : f ? f(p) : p,
+    let m = parseFloat(t.toString());
+    e && (m = u);
+    const N = /* @__PURE__ */ S("div", { className: p.content, children: [
+      o && !e ? /* @__PURE__ */ g(M, { value: m, format: V }) : V ? V(m) : m,
       s ? " " + s : ""
     ] });
-    return /* @__PURE__ */ N(
-      M,
+    return /* @__PURE__ */ S(
+      w,
       {
         className: D([
-          "NumberInput",
-          a && "NumberInput--fluid",
+          p.numberInput,
+          n && p.fluid,
           i
         ]),
         minWidth: y,
-        minHeight: V,
-        lineHeight: v,
-        fontSize: b,
+        minHeight: v,
+        lineHeight: b,
+        fontSize: _,
         onMouseDown: this.handleDragStart,
         children: [
-          /* @__PURE__ */ h("div", { className: "NumberInput__barContainer", children: /* @__PURE__ */ h(
+          /* @__PURE__ */ g("div", { className: p.barContainer, children: /* @__PURE__ */ g(
             "div",
             {
-              className: "NumberInput__bar",
+              className: p.bar,
               style: {
-                height: m(
-                  (p - r) / (g - r) * 100,
+                height: h(
+                  (m - r) / (f - r) * 100,
                   0,
                   100
                 ) + "%"
               }
             }
           ) }),
-          I,
-          /* @__PURE__ */ h(
+          N,
+          /* @__PURE__ */ g(
             "input",
             {
               ref: this.inputRef,
-              className: "NumberInput__input",
+              className: p.inner,
               style: {
-                display: n ? "inline" : "none",
-                height: V,
-                lineHeight: v,
-                fontSize: b
+                display: a ? "inline" : "none",
+                height: v,
+                lineHeight: b,
+                fontSize: _
               },
               onBlur: this.handleBlur,
               onKeyDown: this.handleKeyDown
@@ -211,5 +219,5 @@ class z extends _ {
   }
 }
 export {
-  z as NumberInput
+  $ as NumberInput
 };

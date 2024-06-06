@@ -3,10 +3,11 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/ProgressBar.module.scss';
 
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
 import { classes } from '../common/react';
-import { PropsWithChildren } from 'react';
+import { CSSProperties, PropsWithChildren } from 'react';
 
 import { CSS_COLORS } from '../constants';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
@@ -21,11 +22,11 @@ type Props = {
   maxValue: number;
   minValue: number;
   ranges: Record<string, [number, number]>;
-  style: Partial<HTMLDivElement['style']>;
+  style: CSSProperties;
   title: string;
   width: string | number;
 }> &
-  Partial<BoxProps> &
+  BoxProps &
   PropsWithChildren;
 
 export const ProgressBar = (props: Props) => {
@@ -49,7 +50,11 @@ export const ProgressBar = (props: Props) => {
   // a name for a color-<name> class, or a base CSS class.
   const outerProps = computeBoxProps(rest);
 
-  const outerClasses = ['ProgressBar', className, computeBoxClassName(rest)];
+  const outerClasses = [
+    styles.progressBar,
+    className,
+    computeBoxClassName(rest),
+  ];
   const fillStyles = {
     width: clamp01(scaledValue) * 100 + '%',
   };
@@ -58,7 +63,7 @@ export const ProgressBar = (props: Props) => {
     effectiveColor === 'default'
   ) {
     // If the color is a color-<name> class, just use that.
-    outerClasses.push('ProgressBar--color--' + effectiveColor);
+    outerClasses.push(styles['color__' + effectiveColor]);
   } else {
     // Otherwise, set styles directly.
     outerProps.style = { ...outerProps.style, borderColor: effectiveColor };
@@ -68,10 +73,10 @@ export const ProgressBar = (props: Props) => {
   return (
     <div className={classes(outerClasses)} {...outerProps}>
       <div
-        className="ProgressBar__fill ProgressBar__fill--animated"
+        className={classes([styles.fill, styles.fill__animated])}
         style={fillStyles}
       />
-      <div className="ProgressBar__content">
+      <div className={styles.content}>
         {hasContent ? children : toFixed(scaledValue * 100) + '%'}
       </div>
     </div>

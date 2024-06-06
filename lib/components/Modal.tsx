@@ -3,6 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/Modal.module.scss';
 
 import { classes } from '../common/react';
 
@@ -15,7 +16,11 @@ export function Modal(props: BoxProps) {
   return (
     <Dimmer>
       <div
-        className={classes(['Modal', className, computeBoxClassName(rest)])}
+        className={classes([
+          styles.modal,
+          className,
+          computeBoxClassName(rest),
+        ])}
         {...computeBoxProps(rest)}
       >
         {children}

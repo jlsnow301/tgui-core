@@ -1,32 +1,37 @@
-import { jsxs as B, jsx as i } from "react/jsx-runtime";
-import { keyOfMatchingRange as C, toFixed as P, scale as h, clamp01 as x } from "../common/math.js";
-import { classes as _ } from "../common/react.js";
-import { CSS_COLORS as v } from "../constants.js";
-import { computeBoxProps as y, computeBoxClassName as N } from "./Box.js";
-const k = (n) => {
+import { jsxs as x, jsx as m } from "react/jsx-runtime";
+import { p as s } from "../ProgressBar.module-Jzqlebbx.js";
+import { keyOfMatchingRange as v, toFixed as y, scale as N, clamp01 as S } from "../common/math.js";
+import { classes as n } from "../common/react.js";
+import { CSS_COLORS as _ } from "../constants.js";
+import { computeBoxProps as B, computeBoxClassName as O } from "./Box.js";
+const w = (d) => {
   const {
-    className: m,
-    value: o,
-    minValue: d = 0,
-    maxValue: f = 1,
-    color: u,
-    ranges: p = {},
-    children: r,
-    ...l
-  } = n, a = h(o, d, f), g = r !== void 0, s = u || C(o, p) || "default", e = y(l), t = ["ProgressBar", m, N(l)], c = {
-    width: x(a) * 100 + "%"
+    className: p,
+    value: r,
+    minValue: f = 0,
+    maxValue: u = 1,
+    color: C,
+    ranges: g = {},
+    children: l,
+    ...t
+  } = d, a = N(r, f, u), h = l !== void 0, o = C || v(r, g) || "default", e = B(t), c = [
+    s.progressBar,
+    p,
+    O(t)
+  ], i = {
+    width: S(a) * 100 + "%"
   };
-  return v.includes(s) || s === "default" ? t.push("ProgressBar--color--" + s) : (e.style = { ...e.style, borderColor: s }, c.backgroundColor = s), /* @__PURE__ */ B("div", { className: _(t), ...e, children: [
-    /* @__PURE__ */ i(
+  return _.includes(o) || o === "default" ? c.push(s["color__" + o]) : (e.style = { ...e.style, borderColor: o }, i.backgroundColor = o), /* @__PURE__ */ x("div", { className: n(c), ...e, children: [
+    /* @__PURE__ */ m(
       "div",
       {
-        className: "ProgressBar__fill ProgressBar__fill--animated",
-        style: c
+        className: n([s.fill, s.fill__animated]),
+        style: i
       }
     ),
-    /* @__PURE__ */ i("div", { className: "ProgressBar__content", children: g ? r : P(a * 100) + "%" })
+    /* @__PURE__ */ m("div", { className: s.content, children: h ? l : y(a * 100) + "%" })
   ] });
 };
 export {
-  k as ProgressBar
+  w as ProgressBar
 };

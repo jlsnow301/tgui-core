@@ -3,6 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/Input.module.scss';
 
 import { KEY } from '../common/keys';
 import { classes } from '../common/react';
@@ -158,16 +159,16 @@ export function Input(props: Props) {
   return (
     <Box
       className={classes([
-        'Input',
-        fluid && 'Input--fluid',
-        monospace && 'Input--monospace',
+        styles.input,
+        fluid && styles.fluid,
+        monospace && styles.monospace,
         className,
       ])}
       {...rest}
     >
-      <div className="Input__baseline">.</div>
+      <div className={styles.baseline}>.</div>
       <input
-        className="Input__input"
+        className={styles.inner}
         disabled={disabled}
         maxLength={maxLength}
         onBlur={(event) => onChange?.(event, event.target.value)}

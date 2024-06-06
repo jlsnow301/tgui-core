@@ -1,72 +1,78 @@
-import { jsx as e, jsxs as c } from "react/jsx-runtime";
-import { classes as o } from "../common/react.js";
-import { Box as r, unit as x } from "./Box.js";
-import { Divider as N } from "./Divider.js";
-import { Tooltip as u } from "./Tooltip.js";
-const b = (l) => {
-  const { children: t } = l;
-  return /* @__PURE__ */ e("table", { className: "LabeledList", children: t });
-}, v = (l) => {
+import { jsx as l, jsxs as d } from "react/jsx-runtime";
+import { classes as r } from "../common/react.js";
+import { Box as i, unit as g } from "./Box.js";
+import { Divider as x } from "./Divider.js";
+import { Tooltip as N } from "./Tooltip.js";
+import '../assets/LabeledList.css';const v = "_labeledList_pb6nb_9", y = "_row_pb6nb_20", B = "_cell_pb6nb_24", D = "_label__nowrap_pb6nb_36", j = "_buttons_pb6nb_42", o = {
+  labeledList: v,
+  row: y,
+  cell: B,
+  label__nowrap: D,
+  buttons: j
+}, p = (e) => {
+  const { children: t } = e;
+  return /* @__PURE__ */ l("table", { className: "LabeledList", children: t });
+}, z = (e) => {
   const {
     className: t,
-    label: a,
-    labelColor: L = "label",
+    label: s,
+    labelColor: _ = "label",
     labelWrap: m,
-    color: p,
-    textAlign: _,
-    buttons: s,
-    content: h,
-    children: f,
-    verticalAlign: d = "baseline",
-    tooltip: n
-  } = l;
-  let i;
-  a && (i = a, typeof a == "string" && (i += ":")), n !== void 0 && (i = /* @__PURE__ */ e(u, { content: n, children: /* @__PURE__ */ e(
-    r,
+    color: L,
+    textAlign: h,
+    buttons: a,
+    content: f,
+    children: u,
+    verticalAlign: c = "baseline",
+    tooltip: b
+  } = e;
+  let n;
+  s && (n = s, typeof s == "string" && (n += ":")), b !== void 0 && (n = /* @__PURE__ */ l(N, { content: b, children: /* @__PURE__ */ l(
+    i,
     {
       as: "span",
       style: {
         borderBottom: "2px dotted rgba(255, 255, 255, 0.8)"
       },
-      children: i
+      children: n
     }
   ) }));
-  let g = /* @__PURE__ */ e(
-    r,
+  let w = /* @__PURE__ */ l(
+    i,
     {
       as: "td",
-      color: L,
-      className: o([
-        "LabeledList__cell",
+      color: _,
+      className: r([
+        o.cell,
         // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
-        !m && "LabeledList__label--nowrap"
+        !m && o.label__nowrap
       ]),
-      verticalAlign: d,
-      children: i
+      verticalAlign: c,
+      children: n
     }
   );
-  return /* @__PURE__ */ c("tr", { className: o(["LabeledList__row", t]), children: [
-    g,
-    /* @__PURE__ */ c(
-      r,
+  return /* @__PURE__ */ d("tr", { className: r([o.row, t]), children: [
+    w,
+    /* @__PURE__ */ d(
+      i,
       {
         as: "td",
-        color: p,
-        textAlign: _,
-        className: o(["LabeledList__cell", "LabeledList__content"]),
-        colSpan: s ? void 0 : 2,
-        verticalAlign: d,
+        color: L,
+        textAlign: h,
+        className: o.cell,
+        colSpan: a ? void 0 : 2,
+        verticalAlign: c,
         children: [
-          h,
-          f
+          f,
+          u
         ]
       }
     ),
-    s && /* @__PURE__ */ e("td", { className: "LabeledList__cell LabeledList__buttons", children: s })
+    a && /* @__PURE__ */ l("td", { className: r([o.cell, o.buttons]), children: a })
   ] });
-}, w = (l) => {
-  const t = l.size ? x(Math.max(0, l.size - 1)) : 0;
-  return /* @__PURE__ */ e("tr", { className: "LabeledList__row", children: /* @__PURE__ */ e(
+}, A = (e) => {
+  const t = e.size ? g(Math.max(0, e.size - 1)) : 0;
+  return /* @__PURE__ */ l("tr", { className: "LabeledList__row", children: /* @__PURE__ */ l(
     "td",
     {
       colSpan: 3,
@@ -74,12 +80,12 @@ const b = (l) => {
         paddingTop: t,
         paddingBottom: t
       },
-      children: /* @__PURE__ */ e(N, {})
+      children: /* @__PURE__ */ l(x, {})
     }
   ) });
 };
-b.Item = v;
-b.Divider = w;
+p.Item = z;
+p.Divider = A;
 export {
-  b as LabeledList
+  p as LabeledList
 };

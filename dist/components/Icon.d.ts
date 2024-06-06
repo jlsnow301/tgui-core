@@ -1,5 +1,5 @@
 import { BooleanLike } from '../common/react';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { BoxProps } from './Box';
 
 type IconPropsUnique = {
@@ -9,7 +9,7 @@ type IconPropsUnique = {
     spin: BooleanLike;
     className: string;
     rotation: number;
-    style: Partial<HTMLDivElement['style']>;
+    style: CSSProperties;
 }>;
 export type IconProps = IconPropsUnique & BoxProps;
 export declare const Icon: {

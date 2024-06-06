@@ -14,7 +14,7 @@ $color-stripes: rgba(0, 0, 0, 0.1) !default;
 $color-border: #272727 !default;
 $bg-map: colors.$bg-map !default;
 
-.NoticeBox {
+.noticeBox {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($background-color);
   $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
@@ -43,23 +43,23 @@ $bg-map: colors.$bg-map !default;
 }
 
 @each $color-name, $color-value in $bg-map {
-  .NoticeBox--color--#{$color-name} {
+  .color__#{$color-name} {
     @include box-color($color-value);
   }
 }
 
-.NoticeBox--type--info {
+.info {
   @include box-color(colors.$blue);
 }
 
-.NoticeBox--type--success {
+.success {
   @include box-color(colors.$green);
 }
 
-.NoticeBox--type--warning {
+.warning {
   @include box-color(colors.$orange);
 }
 
-.NoticeBox--type--danger {
+.danger {
   @include box-color(colors.$red);
 }

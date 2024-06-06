@@ -11,32 +11,36 @@ $background-color: #0a0a0a !default;
 $border-color: #88bfff !default;
 $border-radius: base.$border-radius !default;
 
-.Input {
+.textArea {
   position: relative;
   display: inline-block;
-  width: base.em(120px);
   border: base.em(1px) solid $border-color;
   border: base.em(1px) solid rgba($border-color, 0.75);
   border-radius: $border-radius;
-  color: $text-color;
   background-color: $background-color;
-  padding: 0 base.em(4px);
   margin-right: base.em(2px);
   line-height: base.em(17px);
-  overflow: visible;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-.Input--fluid {
+.fluid {
   display: block;
   width: auto;
+  height: auto;
 }
 
-.Input__baseline {
-  display: inline-block;
-  color: transparent;
+.noborder {
+  border: 0px;
 }
 
-.Input__input {
+.inner .scrollable {
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.inner {
   display: block;
   position: absolute;
   top: 0;
@@ -46,15 +50,19 @@ $border-radius: base.$border-radius !default;
   border: 0;
   outline: 0;
   width: 100%;
-  font-size: base.em(12px);
+  height: 100%;
+  font-size: 1em;
   line-height: base.em(17px);
-  height: base.em(17px);
+  min-height: base.em(17px);
   margin: 0;
   padding: 0 0.5em;
-  font-family: Verdana, sans-serif;
+  font-family: inherit;
   background-color: transparent;
-  color: $text-color;
   color: inherit;
+  box-sizing: border-box;
+  // Make sure the div and the textarea wrap words in the same way
+  word-wrap: break-word;
+  overflow: hidden;
 
   &:-ms-input-placeholder {
     font-style: italic;
@@ -63,6 +71,20 @@ $border-radius: base.$border-radius !default;
   }
 }
 
-.Input--monospace .Input__input {
-  font-family: 'Consolas', monospace;
+.custom {
+  overflow: visible;
+  white-space: pre-wrap;
+}
+
+.nowrap {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  overflow-x: scroll;
+}
+
+.wrapper {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }

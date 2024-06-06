@@ -5,7 +5,7 @@
 
 @use '../base.scss';
 
-.LabeledList {
+.labeledList {
   display: table;
   // IE8: Does not support calc
   width: 100%;
@@ -18,15 +18,15 @@
   padding: 0;
 }
 
-.LabeledList__row {
+.row {
   display: table-row;
 }
 
-.LabeledList__row:last-child .LabeledList__cell {
+.row:last-child .cell {
   padding-bottom: 0;
 }
 
-.LabeledList__cell {
+.cell {
   display: table-cell;
   margin: 0;
   padding: 0.25em 0.5em;
@@ -34,13 +34,13 @@
   text-align: left;
 }
 
-.LabeledList__label--nowrap {
+.label__nowrap {
   width: 1%;
   white-space: nowrap;
   min-width: 5em;
 }
 
-.LabeledList__buttons {
+.buttons {
   width: 0.1%;
   white-space: nowrap;
   text-align: right;

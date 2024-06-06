@@ -3,18 +3,19 @@
  * @copyright 2021 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/Stack.module.scss';
 
 import { classes } from '../common/react';
 import { RefObject } from 'react';
 
 import {
   computeFlexClassName,
-  computeFlexItemClassName,
   computeFlexItemProps,
   computeFlexProps,
   FlexItemProps,
   FlexProps,
 } from './Flex';
+import { computeBoxClassName } from './Box';
 
 type Props = Partial<{
   /** Fills available space. */
@@ -37,11 +38,11 @@ export function Stack(props: Props) {
   return (
     <div
       className={classes([
-        'Stack',
-        fill && 'Stack--fill',
-        vertical ? 'Stack--vertical' : 'Stack--horizontal',
-        zebra && 'Stack--zebra',
-        reverse && `Stack--reverse${vertical ? '--vertical' : ''}`,
+        fill && styles.fill,
+        vertical ? styles.vertical : styles.horizontal,
+        zebra && styles.zebra,
+        reverse && styles[`reverse${vertical ? '__vertical' : ''}`],
+
         className,
         computeFlexClassName(props),
       ])}
@@ -63,11 +64,7 @@ function StackItem(props: StackItemProps) {
 
   return (
     <div
-      className={classes([
-        'Stack__item',
-        className,
-        computeFlexItemClassName(rest),
-      ])}
+      className={classes([styles.item, className, computeBoxClassName(rest)])}
       ref={innerRef}
       {...computeFlexItemProps(rest)}
     />
@@ -91,7 +88,7 @@ function StackDivider(props: StackDividerProps) {
         'Stack__divider',
         hidden && 'Stack__divider--hidden',
         className,
-        computeFlexItemClassName(rest),
+        computeBoxClassName(rest),
       ])}
       {...computeFlexItemProps(rest)}
     />

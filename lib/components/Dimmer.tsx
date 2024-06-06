@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import style from '../styles/components/Dimmer.module.scss';
+import styles from '../styles/components/Dimmer.module.scss';
 
 import { classes } from '../common/react';
 
@@ -14,7 +14,7 @@ export function Dimmer(props: BoxProps) {
   const { className, children, ...rest } = props;
 
   return (
-    <Box className={classes([style.dimmer, className])} {...rest}>
+    <Box className={classes([styles.dimmer, className])} {...rest}>
       <div className="Dimmer__inner">{children}</div>
     </Box>
   );

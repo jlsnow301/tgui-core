@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 type Props = Partial<{
     hidden: boolean;
     vertical: boolean;

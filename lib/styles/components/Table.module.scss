@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-.Table {
+.table {
   display: table;
   width: 100%;
   border-collapse: collapse;
@@ -11,15 +11,15 @@
   margin: 0;
 }
 
-.Table--collapsing {
+.collapsing {
   width: auto;
 }
 
-.Table__row {
+.row {
   display: table-row;
 }
 
-.Table__cell {
+.cell {
   display: table-cell;
   padding: 0 0.25em;
 
@@ -32,13 +32,13 @@
   }
 }
 
-.Table__row--header .Table__cell,
-.Table__cell--header {
+.row__header .cell,
+.cell__header {
   font-weight: bold;
   padding-bottom: 0.5em;
 }
 
-.Table__cell--collapsing {
+.cell__collapsing {
   width: 1%;
   white-space: nowrap;
 }

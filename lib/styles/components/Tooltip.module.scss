@@ -10,7 +10,7 @@ $color: #ffffff !default;
 $background-color: #000000 !default;
 $border-radius: base.$border-radius !default;
 
-.Tooltip {
+.tooltip {
   z-index: 2;
   padding: 0.5em 0.75em;
   pointer-events: none;

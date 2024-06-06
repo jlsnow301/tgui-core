@@ -3,6 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/Knob.module.scss';
 
 import { keyOfMatchingRange, scale } from '../common/math';
 import { BooleanLike, classes } from '../common/react';
@@ -113,7 +114,7 @@ export function Knob(props: Props) {
         const scaledFillValue = scale(
           fillValue ?? displayValue,
           minValue,
-          maxValue
+          maxValue,
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
         const effectiveColor =
@@ -123,9 +124,9 @@ export function Knob(props: Props) {
         return (
           <div
             className={classes([
-              'Knob',
-              'Knob--color--' + effectiveColor,
-              bipolar && 'Knob--bipolar',
+              styles.knob,
+              styles['color__' + effectiveColor],
+              bipolar && styles.bipolar,
               className,
               computeBoxClassName(rest),
             ])}
@@ -138,37 +139,37 @@ export function Knob(props: Props) {
             })}
             onMouseDown={handleDragStart}
           >
-            <div className="Knob__circle">
+            <div className={styles.circle}>
               <div
-                className="Knob__cursorBox"
+                className={styles.cursorBox}
                 style={{
                   transform: `rotate(${rotation}deg)`,
                 }}
               >
-                <div className="Knob__cursor" />
+                <div className={styles.cursor} />
               </div>
             </div>
             {dragging && (
-              <div className="Knob__popupValue">{displayElement}</div>
+              <div className={styles.popupValue}>{displayElement}</div>
             )}
             <svg
-              className="Knob__ring Knob__ringTrackPivot"
+              className={classes([styles.ring, styles.ringTrackPivot])}
               viewBox="0 0 100 100"
             >
               <circle className="Knob__ringTrack" cx="50" cy="50" r="50" />
             </svg>
             <svg
-              className="Knob__ring Knob__ringFillPivot"
+              className={classes([styles.ring, styles.ringFillPivot])}
               viewBox="0 0 100 100"
             >
               <circle
-                className="Knob__ringFill"
+                className={styles.ringFill}
                 style={{
                   strokeDashoffset: Math.max(
                     ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
                       Math.PI *
                       50,
-                    0
+                    0,
                   ),
                 }}
                 cx="50"

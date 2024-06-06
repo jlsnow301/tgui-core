@@ -12,7 +12,7 @@ $title-text-color: base.$color-fg !default;
 $background-color: base.$color-bg-section !default;
 $separator-color: colors.$primary !default;
 
-.Section {
+.section {
   position: relative;
   margin-bottom: 0.5em;
   background-color: functions.fake-alpha($background-color, base.$color-bg);
@@ -24,52 +24,52 @@ $separator-color: colors.$primary !default;
   }
 }
 
-.Section__title {
+.title {
   position: relative;
   padding: 0.5em;
   border-bottom: base.em(2px) solid $separator-color;
 }
 
-.Section__titleText {
+.titleText {
   font-size: base.em(14px);
   font-weight: bold;
   color: $title-text-color;
 }
 
-.Section__buttons {
+.buttons {
   position: absolute;
   display: inline-block;
   right: 0.5em;
   margin-top: base.em(-1px);
 }
 
-.Section__rest {
+.rest {
   position: relative;
 }
 
-.Section__content {
+.content {
   padding: 0.66em 0.5em;
 }
 
-.Section--fitted > .Section__rest > .Section__content {
+.fitted > .rest > .content {
   padding: 0;
 }
 
-.Section--fill {
+.fill {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.Section--fill > .Section__rest {
+.fill > .rest {
   flex-grow: 1;
 }
 
-.Section--fill > .Section__rest > .Section__content {
+.fill > .rest > .content {
   height: 100%;
 }
 
-.Section--fill.Section--scrollable > .Section__rest > .Section__content {
+.fill .scrollable > .rest > .content {
   position: absolute;
   top: 0;
   left: 0;
@@ -77,51 +77,38 @@ $separator-color: colors.$primary !default;
   bottom: 0;
 }
 
-.Section--fill.Section--iefix {
-  display: table !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  & > .Section__rest {
-    display: table-row !important;
-    height: 100% !important;
-  }
-}
-
-.Section--scrollable {
+.scrollable {
   overflow-x: hidden;
   overflow-y: hidden;
 
-  & > .Section__rest > .Section__content {
+  & > .rest > .content {
     overflow-y: scroll;
     overflow-x: hidden;
   }
 }
 
-.Section--scrollableHorizontal {
+.scrollableHorizontal {
   overflow-x: hidden;
   overflow-y: hidden;
 
-  & > .Section__rest > .Section__content {
+  & > .rest > .content {
     overflow-y: hidden;
     overflow-x: scroll;
   }
 }
 
-.Section--scrollable.Section--scrollableHorizontal {
+.scrollable.scrollableHorizontal {
   overflow-x: hidden;
   overflow-y: hidden;
 
-  & > .Section__rest > .Section__content {
+  & > .rest > .content {
     overflow-y: scroll;
     overflow-x: scroll;
   }
 }
 
 // Nested sections
-.Section .Section {
+.section .section {
   background-color: transparent;
   margin-left: -0.5em;
   margin-right: -0.5em;
@@ -133,11 +120,11 @@ $separator-color: colors.$primary !default;
 }
 
 // Level 2 section title
-.Section .Section .Section__titleText {
+.section .section .titleText {
   font-size: base.em(13px);
 }
 
 // Level 3 section title
-.Section .Section .Section .Section__titleText {
+.section .section .section .titleText {
   font-size: base.em(12px);
 }

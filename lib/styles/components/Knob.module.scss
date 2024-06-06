@@ -16,7 +16,7 @@ $popup-text-color: #ffffff !default;
 
 $inner-padding: 0.1em;
 
-.Knob {
+.knob {
   position: relative;
   font-size: 1rem;
   width: 2.6em;
@@ -34,7 +34,7 @@ $inner-padding: 0.1em;
   }
 }
 
-.Knob__circle {
+.circle {
   position: absolute;
   top: $inner-padding;
   bottom: $inner-padding;
@@ -51,7 +51,7 @@ $inner-padding: 0.1em;
   box-shadow: 0 0.05em 0.5em 0 rgba(0, 0, 0, 0.5);
 }
 
-.Knob__cursorBox {
+.cursorBox {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -59,7 +59,7 @@ $inner-padding: 0.1em;
   right: 0;
 }
 
-.Knob__cursor {
+.cursor {
   position: relative;
   top: 0.05em;
   margin: 0 auto;
@@ -68,7 +68,7 @@ $inner-padding: 0.1em;
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.Knob__popupValue {
+.popupValue {
   position: absolute;
   top: -2rem;
   right: 50%;
@@ -81,7 +81,7 @@ $inner-padding: 0.1em;
   white-space: nowrap;
 }
 
-.Knob__ring {
+.ring {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -92,11 +92,11 @@ $inner-padding: 0.1em;
 
 $pi: 3.1416;
 
-.Knob__ringTrackPivot {
+.ringTrackPivot {
   transform: rotateZ(135deg);
 }
 
-.Knob__ringTrack {
+.ringTrack {
   // transform-origin: 50% 50%;
   fill: transparent;
   stroke: rgba(255, 255, 255, 0.1);
@@ -105,15 +105,15 @@ $pi: 3.1416;
   stroke-dasharray: 75 * $pi;
 }
 
-.Knob__ringFillPivot {
+.ringFillPivot {
   transform: rotateZ(135deg);
 }
 
-.Knob--bipolar .Knob__ringFillPivot {
+.bipolar .ringFillPivot {
   transform: rotateZ(270deg);
 }
 
-.Knob__ringFill {
+.ringFill {
   fill: transparent;
   stroke: $ring-color;
   stroke-width: 8;
@@ -123,8 +123,8 @@ $pi: 3.1416;
 }
 
 @each $color-name, $color-value in $fg-map {
-  .Knob--color--#{$color-name} {
-    .Knob__ringFill {
+  .color__#{$color-name} {
+    .ringFill {
       stroke: $color-value;
     }
   }

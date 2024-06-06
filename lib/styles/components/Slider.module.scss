@@ -9,11 +9,11 @@ $cursor-color: base.$color-fg !default;
 $popup-background-color: #000000 !default;
 $popup-text-color: #ffffff !default;
 
-.Slider {
+.slider {
   cursor: e-resize;
 }
 
-.Slider__cursorOffset {
+.cursorOffset {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,7 +21,7 @@ $popup-text-color: #ffffff !default;
   transition: none !important;
 }
 
-.Slider__cursor {
+.cursor {
   position: absolute;
   top: 0;
   right: base.em(-1px);
@@ -30,7 +30,7 @@ $popup-text-color: #ffffff !default;
   border-left: base.em(2px) solid $cursor-color;
 }
 
-.Slider__pointer {
+.pointer {
   position: absolute;
   right: base.em(-5px);
   bottom: base.em(-4px);
@@ -41,7 +41,7 @@ $popup-text-color: #ffffff !default;
   border-bottom: base.em(5px) solid $cursor-color;
 }
 
-.Slider__popupValue {
+.popupValue {
   position: absolute;
   right: 0;
   top: -2rem;

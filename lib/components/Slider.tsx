@@ -3,6 +3,8 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/Slider.module.scss';
+import progStyles from '../styles/components/ProgressBar.module.scss';
 
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
@@ -112,7 +114,7 @@ export function Slider(props: Props) {
         const scaledFillValue = scale(
           fillValue ?? displayValue,
           minValue,
-          maxValue
+          maxValue,
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
 
@@ -122,9 +124,9 @@ export function Slider(props: Props) {
         return (
           <div
             className={classes([
-              'Slider',
-              'ProgressBar',
-              'ProgressBar--color--' + effectiveColor,
+              styles.slider,
+              progStyles.progressBar,
+              progStyles['color__' + effectiveColor],
               className,
               computeBoxClassName(rest),
             ])}
@@ -133,8 +135,8 @@ export function Slider(props: Props) {
           >
             <div
               className={classes([
-                'ProgressBar__fill',
-                hasFillValue && 'ProgressBar__fill--animated',
+                progStyles.fill,
+                hasFillValue && progStyles.fill__animated,
               ])}
               style={{
                 width: clamp01(scaledFillValue) * 100 + '%',
@@ -142,7 +144,7 @@ export function Slider(props: Props) {
               }}
             />
             <div
-              className="ProgressBar__fill"
+              className={progStyles.fill}
               style={{
                 width:
                   clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100 +
@@ -150,18 +152,18 @@ export function Slider(props: Props) {
               }}
             />
             <div
-              className="Slider__cursorOffset"
+              className={styles.cursorOffset}
               style={{
                 width: clamp01(scaledDisplayValue) * 100 + '%',
               }}
             >
-              <div className="Slider__cursor" />
-              <div className="Slider__pointer" />
+              <div className={styles.cursor} />
+              <div className={styles.pointer} />
               {dragging && (
-                <div className="Slider__popupValue">{displayElement}</div>
+                <div className={styles.popupValue}>{displayElement}</div>
               )}
             </div>
-            <div className="ProgressBar__content">
+            <div className={progStyles.content}>
               {hasContent ? children : displayElement}
             </div>
             {inputElement}

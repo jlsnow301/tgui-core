@@ -73,7 +73,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
       let renderedTooltip = Tooltip.renderedTooltip;
       if (renderedTooltip === undefined) {
         renderedTooltip = document.createElement('div');
-        renderedTooltip.className = 'Tooltip';
+        renderedTooltip.className = 'toolTip';
         document.body.appendChild(renderedTooltip);
         Tooltip.renderedTooltip = renderedTooltip;
       }
@@ -114,7 +114,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
           {
             ...DEFAULT_OPTIONS,
             placement: this.props.position || 'auto',
-          }
+          },
         );
 
         Tooltip.singletonPopper = singletonPopper;

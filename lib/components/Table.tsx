@@ -3,6 +3,7 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+import styles from '../styles/components/Table.module.scss';
 
 import { classes } from '../common/react';
 
@@ -20,8 +21,8 @@ export function Table(props: Props) {
   return (
     <table
       className={classes([
-        'Table',
-        collapsing && 'Table--collapsing',
+        styles.table,
+        collapsing && styles.collapsing,
         className,
         computeBoxClassName(rest),
       ])}
@@ -44,8 +45,8 @@ export function TableRow(props: RowProps) {
   return (
     <tr
       className={classes([
-        'Table__row',
-        header && 'Table__row--header',
+        styles.row,
+        header && styles.row__header,
         className,
         computeBoxClassName(props),
       ])}
@@ -75,9 +76,9 @@ export function TableCell(props: CellProps) {
   return (
     <td
       className={classes([
-        'Table__cell',
-        collapsing && 'Table__cell--collapsing',
-        header && 'Table__cell--header',
+        styles.cell,
+        collapsing && styles.cell__collapsing,
+        header && styles.cell__header,
         className,
         computeBoxClassName(props),
       ])}
