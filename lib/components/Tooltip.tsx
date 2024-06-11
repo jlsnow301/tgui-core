@@ -1,3 +1,5 @@
+import styles from '../styles/components/Tooltip.module.scss';
+
 /* eslint-disable react/no-deprecated */
 // TODO: Rewrite as an FC, remove this lint disable
 import { createPopper, Placement, VirtualElement } from '@popperjs/core';
@@ -73,7 +75,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
       let renderedTooltip = Tooltip.renderedTooltip;
       if (renderedTooltip === undefined) {
         renderedTooltip = document.createElement('div');
-        renderedTooltip.className = 'toolTip';
+        renderedTooltip.className = styles.tooltip;
         document.body.appendChild(renderedTooltip);
         Tooltip.renderedTooltip = renderedTooltip;
       }

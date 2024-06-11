@@ -1,21 +1,21 @@
 import { jsx as s, jsxs as m } from "react/jsx-runtime";
-import { p as e } from "../ProgressBar.module-Jzqlebbx.js";
+import { s as e } from "../ProgressBar.module-BkAFfFy0.js";
 import { keyOfMatchingRange as R, clamp01 as t, scale as f } from "../common/math.js";
 import { classes as _ } from "../common/react.js";
-import { computeBoxClassName as q, computeBoxProps as A } from "./Box.js";
-import { DraggableControl as G } from "./DraggableControl.js";
-import '../assets/Slider.css';const H = "_slider_1assx_9", I = "_cursorOffset_1assx_13", J = "_cursor_1assx_13", K = "_pointer_1assx_30", L = "_popupValue_1assx_41", a = {
-  slider: H,
-  cursorOffset: I,
-  cursor: J,
-  pointer: K,
-  popupValue: L
+import { computeBoxClassName as $, computeBoxProps as q } from "./Box.js";
+import { DraggableControl as A } from "./DraggableControl.js";
+import '../assets/Slider.css';const G = "_slider_1assx_9", H = "_cursorOffset_1assx_13", I = "_cursor_1assx_13", J = "_pointer_1assx_30", K = "_popupValue_1assx_41", a = {
+  slider: G,
+  cursorOffset: H,
+  cursor: I,
+  pointer: J,
+  popupValue: K
 };
-function Z(h) {
+function Y(h) {
   const {
     // Draggable props (passthrough)
-    animated: g,
-    format: v,
+    animated: v,
+    format: g,
     maxValue: o,
     minValue: r,
     onChange: x,
@@ -29,16 +29,16 @@ function Z(h) {
     className: w,
     fillValue: l,
     color: M,
-    ranges: S = {},
+    ranges: B = {},
     children: i,
     ...c
-  } = h, B = i !== void 0;
+  } = h, F = i !== void 0;
   return /* @__PURE__ */ s(
-    G,
+    A,
     {
       dragMatrix: [1, 0],
-      animated: g,
-      format: v,
+      animated: v,
+      format: g,
       maxValue: o,
       minValue: r,
       onChange: x,
@@ -48,7 +48,7 @@ function Z(h) {
       suppressFlicker: C,
       unit: D,
       value: O,
-      children: (F) => {
+      children: (S) => {
         const {
           displayElement: n,
           displayValue: p,
@@ -56,11 +56,11 @@ function Z(h) {
           handleDragStart: k,
           inputElement: E,
           value: P
-        } = F, b = l != null, u = f(
+        } = S, b = l != null, u = f(
           l ?? p,
           r,
           o
-        ), d = f(p, r, o), z = M || R(l ?? P, S) || "default";
+        ), d = f(p, r, o), z = M || R(l ?? P, B) || "default";
         return /* @__PURE__ */ m(
           "div",
           {
@@ -69,9 +69,9 @@ function Z(h) {
               e.progressBar,
               e["color__" + z],
               w,
-              q(c)
+              $(c)
             ]),
-            ...A(c),
+            ...q(c),
             onMouseDown: k,
             children: [
               /* @__PURE__ */ s(
@@ -110,7 +110,7 @@ function Z(h) {
                   ]
                 }
               ),
-              /* @__PURE__ */ s("div", { className: e.content, children: B ? i : n }),
+              /* @__PURE__ */ s("div", { className: e.content, children: F ? i : n }),
               E
             ]
           }
@@ -120,5 +120,5 @@ function Z(h) {
   );
 }
 export {
-  Z as Slider
+  Y as Slider
 };

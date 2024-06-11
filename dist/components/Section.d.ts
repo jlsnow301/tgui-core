@@ -53,7 +53,7 @@ export declare const Section: import('react').ForwardRefExoticComponent<Partial<
     onClick: import('react').MouseEventHandler<HTMLDivElement>;
     onContextMenu: import('react').MouseEventHandler<HTMLDivElement>;
     onDoubleClick: import('react').MouseEventHandler<HTMLDivElement>;
-    onKeyDown: import('react').KeyboardEventHandler<HTMLDivElement>; /** Shows or hides the horizontal scrollbar. */
+    onKeyDown: import('react').KeyboardEventHandler<HTMLDivElement>;
     onKeyUp: import('react').KeyboardEventHandler<HTMLDivElement>;
     onMouseDown: import('react').MouseEventHandler<HTMLDivElement>;
     onMouseMove: import('react').MouseEventHandler<HTMLDivElement>;
