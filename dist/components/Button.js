@@ -1,11 +1,11 @@
-import { jsx as e, jsxs as D, Fragment as S } from "react/jsx-runtime";
+import { jsx as c, jsxs as D, Fragment as S } from "react/jsx-runtime";
 import { KEY as B } from "../common/keys.js";
 import { classes as N } from "../common/react.js";
 import { useState as E, createRef as K, useEffect as M, useRef as V } from "react";
 import { computeBoxClassName as j, computeBoxProps as q, Box as O } from "./Box.js";
 import { Icon as R } from "./Icon.js";
 import { Tooltip as F } from "./Tooltip.js";
-import '../assets/Button.css';const T = "_button_pi5yi_17", L = "_fa_pi5yi_34", Y = "_fas_pi5yi_35", z = "_far_pi5yi_36", G = "_dropdown_pi5yi_43", H = "_hasContent_pi5yi_49", J = "_iconPosition__right_pi5yi_55", Q = "_ellipsis_pi5yi_62", U = "_fluid_pi5yi_67", W = "_circular_pi5yi_73", X = "_compact_pi5yi_77", Z = "_color__black_pi5yi_82", $ = "_color__white_pi5yi_95", oo = "_color__red_pi5yi_108", to = "_color__orange_pi5yi_121", _o = "_color__yellow_pi5yi_134", io = "_color__olive_pi5yi_147", no = "_color__green_pi5yi_160", eo = "_color__teal_pi5yi_173", co = "_color__blue_pi5yi_186", lo = "_color__violet_pi5yi_199", ro = "_color__purple_pi5yi_212", so = "_color__pink_pi5yi_225", ao = "_color__brown_pi5yi_238", po = "_color__grey_pi5yi_251", uo = "_color__good_pi5yi_277", fo = "_color__average_pi5yi_290", yo = "_color__bad_pi5yi_303", mo = "_color__label_pi5yi_316", go = "_color__default_pi5yi_329", ho = "_color__caution_pi5yi_342", bo = "_color__danger_pi5yi_355", Co = "_color__transparent_pi5yi_368", ko = "_disabled_pi5yi_383", xo = "_selected_pi5yi_387", vo = "_flex_pi5yi_400", wo = "_flex__fluid_pi5yi_405", Ao = "_verticalAlignContent__top_pi5yi_409", Po = "_verticalAlignContent__middle_pi5yi_413", Bo = "_verticalAlignContent__bottom_pi5yi_417", Io = "_content_pi5yi_421", No = "_textMargin_pi5yi_426", o = {
+import '../assets/Button.css';const T = "_button_19bob_17", L = "_fa_19bob_34", Y = "_fas_19bob_35", z = "_far_19bob_36", G = "_dropdown_19bob_43", H = "_hasContent_19bob_49", J = "_iconPosition__right_19bob_55", Q = "_ellipsis_19bob_62", U = "_fluid_19bob_67", W = "_circular_19bob_73", X = "_compact_19bob_77", Z = "_color__black_19bob_82", $ = "_color__white_19bob_95", oo = "_color__red_19bob_108", to = "_color__orange_19bob_121", _o = "_color__yellow_19bob_134", no = "_color__olive_19bob_147", eo = "_color__green_19bob_160", co = "_color__teal_19bob_173", lo = "_color__blue_19bob_186", ro = "_color__violet_19bob_199", io = "_color__purple_19bob_212", so = "_color__pink_19bob_225", ao = "_color__brown_19bob_238", bo = "_color__grey_19bob_251", uo = "_color__good_19bob_277", fo = "_color__average_19bob_290", po = "_color__bad_19bob_303", mo = "_color__label_19bob_316", go = "_color__default_19bob_329", ho = "_color__caution_19bob_342", Co = "_color__danger_19bob_355", yo = "_color__transparent_19bob_368", ko = "_disabled_19bob_383", xo = "_selected_19bob_387", vo = "_flex_19bob_400", wo = "_flex__fluid_19bob_405", Ao = "_verticalAlignContent__top_19bob_409", Po = "_verticalAlignContent__middle_19bob_413", Bo = "_verticalAlignContent__bottom_19bob_417", Io = "_content_19bob_421", No = "_textMargin_19bob_426", o = {
   button: T,
   fa: L,
   fas: Y,
@@ -22,24 +22,24 @@ import '../assets/Button.css';const T = "_button_pi5yi_17", L = "_fa_pi5yi_34", 
   color__red: oo,
   color__orange: to,
   color__yellow: _o,
-  color__olive: io,
-  color__green: no,
-  color__teal: eo,
-  color__blue: co,
-  color__violet: lo,
-  color__purple: ro,
+  color__olive: no,
+  color__green: eo,
+  color__teal: co,
+  color__blue: lo,
+  color__violet: ro,
+  color__purple: io,
   color__pink: so,
   color__brown: ao,
-  color__grey: po,
-  "color__light-grey": "_color__light-grey_pi5yi_264",
+  color__grey: bo,
+  "color__light-grey": "_color__light-grey_19bob_264",
   color__good: uo,
   color__average: fo,
-  color__bad: yo,
+  color__bad: po,
   color__label: mo,
   color__default: go,
   color__caution: ho,
-  color__danger: bo,
-  color__transparent: Co,
+  color__danger: Co,
+  color__transparent: yo,
   disabled: ko,
   selected: xo,
   flex: vo,
@@ -49,19 +49,19 @@ import '../assets/Button.css';const T = "_button_pi5yi_17", L = "_fa_pi5yi_34", 
   verticalAlignContent__bottom: Bo,
   content: Io,
   textMargin: No
-}, b = (p) => {
+}, C = (b) => {
   const {
     captureKeys: s = !0,
     children: a,
     circular: f,
     className: u,
-    color: r,
-    compact: C,
-    content: y,
+    color: i,
+    compact: y,
+    content: p,
     disabled: t,
-    ellipsis: c,
-    fluid: i,
-    icon: n,
+    ellipsis: l,
+    fluid: n,
+    icon: e,
     iconColor: d,
     iconPosition: m,
     iconRotation: w,
@@ -72,61 +72,61 @@ import '../assets/Button.css';const T = "_button_pi5yi_17", L = "_fa_pi5yi_34", 
     tooltipPosition: A,
     verticalAlignContent: v,
     ...P
-  } = p, h = y || a;
-  let _ = /* @__PURE__ */ e(
+  } = b, h = p || a;
+  let _ = /* @__PURE__ */ c(
     "div",
     {
       className: N([
         o.button,
-        i && o.fluid,
+        n && o.fluid,
         t && o.disabled,
         x && o.selected,
         !!h && o.hasContent,
         f && o.circular,
-        C && o.compact,
+        y && o.compact,
         m && o["iconPosition__" + m],
         v && o.flex,
-        v && i && o.flex__fluid,
+        v && n && o.flex__fluid,
         v && o["verticalAlignContent__" + v],
-        r && typeof r == "string" ? o["color__" + r] : o.color__default,
+        i && typeof i == "string" ? o["color__" + i] : o.color__default,
         u,
         j(P)
       ]),
       tabIndex: t ? void 0 : 0,
-      onClick: (l) => {
-        !t && k && k(l);
+      onClick: (r) => {
+        !t && k && k(r);
       },
-      onKeyDown: (l) => {
+      onKeyDown: (r) => {
         if (s) {
-          if (l.key === B.Space || l.key === B.Enter) {
-            l.preventDefault(), !t && k && k(l);
+          if (r.key === B.Space || r.key === B.Enter) {
+            r.preventDefault(), !t && k && k(r);
             return;
           }
-          l.key === B.Escape && l.preventDefault();
+          r.key === B.Escape && r.preventDefault();
         }
       },
       ...q(P),
       children: /* @__PURE__ */ D("div", { className: o.content, children: [
-        n && m !== "right" && /* @__PURE__ */ e(
+        e && m !== "right" && /* @__PURE__ */ c(
           R,
           {
-            name: n,
+            name: e,
             color: d,
             rotation: w,
             spin: I
           }
         ),
-        c ? /* @__PURE__ */ e(
+        l ? /* @__PURE__ */ c(
           "span",
           {
-            className: N([o.ellipsis, n && o.textMargin]),
+            className: N([o.ellipsis, e && o.textMargin]),
             children: h
           }
         ) : h,
-        n && m === "right" && /* @__PURE__ */ e(
+        e && m === "right" && /* @__PURE__ */ c(
           R,
           {
-            name: n,
+            name: e,
             color: d,
             rotation: w,
             spin: I
@@ -135,11 +135,11 @@ import '../assets/Button.css';const T = "_button_pi5yi_17", L = "_fa_pi5yi_34", 
       ] })
     }
   );
-  return g && (_ = /* @__PURE__ */ e(F, { content: g, position: A, children: _ })), _;
-}, Ro = (p) => {
-  const { checked: s, ...a } = p;
-  return /* @__PURE__ */ e(
-    b,
+  return g && (_ = /* @__PURE__ */ c(F, { content: g, position: A, children: _ })), _;
+}, Ro = (b) => {
+  const { checked: s, ...a } = b;
+  return /* @__PURE__ */ c(
+    C,
     {
       color: "transparent",
       icon: s ? "check-square-o" : "square-o",
@@ -148,60 +148,60 @@ import '../assets/Button.css';const T = "_button_pi5yi_17", L = "_fa_pi5yi_34", 
     }
   );
 };
-b.Checkbox = Ro;
-const Do = (p) => {
+C.Checkbox = Ro;
+const Do = (b) => {
   const {
     children: s,
     color: a,
     confirmColor: f = "bad",
     confirmContent: u = "Confirm?",
-    confirmIcon: r,
-    ellipsis: C = !0,
-    icon: y,
+    confirmIcon: i,
+    ellipsis: y = !0,
+    icon: p,
     onClick: t,
-    ...c
-  } = p, [i, n] = E(!1);
-  return /* @__PURE__ */ e(
-    b,
+    ...l
+  } = b, [n, e] = E(!1);
+  return /* @__PURE__ */ c(
+    C,
     {
-      icon: i ? r : y,
-      color: i ? f : a,
+      icon: n ? i : p,
+      color: n ? f : a,
       onClick: (m) => {
-        if (!i) {
-          n(!0);
+        if (!n) {
+          e(!0);
           return;
         }
-        t == null || t(m), n(!1);
+        t == null || t(m), e(!1);
       },
-      ...c,
-      children: i ? u : s
+      ...l,
+      children: n ? u : s
     }
   );
 };
-b.Confirm = Do;
-const Eo = (p) => {
+C.Confirm = Do;
+const Eo = (b) => {
   const {
     children: s,
     color: a = "default",
     content: f,
     currentValue: u,
-    defaultValue: r,
-    disabled: C,
-    fluid: y,
+    defaultValue: i,
+    disabled: y,
+    fluid: p,
     icon: t,
-    iconRotation: c,
-    iconSpin: i,
-    maxLength: n,
+    iconRotation: l,
+    iconSpin: n,
+    maxLength: e,
     onCommit: d = () => null,
     placeholder: m,
     tooltip: w,
     tooltipPosition: I,
     ...k
-  } = p, [x, g] = E(!1), A = K(), v = f || s, P = (_) => {
-    const l = A.current;
-    if (!l)
+  } = b, [x, g] = E(!1), A = K(), v = f || s, P = (_) => {
+    const r = A.current;
+    if (!r)
       return;
-    l.value !== "" ? d(_, l.value) : r && d(_, r);
+    r.value !== "" ? d(_, r.value) : i && d(_, i);
   };
   M(() => {
     const _ = A.current;
@@ -218,18 +218,18 @@ const Eo = (p) => {
     {
       className: N([
         o.button,
-        y && o.fluid,
+        p && o.fluid,
         o["color__" + a]
       ]),
       ...k,
       onClick: () => g(!0),
       children: [
-        t && /* @__PURE__ */ e(R, { name: t, rotation: c, spin: i }),
-        /* @__PURE__ */ e("div", { children: v }),
-        /* @__PURE__ */ e(
+        t && /* @__PURE__ */ c(R, { name: t, rotation: l, spin: n }),
+        /* @__PURE__ */ c("div", { children: v }),
+        /* @__PURE__ */ c(
           "input",
           {
-            disabled: !!C,
+            disabled: !!y,
             ref: A,
             className: "NumberInput__input",
             style: {
@@ -251,47 +251,47 @@ const Eo = (p) => {
       ]
     }
   );
-  return w && (h = /* @__PURE__ */ e(F, { content: w, position: I, children: h })), h;
+  return w && (h = /* @__PURE__ */ c(F, { content: w, position: I, children: h })), h;
 };
-b.Input = Eo;
-function Fo(p) {
-  const { accept: s, multiple: a, onSelectFiles: f, ...u } = p, r = V(null);
-  async function C(t) {
-    const c = Array.from(t).map((i) => {
-      const n = new FileReader();
+C.Input = Eo;
+function Fo(b) {
+  const { accept: s, multiple: a, onSelectFiles: f, ...u } = b, i = V(null);
+  async function y(t) {
+    const l = Array.from(t).map((n) => {
+      const e = new FileReader();
       return new Promise((d) => {
-        n.onload = () => d(n.result), n.readAsText(i);
+        e.onload = () => d(e.result), e.readAsText(n);
       });
     });
-    return await Promise.all(c);
+    return await Promise.all(l);
   }
-  async function y(t) {
-    const c = t.target.files;
-    if (c != null && c.length) {
-      const i = await C(c);
-      f(a ? i : i[0]);
+  async function p(t) {
+    const l = t.target.files;
+    if (l != null && l.length) {
+      const n = await y(l);
+      f(a ? n : n[0]);
     }
   }
   return /* @__PURE__ */ D(S, { children: [
-    /* @__PURE__ */ e(b, { onClick: () => {
+    /* @__PURE__ */ c(C, { onClick: () => {
       var t;
-      return (t = r.current) == null ? void 0 : t.click();
+      return (t = i.current) == null ? void 0 : t.click();
     }, ...u }),
-    /* @__PURE__ */ e(
+    /* @__PURE__ */ c(
       "input",
       {
         hidden: !0,
         type: "file",
-        ref: r,
+        ref: i,
         accept: s,
         multiple: a,
-        onChange: y
+        onChange: p
       }
     )
   ] });
 }
-b.File = Fo;
+C.File = Fo;
 export {
-  b as Button,
+  C as Button,
   Ro as ButtonCheckbox
 };

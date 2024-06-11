@@ -33,7 +33,6 @@ export declare const TextArea: import('react').ForwardRefExoticComponent<Partial
     onKeyUp: import('react').KeyboardEventHandler<HTMLDivElement>;
     onMouseDown: import('react').MouseEventHandler<HTMLDivElement>;
     onMouseMove: import('react').MouseEventHandler<HTMLDivElement>;
-    /** Fires once the enter key is pressed */
     onMouseOver: import('react').MouseEventHandler<HTMLDivElement>;
     onMouseUp: import('react').MouseEventHandler<HTMLDivElement>;
     onScroll: import('react').UIEventHandler<HTMLDivElement>;

@@ -7,5 +7,5 @@ type Props = Partial<{
     title: ReactNode;
     titleSubtext: string;
 }> & PropsWithChildren;
-export declare const StyleableSection: (props: Props) => import("react/jsx-runtime").JSX.Element;
+export declare function StyleableSection(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

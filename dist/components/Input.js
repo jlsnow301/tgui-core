@@ -4,46 +4,46 @@ import { classes as k } from "../common/react.js";
 import { debounce as B } from "../common/timer.js";
 import { useRef as E, useEffect as R } from "react";
 import { Box as S } from "./Box.js";
-import '../assets/Input.css';const V = "_input_upnwi_13", F = "_fluid_upnwi_28", L = "_baseline_upnwi_33", Y = "_inner_upnwi_38", q = "_monospace_upnwi_64", t = {
+import '../assets/Input.css';const V = "_input_17i79_20", F = "_fluid_17i79_35", L = "_baseline_17i79_40", Y = "_inner_17i79_45", q = "_monospace_17i79_71", u = {
   input: V,
   fluid: F,
   baseline: L,
   inner: Y,
   monospace: q
 };
-function _(n) {
-  return typeof n != "number" && typeof n != "string" ? "" : String(n);
+function _(r) {
+  return typeof r != "number" && typeof r != "string" ? "" : String(r);
 }
-const z = B((n) => n(), 250);
-function P(n) {
+const z = B((r) => r(), 250);
+function P(r) {
   const {
     autoFocus: d,
     autoSelect: c,
     className: b,
     disabled: g,
-    expensive: w,
-    fluid: T,
-    maxLength: y,
-    monospace: x,
-    onChange: r,
+    expensive: T,
+    fluid: y,
+    maxLength: x,
+    monospace: h,
+    onChange: n,
     onEnter: i,
     onEscape: o,
     onInput: s,
-    placeholder: h,
-    selfClear: I,
+    placeholder: I,
+    selfClear: N,
     value: l,
-    ...N
-  } = n, a = E(null);
+    ...w
+  } = r, a = E(null);
   function D(e) {
     var f;
     if (!s)
       return;
-    const u = (f = e.currentTarget) == null ? void 0 : f.value;
-    w ? z(() => s(e, u)) : s(e, u);
+    const t = (f = e.currentTarget) == null ? void 0 : f.value;
+    T ? z(() => s(e, t)) : s(e, t);
   }
   function K(e) {
     if (e.key === m.Enter) {
-      i == null || i(e, e.currentTarget.value), I ? e.currentTarget.value = "" : (e.currentTarget.blur(), r == null || r(e, e.currentTarget.value));
+      i == null || i(e, e.currentTarget.value), N ? e.currentTarget.value = "" : (e.currentTarget.blur(), n == null || n(e, e.currentTarget.value));
       return;
     }
     e.key === m.Escape && (o == null || o(e), e.currentTarget.value = _(l), e.currentTarget.blur());
@@ -52,32 +52,32 @@ function P(n) {
     const e = a.current;
     if (!e)
       return;
-    const u = _(l);
-    e.value !== u && (e.value = u), !(!d && !c) && setTimeout(() => {
+    const t = _(l);
+    e.value !== t && (e.value = t), !(!d && !c) && setTimeout(() => {
       e.focus(), c && e.select();
     }, 1);
   }, []), /* @__PURE__ */ j(
     S,
     {
       className: k([
-        t.input,
-        T && t.fluid,
-        x && t.monospace,
+        u.input,
+        y && u.fluid,
+        h && u.monospace,
         b
       ]),
-      ...N,
+      ...w,
       children: [
-        /* @__PURE__ */ p("div", { className: t.baseline, children: "." }),
+        /* @__PURE__ */ p("div", { className: u.baseline, children: "." }),
         /* @__PURE__ */ p(
           "input",
           {
-            className: t.inner,
+            className: u.inner,
             disabled: g,
-            maxLength: y,
-            onBlur: (e) => r == null ? void 0 : r(e, e.target.value),
+            maxLength: x,
+            onBlur: (e) => n == null ? void 0 : n(e, e.target.value),
             onChange: D,
             onKeyDown: K,
-            placeholder: h,
+            placeholder: I,
             ref: a
           }
         )

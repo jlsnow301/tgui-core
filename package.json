@@ -26,8 +26,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "prepublishOnly": "tsc && vite build"
+    "build": "tsc && vite build"
   },
   "author": "jlsnow301",
   "license": "MIT",

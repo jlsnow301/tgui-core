@@ -1,14 +1,14 @@
-import '../assets/NumberInput.css';var E = Object.defineProperty;
-var I = (c, d, e) => d in c ? E(c, d, { enumerable: !0, configurable: !0, writable: !0, value: e }) : c[d] = e;
-var l = (c, d, e) => (I(c, typeof d != "symbol" ? d + "" : d, e), e);
-import { jsxs as S, jsx as g } from "react/jsx-runtime";
-import { KEY as x } from "../common/keys.js";
+import '../assets/NumberInput.css';var w = Object.defineProperty;
+var E = (c, d, e) => d in c ? w(c, d, { enumerable: !0, configurable: !0, writable: !0, value: e }) : c[d] = e;
+var l = (c, d, e) => (E(c, typeof d != "symbol" ? d + "" : d, e), e);
+import { jsxs as _, jsx as g } from "react/jsx-runtime";
+import { KEY as S } from "../common/keys.js";
 import { clamp as h } from "../common/math.js";
-import { classes as D } from "../common/react.js";
-import { Component as T, createRef as F } from "react";
-import { AnimatedNumber as M } from "./AnimatedNumber.js";
-import { Box as w } from "./Box.js";
-const R = "_numberInput_x4pb3_13", B = "_fluid_x4pb3_29", K = "_content_x4pb3_33", L = "_barContainer_x4pb3_37", Y = "_bar_x4pb3_37", j = "_inner_x4pb3_54", p = {
+import { classes as I } from "../common/react.js";
+import { Component as D, createRef as T } from "react";
+import { AnimatedNumber as F } from "./AnimatedNumber.js";
+import { Box as M } from "./Box.js";
+const R = "_numberInput_4xyrw_20", B = "_fluid_4xyrw_36", K = "_content_4xyrw_40", L = "_barContainer_4xyrw_44", Y = "_bar_4xyrw_44", j = "_inner_4xyrw_61", p = {
   numberInput: R,
   fluid: B,
   content: K,
@@ -16,11 +16,11 @@ const R = "_numberInput_x4pb3_13", B = "_fluid_x4pb3_29", K = "_content_x4pb3_33
   bar: Y,
   inner: j
 };
-class $ extends T {
+class $ extends D {
   constructor(e) {
     super(e);
     // Ref to the input field to set focus & highlight
-    l(this, "inputRef", F());
+    l(this, "inputRef", T());
     // After this time has elapsed we are in drag mode so no editing when dragging ends
     l(this, "dragTimeout");
     // Call onDrag at this interval
@@ -119,7 +119,7 @@ class $ extends T {
       if (o)
         return;
       const { previousValue: s } = this.state;
-      if (e.key === x.Enter) {
+      if (e.key === S.Enter) {
         const t = h(
           parseFloat(e.currentTarget.value),
           a,
@@ -137,7 +137,7 @@ class $ extends T {
           previousValue: t
         }), s !== t && (i == null || i(t), n == null || n(t));
       } else
-        e.key === x.Escape && this.setState({
+        e.key === S.Escape && this.setState({
           editing: !1
         });
     });
@@ -159,29 +159,29 @@ class $ extends T {
       minValue: r,
       maxValue: f,
       height: v,
-      width: y,
+      width: x,
       lineHeight: b,
-      fontSize: _,
+      fontSize: y,
       format: V
     } = this.props;
     let m = parseFloat(t.toString());
     e && (m = u);
-    const N = /* @__PURE__ */ S("div", { className: p.content, children: [
-      o && !e ? /* @__PURE__ */ g(M, { value: m, format: V }) : V ? V(m) : m,
+    const N = /* @__PURE__ */ _("div", { className: p.content, children: [
+      o && !e ? /* @__PURE__ */ g(F, { value: m, format: V }) : V ? V(m) : m,
       s ? " " + s : ""
     ] });
-    return /* @__PURE__ */ S(
-      w,
+    return /* @__PURE__ */ _(
+      M,
       {
-        className: D([
+        className: I([
           p.numberInput,
           n && p.fluid,
           i
         ]),
-        minWidth: y,
+        minWidth: x,
         minHeight: v,
         lineHeight: b,
-        fontSize: _,
+        fontSize: y,
         onMouseDown: this.handleDragStart,
         children: [
           /* @__PURE__ */ g("div", { className: p.barContainer, children: /* @__PURE__ */ g(
@@ -207,7 +207,7 @@ class $ extends T {
                 display: a ? "inline" : "none",
                 height: v,
                 lineHeight: b,
-                fontSize: _
+                fontSize: y
               },
               onBlur: this.handleBlur,
               onKeyDown: this.handleKeyDown

@@ -13,7 +13,7 @@
   width: base.em(120px);
   border: base.em(1px) solid input.$border-color;
   border: base.em(1px) solid rgba(input.$border-color, 0.75);
-  border-radius: $border-radius;
+  border-radius: input.$border-radius;
   color: input.$text-color;
   background-color: input.$background-color;
   padding: 0 base.em(4px);
@@ -49,7 +49,7 @@
   padding: 0 0.5em;
   font-family: Verdana, sans-serif;
   background-color: transparent;
-  color: $text-color;
+  color: input.$text-color;
   color: inherit;
 
   &:-ms-input-placeholder {
