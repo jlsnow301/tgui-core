@@ -98,10 +98,8 @@ export const Button = (props: Props) => {
         fluid && styles.fluid,
         disabled && styles.disabled,
         selected && styles.selected,
-        !!toDisplay && styles.hasContent,
         circular && styles.circular,
         compact && styles.compact,
-        iconPosition && styles['iconPosition__' + iconPosition],
         verticalAlignContent && styles.flex,
         verticalAlignContent && fluid && styles.flex__fluid,
         verticalAlignContent &&
@@ -142,6 +140,7 @@ export const Button = (props: Props) => {
       <div className={styles.content}>
         {icon && iconPosition !== 'right' && (
           <Icon
+            mr={1}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
@@ -159,6 +158,7 @@ export const Button = (props: Props) => {
         )}
         {icon && iconPosition === 'right' && (
           <Icon
+            ml={1}
             name={icon}
             color={iconColor}
             rotation={iconRotation}

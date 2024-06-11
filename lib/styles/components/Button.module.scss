@@ -74,24 +74,6 @@ $bg-map: colors.$bg-map !default;
   padding: 0.2rem 0.5rem;
 }
 
-.hasContent {
-  // Add a margin to the icon to keep it separate from the text
-  .fa,
-  .fas,
-  .far {
-    margin-right: 0.25em;
-  }
-}
-
-.hasContent.iconPosition__right {
-  .fa,
-  .fas,
-  .far {
-    margin-right: 0px;
-    margin-left: 3px;
-  }
-}
-
 .ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
