@@ -32,11 +32,11 @@ $fg-map: colors.$fg-map !default;
 }
 
 // Interoperability with sections
-.section .tabs {
+:global(.section) .tabs {
   background-color: transparent;
 }
 
-.section:not(.section--fitted) .tabs {
+:global(.section):not(:global(.section--fitted)) .tabs {
   margin: 0 -0.5em 0.5em;
 
   &:first-child {
@@ -130,7 +130,7 @@ $fg-map: colors.$fg-map !default;
 }
 
 @each $color-name, $color-value in $fg-map {
-  .selected .color__#{$color-name} {
+  .selected.color__#{$color-name} {
     color: color.scale($color-value, $lightness: 25%);
   }
 

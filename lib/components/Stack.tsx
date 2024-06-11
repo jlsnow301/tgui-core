@@ -42,7 +42,6 @@ export function Stack(props: Props) {
         vertical ? styles.vertical : styles.horizontal,
         zebra && styles.zebra,
         reverse && styles[`reverse${vertical ? '__vertical' : ''}`],
-
         className,
         computeFlexClassName(props),
       ])}
@@ -84,9 +83,9 @@ function StackDivider(props: StackDividerProps) {
   return (
     <div
       className={classes([
-        'Stack__item',
-        'Stack__divider',
-        hidden && 'Stack__divider--hidden',
+        styles.item,
+        styles.divider,
+        hidden && styles.divider__hidden,
         className,
         computeBoxClassName(rest),
       ])}

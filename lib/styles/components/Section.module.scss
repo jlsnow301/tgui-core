@@ -69,7 +69,7 @@ $separator-color: colors.$primary !default;
   height: 100%;
 }
 
-.fill .scrollable > .rest > .content {
+.fill.scrollable > .rest > .content {
   position: absolute;
   top: 0;
   left: 0;

@@ -5,19 +5,15 @@
 
 @use '../base.scss';
 @use '../functions.scss' as *;
-
-$text-color: base.$color-fg !default;
-$background-color: #0a0a0a !default;
-$border-color: #88bfff !default;
-$border-radius: base.$border-radius !default;
+@use '../input.scss';
 
 .textArea {
   position: relative;
   display: inline-block;
-  border: base.em(1px) solid $border-color;
-  border: base.em(1px) solid rgba($border-color, 0.75);
-  border-radius: $border-radius;
-  background-color: $background-color;
+  border: base.em(1px) solid input.$border-color;
+  border: base.em(1px) solid rgba(input.$border-color, 0.75);
+  border-radius: input.$border-radius;
+  background-color: input.$background-color;
   margin-right: base.em(2px);
   line-height: base.em(17px);
   box-sizing: border-box;

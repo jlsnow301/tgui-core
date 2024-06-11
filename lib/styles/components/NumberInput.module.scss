@@ -6,20 +6,16 @@
 @use 'sass:color';
 @use '../base.scss';
 @use '../functions.scss' as *;
-
-$text-color: base.$color-fg !default;
-$background-color: #0a0a0a !default;
-$border-color: #88bfff !default;
-$border-radius: base.$border-radius !default;
+@use '../input.scss';
 
 .numberInput {
   position: relative;
   display: inline-block;
-  border: base.em(1px) solid $border-color;
-  border: base.em(1px) solid rgba($border-color, 0.75);
-  border-radius: $border-radius;
-  color: $border-color;
-  background-color: $background-color;
+  border: base.em(1px) solid input.$border-color;
+  border: base.em(1px) solid rgba(input.$border-color, 0.75);
+  border-radius: input.$border-radius;
+  color: input.$border-color;
+  background-color: input.$background-color;
   padding: 0 base.em(4px);
   margin-right: base.em(2px);
   line-height: base.em(17px);
@@ -49,8 +45,8 @@ $border-radius: base.$border-radius !default;
   left: 0;
   width: base.em(3px);
   box-sizing: border-box;
-  border-bottom: base.em(1px) solid $border-color;
-  background-color: $border-color;
+  border-bottom: base.em(1px) solid input.$border-color;
+  background-color: input.$border-color;
 }
 
 .inner {
@@ -69,7 +65,7 @@ $border-radius: base.$border-radius !default;
   margin: 0;
   padding: 0 0.5em;
   font-family: Verdana, sans-serif;
-  background-color: $background-color;
-  color: $text-color;
+  background-color: input.$background-color;
+  color: input.$text-color;
   text-align: right;
 }

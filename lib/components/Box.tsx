@@ -250,6 +250,6 @@ export const Box = (props: BoxProps & DangerDoNotUse) => {
       ...computedProps,
       className: computedClassName,
     },
-    children
+    children,
   );
 };
