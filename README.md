@@ -7,18 +7,24 @@ This package was built to help the various downstream SS13 servers stay up to da
 You can view the code on [GitHub](https://github.com/jlsnow301/tgui-core).
 
 ## Installation
-
+(assuming you have a tgui folder, navigate to the specific package)
 ```sh
+cd tgui/packages/tgui
 yarn add tgui-core
 ```
 
 ## Usage
 
 ```tsx
-import { Button } from 'tgui-core/components/Button';
-import { render } from 'tgui-core/render';
+import { Button } from 'tgui-core/components';
 
 <Button>Click</Button>;
+```
+
+You can even use it in tandem with your own in house TGUI components,
+```tsx
+import { Button } from 'tgui-core/components';
+import { Box } from '../components';
 ```
 
 ## License
